@@ -1,0 +1,15 @@
+{
+  "name": "jc-ids.restservice",
+  "version": "0.0.0",
+  "description": "jcIDS.RESTService",
+  "main": "app.js",
+  "author": {
+    "name": "jcape"
+  },
+  "dependencies": {
+    "pm2": "^2.0.18",
+    "redis": "^2.6.2",
+    "restify": "^4.1.1",
+    "restify-route": "0.0.6"
+  }
+}
