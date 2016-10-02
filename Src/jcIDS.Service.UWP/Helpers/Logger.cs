@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 using jcIDS.Library.Common;
 
-namespace jcIDS.Service.Helpers {
+namespace jcIDS.Service.UWP.Helpers {
     public class Logger {
         private readonly string _filePath;
 
@@ -15,7 +14,7 @@ namespace jcIDS.Service.Helpers {
             File.AppendAllText(_filePath, message);
 
             if (writeToScreen) {
-                Console.WriteLine(message);
+                //Console.WriteLine(message);
             }
         }
 
