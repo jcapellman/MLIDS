@@ -124,6 +124,12 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\jcIDS.Library\jcIDS.Library.csproj">
+      <Project>{8e92d832-474c-45b1-9df2-d91684f89ce5}</Project>
+      <Name>jcIDS.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\jcIDS.Mobile\jcIDS.Mobile.projitems" Label="Shared" Condition="Exists('..\jcIDS.Mobile\jcIDS.Mobile.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

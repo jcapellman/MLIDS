@@ -8,12 +8,19 @@
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
-    }
+    },
+    "Newtonsoft.Json": "9.0.1",
+    "System.Net.NetworkInformation": "4.1.0"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
-      "imports": "dnxcore50"
+      "imports": "dnxcore50",
+      "dependencies": {
+        "jcIDS.Library": {
+          "target": "project"
+        }
+      }
     }
   }
 }

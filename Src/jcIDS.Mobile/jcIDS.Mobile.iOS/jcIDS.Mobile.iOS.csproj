@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>jcIDS.Mobile.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>jcIDS.Mobile.iOS</AssemblyName>
+    <AssemblyName>jcIDSMobileiOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
