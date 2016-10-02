@@ -13,14 +13,14 @@ redisFactory = (key, response) => {
 
     client.get(key, (err, reply) => {
         if (reply == null) {
-            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.writeHead(200, { "Content-Type": "application/json" });
 
             response.end("");
 
             return response;
         }
 
-        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.writeHead(200, { "Content-Type": "application/json" });
 
         response.end(reply);
 
