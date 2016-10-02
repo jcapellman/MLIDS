@@ -6,3 +6,5 @@ typings/
 *.lock.json
 /Properties/PublishProfiles
 packages/
+/Src/jcIDS.RESTService/*.map
+/Src/jcIDS.RESTService/*.js
