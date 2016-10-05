@@ -52,8 +52,10 @@ namespace jcIDS.Service.Library {
         }
 
         public void Run() {
-            foreach (var scanner in _enabledScanners) {
-                scanner.Run();
+            while (true) {
+                foreach (var scanner in _enabledScanners) {
+                    scanner.Run();
+                }
             }
         }
     }

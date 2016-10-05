@@ -1,14 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace jcIDS.Service.Core
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+using jcIDS.Service.Library;
+
+namespace jcIDS.Service.Core {
+    public class Program {
+        public static void Main(string[] args) {
+            var mainService = new MainService();
+
+            var initResult = mainService.Initialize();
+
+            if (!initResult) {
+                Console.WriteLine("Failed to initialize");
+
+                return;
+            }
+
+            mainService.Run();
         }
     }
 }
