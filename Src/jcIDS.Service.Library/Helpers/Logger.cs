@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using jcIDS.Library.Common;
 
@@ -10,11 +11,13 @@ namespace jcIDS.Service.Library.Helpers {
             _filePath = filePath;
         }
 
+        private string getCurrentTime() => $"{DateTime.Now}";
+
         public void WriteMessage(string message, bool writeToScreen = true) {
-            File.AppendAllText(_filePath, message);
+            File.AppendAllText(_filePath, $"{getCurrentTime()} - {message}{Environment.NewLine}");
 
             if (writeToScreen) {
-                //Console.WriteLine(message);
+                Console.WriteLine(message);
             }
         }
 

@@ -10,6 +10,8 @@ namespace jcIDS.Service.Library.Scanners {
             NetworkAdapter = scannerWrapper.NetAdapter;
         }
 
+        public abstract string Name();
+
         public abstract void Run();
     }
 }

@@ -7,5 +7,7 @@ namespace jcIDS.Service.Library.Scanners {
         public override void Run() {
             
         }
+
+        public override string Name() => "Network";
     }
 }
