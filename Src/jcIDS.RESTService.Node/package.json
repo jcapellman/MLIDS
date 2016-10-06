@@ -1,9 +1,8 @@
 {
-  "name": "jc-ids.restservice",
+  "name": "jc-ids.restservice.node",
   "version": "0.0.0",
-  "description": "jcIDS.RESTService",
+  "description": "jcIDS.RESTService.Node",
   "main": "app.js",
-  "license": "MIT",
   "author": {
     "name": "jcape"
   },
@@ -11,8 +10,7 @@
     "pm2": "^2.0.18",
     "redis": "^2.6.2",
     "restify": "^4.1.1",
-    "restify-router": "^0.2.1",
-    "bunyan": "1.8.1"
+    "bunyan": "1.8.1" 
   },
   "devDependencies": {
     "@types/node": "^6.0.43"

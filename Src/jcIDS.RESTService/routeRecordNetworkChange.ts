@@ -2,7 +2,7 @@
 
 var router = new Router();
 
-import RedisFactoryClient = require("./dbFactory");
+import RedisFactoryClient from "./dbFactory";
 
 function getListing(request: any, response: any, next: any);
 
@@ -12,4 +12,4 @@ function getListing(request, response, next) {
 
 router.get("/node/PageStats", getListing);
 
-export = router;
+export default router;
