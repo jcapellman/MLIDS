@@ -1,7 +1,7 @@
 {
-  "name": "jc-ids.restservice.node",
+  "name": "jc-ids.restservice.node-js",
   "version": "0.0.0",
-  "description": "jcIDS.RESTService.Node",
+  "description": "jcIDS.RESTService.NodeJS",
   "main": "app.js",
   "author": {
     "name": "jcape"
@@ -10,9 +10,6 @@
     "pm2": "^2.0.18",
     "redis": "^2.6.2",
     "restify": "^4.1.1",
-    "bunyan": "1.8.1" 
-  },
-  "devDependencies": {
-    "@types/node": "^6.0.43"
+    "typescript": "^2.0.3"
   }
 }
