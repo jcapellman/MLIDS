@@ -1,4 +1,4 @@
-﻿using System;
+﻿using jcIDS.library.core.Managers;
 
 namespace jcIDS.service.app
 {
@@ -6,7 +6,9 @@ namespace jcIDS.service.app
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var coreManager = new CoreManager();
+
+            coreManager.Initialize();
         }
     }
 }
