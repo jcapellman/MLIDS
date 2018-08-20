@@ -1,28 +1,53 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using jcIDS.library.core.Common;
-
-using Microsoft.Extensions.DependencyInjection;
+using NLog;
 
 namespace jcIDS.library.core.Managers
 {
     public class CoreManager
     {
-        private ServiceProvider Container;
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+
+        private static ServiceProvider _container;
 
         private BlackListManager _blackListManager;
 
-        public void Initialize()
+        private WhiteListManager _whiteListManager;
+
+        private readonly LicenseManager _licenseManager = new LicenseManager();
+
+        public static T GetService<T>() => _container.GetService<T>();
+
+        public bool Initialize()
         {
+            if (!_licenseManager.IsRegistered())
+            {
+                log.Debug("Not registered - shutting down");
+
+                return false;
+            }
+
+            _blackListManager = new BlackListManager();
+            _whiteListManager = new WhiteListManager();
+
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton(_blackListManager);
+            serviceCollection.AddSingleton(_whiteListManager);
 
-            Container = serviceCollection.BuildServiceProvider();
+            _container = serviceCollection.BuildServiceProvider();
 
-            Console.WriteLine(Constants.APP_NAME);
+            return true;
+        }
 
-            Container.GetService<BlackListManager>();
+        public void StartService()
+        {
+
+        }
+
+        public void StopService()
+        {
+
         }
     }
 }
