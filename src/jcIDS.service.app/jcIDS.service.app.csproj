@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Windows.Compatibility.Shims" Version="2.0.0" />
+    <PackageReference Include="NLog" Version="4.5.8" />
   </ItemGroup>
 
   <ItemGroup>
