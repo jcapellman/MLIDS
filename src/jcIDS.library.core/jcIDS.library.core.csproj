@@ -5,15 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="LiteDB" Version="4.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Windows.Compatibility.Shims" Version="2.0.0" />
-    <PackageReference Include="NLog" Version="4.5.8" />
+    <PackageReference Include="Microsoft.Windows.Compatibility.Shims" Version="2.0.1" />
+    <PackageReference Include="NLog" Version="4.5.9" />
   </ItemGroup>
 
   <ItemGroup>
