@@ -17,6 +17,14 @@ namespace jcIDS.library.core.DAL
             }
         }
 
+        public bool Contains<T>(T item) where T : BaseObject
+        {
+            using (var db = new LiteDB.LiteDatabase(FILENAME))
+            {
+                return db.GetCollection<T>().FindOne(a => a.ID == item.ID) != null;
+            }
+        }
+
         public bool DeleteItem<T>(T item) where T : BaseObject
         {
             using (var db = new LiteDB.LiteDatabase(FILENAME))
