@@ -7,5 +7,7 @@ namespace jcIDS.library.core.Interfaces
         bool DeleteItem<T>(T item) where T: BaseObject;
 
         bool AddItem<T>(T item) where T : BaseObject;
+
+        bool Contains<T>(T item) where T : BaseObject;
     }
 }
