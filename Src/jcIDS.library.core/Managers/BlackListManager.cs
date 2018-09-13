@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.Interfaces;
 
 namespace jcIDS.library.core.Managers
@@ -9,7 +7,7 @@ namespace jcIDS.library.core.Managers
     {
         public bool IsContained(string resourceItem)
         {
-            return false;
+            return CoreManager.GetService<IDatabase>().Contains<BlackListObject>(new BlackListObject());
         }
     }
 }
