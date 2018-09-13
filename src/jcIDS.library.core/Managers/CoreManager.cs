@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using jcIDS.library.core.DAL;
+
+using Microsoft.Extensions.DependencyInjection;
 
 using NLog;
 
@@ -34,6 +36,8 @@ namespace jcIDS.library.core.Managers
 
             serviceCollection.AddSingleton(_blackListManager);
             serviceCollection.AddSingleton(_whiteListManager);
+
+            serviceCollection.AddSingleton(new LiteDBDAL());
 
             _container = serviceCollection.BuildServiceProvider();
 
