@@ -50,9 +50,9 @@ namespace jcIDS.library.UnitTests.DAL
 
             var result = litedb.AddItem(new TestObject());
 
-            Assert.IsTrue(result);
+            Assert.IsTrue(result > 0);
 
-            var contains = litedb.Contains(new TestObject { ID = 1 });
+            var contains = litedb.Contains(new TestObject { ID = result });
 
             Assert.IsTrue(contains);
         }
@@ -82,15 +82,19 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            litedb.AddItem(new TestObject());
+            var deleteResult = litedb.DeleteAll<TestObject>();
 
-            var item = litedb.GetItem<TestObject>(1);
+            Assert.IsTrue(deleteResult);
+
+            var resultID = litedb.AddItem(new TestObject());
+
+            var item = litedb.GetItem<TestObject>(resultID);
 
             Assert.IsNotNull(item);
 
             var result = litedb.DeleteItem(item);
 
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
     }
 }
