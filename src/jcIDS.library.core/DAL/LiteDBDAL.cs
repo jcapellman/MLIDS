@@ -7,13 +7,13 @@ namespace jcIDS.library.core.DAL
     {
         private const string FILENAME = "main.db";
 
-        public bool AddItem<T>(T item) where T : BaseObject
+        public int AddItem<T>(T item) where T : BaseObject
         {
             using (var db = new LiteDB.LiteDatabase(FILENAME))
             {
                 var collection = db.GetCollection<T>();
 
-                return collection.Insert(item) > 0;
+                return collection.Insert(item);
             }
         }
 
@@ -27,6 +27,14 @@ namespace jcIDS.library.core.DAL
                 }
                 
                 return db.GetCollection<T>().FindOne(a => a.ID == item.ID) != null;
+            }
+        }
+
+        public bool DeleteAll<T>() where T : BaseObject
+        {
+            using (var db = new LiteDB.LiteDatabase(FILENAME))
+            {
+                return db.DropCollection(typeof(T).Name);
             }
         }
 
