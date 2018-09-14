@@ -42,6 +42,11 @@ namespace jcIDS.library.core.DAL
         {
             using (var db = new LiteDB.LiteDatabase(FILENAME))
             {
+                if (item == null)
+                {
+                    return false;
+                }
+
                 var collection = db.GetCollection<T>();
 
                 return collection.Delete(item.ID);
