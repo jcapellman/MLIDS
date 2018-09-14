@@ -34,5 +34,15 @@ namespace jcIDS.library.core.DAL
                 return collection.Delete(item.ID);
             }
         }
+
+        public T GetItem<T>(int ID) where T : BaseObject
+        {
+            using (var db = new LiteDB.LiteDatabase(FILENAME))
+            {
+                var collection = db.GetCollection<T>();
+
+                return collection.FindOne(a => a.ID == ID);
+            }
+        }
     }
 }
