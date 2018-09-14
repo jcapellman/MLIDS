@@ -21,6 +21,11 @@ namespace jcIDS.library.core.DAL
         {
             using (var db = new LiteDB.LiteDatabase(FILENAME))
             {
+                if (item == null)
+                {
+                    return false;
+                }
+                
                 return db.GetCollection<T>().FindOne(a => a.ID == item.ID) != null;
             }
         }
