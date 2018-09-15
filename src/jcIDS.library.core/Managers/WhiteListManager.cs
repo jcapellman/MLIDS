@@ -12,6 +12,6 @@ namespace jcIDS.library.core.Managers
 
         public WhiteListObject GetItem(int id) => CoreManager.GetService<IDatabase>().GetItem<WhiteListObject>(id);
 
-        public bool AddItem(WhiteListObject item) => CoreManager.GetService<IDatabase>().AddItem(item) != default(int);
+        public int AddItem(WhiteListObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
     }
 }
