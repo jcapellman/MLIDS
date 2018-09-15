@@ -1,29 +1,18 @@
-﻿using System;
-
-using jcIDS.library.core.Managers;
+﻿using jcIDS.library.core.Managers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace jcIDS.library.UnitTests.Managers
 {
     [TestClass]
-    public class BlackListManagerTests
+    public class BlackListManagerTests : BaseManagerTests
     {
-        [TestInitialize]
-        public void Setup()
-        {
-            var coreManager = new CoreManager();
-
-            coreManager.Initialize();
-        }
-
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ContainsNull()
         {
             var blackListManager = new BlackListManager();
 
-            blackListManager.IsContained(null);   
+            Assert.IsFalse(blackListManager.IsContained(null));   
         }
 
         [TestMethod]
