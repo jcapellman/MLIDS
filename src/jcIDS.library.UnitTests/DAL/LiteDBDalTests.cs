@@ -72,7 +72,7 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var result = litedb.DeleteItem<TestObject>(new TestObject());
+            var result = litedb.DeleteItem(new TestObject());
 
             Assert.IsFalse(result);
         }
