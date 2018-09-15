@@ -1,12 +1,17 @@
-﻿using jcIDS.library.core.Interfaces;
+﻿using jcIDS.library.core.DAL.Objects;
+using jcIDS.library.core.Interfaces;
 
 namespace jcIDS.library.core.Managers
 {
-    public class WhiteListManager : IListManager
+    public class WhiteListManager : IListManager<WhiteListObject>
     {
-        public bool IsContained(string resourceItem)
+        public bool IsContained(string resourceName) => CoreManager.GetService<IDatabase>().Contains(new WhiteListObject
         {
-            return false;
-        }
+            ResourceName = resourceName
+        });
+
+        public WhiteListObject GetItem(int id) => CoreManager.GetService<IDatabase>().GetItem<WhiteListObject>(id);
+
+        public bool AddItem(WhiteListObject item) => CoreManager.GetService<IDatabase>().AddItem(item) != default(int);
     }
 }
