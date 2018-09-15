@@ -8,6 +8,6 @@ namespace jcIDS.library.core.Interfaces
 
         T GetItem(int id);
 
-        bool AddItem(T item);
+        int AddItem(T item);
     }
 }
