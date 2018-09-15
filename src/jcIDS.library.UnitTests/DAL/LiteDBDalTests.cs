@@ -8,7 +8,7 @@ namespace jcIDS.library.UnitTests.DAL
     [TestClass]
     public class LiteDBDalTests
     {
-        public class TestObject : BaseObject
+        private class TestObject : BaseObject
         {
 
         }
@@ -38,7 +38,7 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var contains = litedb.Contains<TestObject>(new TestObject { ID = 0 });
+            var contains = litedb.Contains(new TestObject { ID = 0 });
 
             Assert.IsFalse(contains);
         }
