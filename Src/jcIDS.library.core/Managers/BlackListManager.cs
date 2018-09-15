@@ -1,16 +1,16 @@
-﻿using jcIDS.library.core.DAL.Objects;
+﻿using System;
+using System.Linq.Expressions;
+
+using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.Interfaces;
 
 namespace jcIDS.library.core.Managers
 {
     public class BlackListManager : IListManager<BlackListObject>
     {
-        public bool IsContained(string resourceName) => CoreManager.GetService<IDatabase>().Contains(new BlackListObject
-        {
-            ResourceName = resourceName
-        });
+        public bool IsContained(Expression<Func<BlackListObject, bool>> expression) => CoreManager.GetService<IDatabase>().Contains(expression);
 
-        public BlackListObject GetItem(int id) => CoreManager.GetService<IDatabase>().GetItem<BlackListObject>(id);
+        public BlackListObject GetItem(Expression<Func<BlackListObject, bool>> expression) => CoreManager.GetService<IDatabase>().GetItem(expression);
 
         public int AddItem(BlackListObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
     }
