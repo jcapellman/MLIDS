@@ -4,6 +4,5 @@ namespace jcIDS.library.core.DAL.Objects
 {
     public class BlackListObject : BaseObject
     {
-        public string ResourceName { get; set; }
     }
 }
