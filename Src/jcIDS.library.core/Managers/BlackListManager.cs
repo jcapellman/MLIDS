@@ -1,20 +1,17 @@
 ﻿using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.Interfaces;
 
-using System;
-
 namespace jcIDS.library.core.Managers
 {
-    public class BlackListManager : IListManager
+    public class BlackListManager : IListManager<BlackListObject>
     {
-        public bool IsContained(string resourceItem)
+        public bool IsContained(string resourceName) => CoreManager.GetService<IDatabase>().Contains(new BlackListObject
         {
-            if (string.IsNullOrEmpty(resourceItem))
-            {
-                throw new ArgumentNullException(resourceItem);
-            }
+            ResourceName = resourceName
+        });
 
-            return CoreManager.GetService<IDatabase>().Contains<BlackListObject>(new BlackListObject());
-        }
+        public BlackListObject GetItem(int id) => CoreManager.GetService<IDatabase>().GetItem<BlackListObject>(id);
+
+        public bool AddItem(BlackListObject item) => CoreManager.GetService<IDatabase>().AddItem(item) != default(int);
     }
 }
