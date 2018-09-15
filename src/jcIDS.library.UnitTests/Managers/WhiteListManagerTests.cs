@@ -13,7 +13,7 @@ namespace jcIDS.library.UnitTests.Managers
         {
             var whiteListManager = new WhiteListManager();
 
-            Assert.IsFalse(whiteListManager.IsContained(null));
+            Assert.IsFalse(whiteListManager.IsContained(a => a == null));
         }
 
         [TestMethod]
@@ -21,7 +21,7 @@ namespace jcIDS.library.UnitTests.Managers
         {
             var whiteListManager = new WhiteListManager();
 
-            var result = whiteListManager.IsContained("Test");
+            var result = whiteListManager.IsContained(a => a.ResourceName == "TestNotFound");
 
             Assert.IsFalse(result);
         }
@@ -31,7 +31,7 @@ namespace jcIDS.library.UnitTests.Managers
         {
             var whiteListManager = new WhiteListManager();
 
-            var result = whiteListManager.GetItem(0);
+            var result = whiteListManager.GetItem(a => a.ID == 0);
 
             Assert.IsNull(result);
         }
@@ -48,7 +48,7 @@ namespace jcIDS.library.UnitTests.Managers
 
             var resultID = whiteListManager.AddItem(item);
 
-            var result = whiteListManager.GetItem(resultID);
+            var result = whiteListManager.GetItem(a => a.ID == resultID);
 
             Assert.IsNotNull(result);
         }
