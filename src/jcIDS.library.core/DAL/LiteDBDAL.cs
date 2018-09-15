@@ -1,4 +1,7 @@
-﻿using jcIDS.library.core.DAL.Objects.Base;
+﻿using System;
+using System.Linq.Expressions;
+
+using jcIDS.library.core.DAL.Objects.Base;
 using jcIDS.library.core.Interfaces;
 
 namespace jcIDS.library.core.DAL
@@ -17,16 +20,21 @@ namespace jcIDS.library.core.DAL
             }
         }
 
-        public bool Contains<T>(T item) where T : BaseObject
+        public bool Contains<T>(Expression<Func<T, bool>> expression) where T : BaseObject
         {
             using (var db = new LiteDB.LiteDatabase(FILENAME))
             {
-                if (item == null)
-                {
-                    return false;
-                }
-                
-                return db.GetCollection<T>().FindOne(a => a.ID == item.ID) != null;
+                return db.GetCollection<T>().FindOne(expression) != null;
+            }
+        }
+
+        public T GetItem<T>(Expression<Func<T, bool>> expression) where T : BaseObject
+        {
+            using (var db = new LiteDB.LiteDatabase(FILENAME))
+            {
+                var collection = db.GetCollection<T>();
+
+                return collection.FindOne(expression);
             }
         }
 
@@ -50,16 +58,6 @@ namespace jcIDS.library.core.DAL
                 var collection = db.GetCollection<T>();
 
                 return collection.Delete(item.ID);
-            }
-        }
-
-        public T GetItem<T>(int ID) where T : BaseObject
-        {
-            using (var db = new LiteDB.LiteDatabase(FILENAME))
-            {
-                var collection = db.GetCollection<T>();
-
-                return collection.FindOne(a => a.ID == ID);
             }
         }
     }
