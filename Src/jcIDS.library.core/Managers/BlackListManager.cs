@@ -12,6 +12,6 @@ namespace jcIDS.library.core.Managers
 
         public BlackListObject GetItem(int id) => CoreManager.GetService<IDatabase>().GetItem<BlackListObject>(id);
 
-        public bool AddItem(BlackListObject item) => CoreManager.GetService<IDatabase>().AddItem(item) != default(int);
+        public int AddItem(BlackListObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
     }
 }
