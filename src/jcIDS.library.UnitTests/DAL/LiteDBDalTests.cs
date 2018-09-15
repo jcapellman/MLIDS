@@ -18,7 +18,7 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var val = litedb.GetItem<TestObject>(0);
+            var val = litedb.GetItem<TestObject>(a => a.ID == 0);
 
             Assert.IsNull(val);
         }
@@ -28,7 +28,7 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var contains = litedb.Contains<TestObject>(null);
+            var contains = litedb.Contains<TestObject>(a => a == null);
 
             Assert.IsFalse(contains);
         }
@@ -38,7 +38,7 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var contains = litedb.Contains(new TestObject { ID = 0 });
+            var contains = litedb.Contains<TestObject>(a => a.ID == 0);
 
             Assert.IsFalse(contains);
         }
@@ -48,11 +48,11 @@ namespace jcIDS.library.UnitTests.DAL
         {
             var litedb = new LiteDBDAL();
 
-            var result = litedb.AddItem(new TestObject());
+            var resultID = litedb.AddItem(new TestObject());
 
-            Assert.IsTrue(result > 0);
+            Assert.IsTrue(resultID > 0);
 
-            var contains = litedb.Contains(new TestObject { ID = result });
+            var contains = litedb.Contains<TestObject>(a => a.ID == resultID);
 
             Assert.IsTrue(contains);
         }
@@ -88,7 +88,7 @@ namespace jcIDS.library.UnitTests.DAL
 
             var resultID = litedb.AddItem(new TestObject());
 
-            var item = litedb.GetItem<TestObject>(resultID);
+            var item = litedb.GetItem<TestObject>(a => a.ID == resultID);
 
             Assert.IsNotNull(item);
 
