@@ -12,11 +12,7 @@ namespace jcIDS.library.core.Managers
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         private static ServiceProvider _container;
-
-        private BlackListManager _blackListManager;
-
-        private WhiteListManager _whiteListManager;
-
+        
         private readonly LicenseManager _licenseManager = new LicenseManager();
 
         public static T GetService<T>() => _container.GetService<T>();
@@ -29,16 +25,14 @@ namespace jcIDS.library.core.Managers
 
                 return false;
             }
-
-            _blackListManager = new BlackListManager();
-            _whiteListManager = new WhiteListManager();
-
+            
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddSingleton(_blackListManager);
-            serviceCollection.AddSingleton(_whiteListManager);
-
             serviceCollection.AddTransient(typeof(IDatabase), typeof(LiteDBDAL));
+
+            serviceCollection.AddSingleton(new BlackListManager());
+            serviceCollection.AddSingleton(new WhiteListManager());
+            serviceCollection.AddSingleton(new NetworkDeviceManager());
 
             _container = serviceCollection.BuildServiceProvider();
 
