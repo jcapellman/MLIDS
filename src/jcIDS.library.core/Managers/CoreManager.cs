@@ -1,5 +1,6 @@
 ﻿using jcIDS.library.core.DAL;
 using jcIDS.library.core.Interfaces;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using NLog;
@@ -8,7 +9,7 @@ namespace jcIDS.library.core.Managers
 {
     public class CoreManager
     {
-        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         private static ServiceProvider _container;
 
@@ -24,7 +25,7 @@ namespace jcIDS.library.core.Managers
         {
             if (!_licenseManager.IsRegistered())
             {
-                log.Debug("Not registered - shutting down");
+                _log.Debug("Not registered - shutting down");
 
                 return false;
             }
@@ -46,12 +47,14 @@ namespace jcIDS.library.core.Managers
 
         public void StartService()
         {
-
+            _log.Debug("Starting service");
         }
 
         public void StopService()
         {
+            _container.Dispose();
 
+            _log.Debug("Shutting down service");
         }
     }
 }
