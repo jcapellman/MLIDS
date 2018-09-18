@@ -1,7 +1,11 @@
-﻿namespace jcIDS.library.core.PlatformInterfaces
+﻿using System.Threading.Tasks;
+
+namespace jcIDS.library.core.PlatformInterfaces
 {
-    interface INetworkInterfaces
+    public interface INetworkInterfaces
     {
         bool IsOnline();
+
+        string[] ScanDevices();
     }
 }

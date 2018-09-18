@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\jcIDS.library.core\jcIDS.library.core.csproj" />
+    <ProjectReference Include="..\jcIDS.library.linux\jcIDS.library.linux.csproj" />
+    <ProjectReference Include="..\jcIDS.library.windows\jcIDS.library.windows.csproj" />
   </ItemGroup>
 
 </Project>

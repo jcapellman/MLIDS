@@ -13,9 +13,4 @@
     <PackageReference Include="NLog" Version="4.5.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\jcIDS.library.linux\jcIDS.library.linux.csproj" />
-    <ProjectReference Include="..\jcIDS.library.windows\jcIDS.library.windows.csproj" />
-  </ItemGroup>
-
 </Project>
