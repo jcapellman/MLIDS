@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using jcIDS.library.core.DAL.Objects;
 
 namespace jcIDS.library.core.PlatformInterfaces
 {
@@ -6,6 +8,6 @@ namespace jcIDS.library.core.PlatformInterfaces
     {
         bool IsOnline();
 
-        string[] ScanDevices();
+        List<NetworkDeviceObject> ScanDevices();
     }
 }
