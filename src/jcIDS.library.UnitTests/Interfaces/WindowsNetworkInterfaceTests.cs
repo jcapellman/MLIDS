@@ -14,7 +14,7 @@ namespace jcIDS.library.UnitTests.Interfaces
 
             var results = windowsNetworkInterface.ScanDevices();
             
-            Assert.IsTrue(results.Length > 0);
+            Assert.IsTrue(results.Count > 0);
         }
     }
 }

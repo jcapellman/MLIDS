@@ -1,8 +1,13 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+
+using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.PlatformInterfaces;
 
 namespace jcIDS.library.windows.PlatformImplementations
@@ -14,9 +19,9 @@ namespace jcIDS.library.windows.PlatformImplementations
             throw new System.NotImplementedException();
         }
 
-        public string[] ScanDevices()
+        public List<NetworkDeviceObject> ScanDevices()
         {
-            var devices = new ConcurrentBag<string>();
+            var devices = new ConcurrentBag<NetworkDeviceObject>();
             
             var data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
             var buffer = Encoding.ASCII.GetBytes(data);
@@ -31,16 +36,29 @@ namespace jcIDS.library.windows.PlatformImplementations
                 var ipAddress = $"192.168.2.{x}";
 
                 var reply = pingSender.Send(ipAddress, timeout, buffer, options);
-
+                
                 if (reply == null || reply.Status != IPStatus.Success)
                 {
                     return;
                 }
 
-                devices.Add(ipAddress);
+                var device = new NetworkDeviceObject()
+                {
+                    IPV4Address = ipAddress,
+                    LastOnline = DateTime.Now
+                };
+
+                try
+                {
+                    var hostEntry = Dns.GetHostEntry(ipAddress);
+
+                    device.ResourceName = hostEntry.HostName;
+                } catch (Exception) { }
+
+                devices.Add(device);
             });
 
-            return devices.ToArray();
+            return devices.ToList();
         }
     }
 }
