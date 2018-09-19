@@ -5,7 +5,7 @@ using jcIDS.library.core.DAL.Objects.Base;
 
 namespace jcIDS.library.core.Interfaces
 {
-    interface IDatabase
+    public interface IDatabase
     {
         bool DeleteItem<T>(T item) where T: BaseObject;
 

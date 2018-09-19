@@ -2,7 +2,7 @@
 using System.Runtime.Loader;
 
 using jcIDS.library.core.Managers;
-
+using jcIDS.service.app.Managers;
 using NLog;
 
 namespace jcIDS.service.app
