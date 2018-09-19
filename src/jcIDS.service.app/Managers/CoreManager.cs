@@ -1,11 +1,14 @@
-﻿using jcIDS.library.core.DAL;
+﻿using System.Threading;
+using jcIDS.library.core.DAL;
 using jcIDS.library.core.Interfaces;
-
+using jcIDS.library.core.Managers;
+using jcIDS.library.core.PlatformInterfaces;
+using jcIDS.library.windows.PlatformImplementations;
 using Microsoft.Extensions.DependencyInjection;
 
 using NLog;
 
-namespace jcIDS.library.core.Managers
+namespace jcIDS.service.app.Managers
 {
     public class CoreManager
     {
@@ -34,6 +37,8 @@ namespace jcIDS.library.core.Managers
             serviceCollection.AddSingleton(new WhiteListManager());
             serviceCollection.AddSingleton(new NetworkDeviceManager());
 
+            serviceCollection.AddTransient(typeof(INetworkInterfaces), typeof(NetworkInterface));
+
             _container = serviceCollection.BuildServiceProvider();
 
             return true;
@@ -42,6 +47,18 @@ namespace jcIDS.library.core.Managers
         public void StartService()
         {
             _log.Debug("Starting service");
+
+            while (true)
+            {
+                var devices = _container.GetService<INetworkInterfaces>().ScanDevices();
+
+                foreach (var device in devices)
+                {
+                    _container.GetService<NetworkDeviceManager>().AddItem(device);
+                }
+
+                Thread.Sleep(1000 * 60);
+            }
         }
 
         public void StopService()
