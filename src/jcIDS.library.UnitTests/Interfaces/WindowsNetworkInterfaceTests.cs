@@ -1,4 +1,4 @@
-﻿using jcIDS.library.windows.PlatformImplementations;
+﻿using jcIDS.library.core.PlatformImplementations;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

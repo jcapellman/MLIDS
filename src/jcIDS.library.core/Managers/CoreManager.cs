@@ -1,14 +1,16 @@
 ﻿using System.Threading;
+
 using jcIDS.library.core.DAL;
 using jcIDS.library.core.Interfaces;
-using jcIDS.library.core.Managers;
 using jcIDS.library.core.PlatformInterfaces;
-using jcIDS.library.windows.PlatformImplementations;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using NLog;
 
-namespace jcIDS.service.app.Managers
+using NetworkInterface = jcIDS.library.core.PlatformImplementations.NetworkInterface;
+
+namespace jcIDS.library.core.Managers
 {
     public class CoreManager
     {

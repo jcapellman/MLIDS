@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.PlatformInterfaces;
 
-namespace jcIDS.library.windows.PlatformImplementations
+namespace jcIDS.library.core.PlatformImplementations
 {
     public class NetworkInterface : INetworkInterfaces
     {
