@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 using jcIDS.library.core.DAL;
 using jcIDS.library.core.Interfaces;
@@ -56,7 +57,18 @@ namespace jcIDS.library.core.Managers
 
                 foreach (var device in devices)
                 {
-                    _container.GetService<NetworkDeviceManager>().AddItem(device);
+                    var item = _container.GetService<NetworkDeviceManager>().GetItem(a => a.MAC == device.MAC);
+
+                    if (item == null)
+                    {
+                        _container.GetService<NetworkDeviceManager>().AddItem(device);
+                    }
+                    else
+                    {
+                        item.LastOnline = DateTime.Now;
+                        
+                        _container.GetService<NetworkDeviceManager>().UpdateItem(item);
+                    }
                 }
 
                 Thread.Sleep(1000 * 60);
