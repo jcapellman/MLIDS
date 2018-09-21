@@ -16,5 +16,7 @@ namespace jcIDS.library.core.Interfaces
         T GetItem<T>(Expression<Func<T, bool>> expression) where T : BaseObject;
 
         bool DeleteAll<T>() where T : BaseObject;
+
+        bool UpdateItem<T>(Expression<Func<T, bool>> expression, T item) where T : BaseObject;
     }
 }
