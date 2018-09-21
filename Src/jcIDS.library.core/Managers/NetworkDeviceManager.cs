@@ -13,5 +13,7 @@ namespace jcIDS.library.core.Managers
         public NetworkDeviceObject GetItem(Expression<Func<NetworkDeviceObject, bool>> expression) => CoreManager.GetService<IDatabase>().GetItem(expression);
 
         public int AddItem(NetworkDeviceObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
+
+        public bool UpdateItem(NetworkDeviceObject item) => CoreManager.GetService<IDatabase>().UpdateItem(null, item);
     }
 }
