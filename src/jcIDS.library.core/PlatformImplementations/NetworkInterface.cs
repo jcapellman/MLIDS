@@ -54,7 +54,7 @@ namespace jcIDS.library.core.PlatformImplementations
 
                     device.ResourceName = hostEntry.HostName;
                 } catch (Exception) { }
-
+                
                 devices.Add(device);
             });
 
