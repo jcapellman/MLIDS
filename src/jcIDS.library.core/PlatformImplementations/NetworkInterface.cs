@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,13 +15,7 @@ namespace jcIDS.library.core.PlatformImplementations
 {
     public class NetworkInterface : INetworkInterfaces
     {
-        public bool IsOnline()
-        {
-            var networkInterfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces();
-
-            return networkInterfaces.Any(a =>
-                a.NetworkInterfaceType != NetworkInterfaceType.Loopback && a.OperationalStatus == OperationalStatus.Up);
-        }
+        public bool IsOnline() => GetNetworkInterface().OperationalStatus == OperationalStatus.Up;
 
         public List<NetworkDeviceObject> ScanDevices()
         {
@@ -30,13 +25,22 @@ namespace jcIDS.library.core.PlatformImplementations
             var buffer = Encoding.ASCII.GetBytes(data);
             var timeout = 120;
 
+            var deviceIP = DeviceIPAddress;
+
+            if (string.IsNullOrEmpty(deviceIP))
+            {
+                return new List<NetworkDeviceObject>();
+            }
+            
+            var baseDeviceIP = string.Join(".", deviceIP.Split('.').Take(3));
+
             Parallel.For(1, 255, (x, state) =>
             {
                 var pingSender = new Ping();
 
                 var options = new PingOptions { DontFragment = true };
 
-                var ipAddress = $"192.168.2.{x}";
+                var ipAddress = $"{baseDeviceIP}.{x}";
 
                 var reply = pingSender.Send(ipAddress, timeout, buffer, options);
                 
@@ -62,6 +66,27 @@ namespace jcIDS.library.core.PlatformImplementations
             });
 
             return devices.ToList();
+        }
+
+        public string DeviceIPAddress
+        {
+            get
+            {
+                var ipAddress = GetNetworkInterface()?.GetIPProperties().UnicastAddresses
+                    .FirstOrDefault(a => a.Address.AddressFamily == AddressFamily.InterNetwork);
+
+                return ipAddress == null ? string.Empty : ipAddress.Address.ToString();
+            }
+        }
+
+        public System.Net.NetworkInformation.NetworkInterface GetNetworkInterface()
+        {
+            var networkInterfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces();
+
+            return networkInterfaces.FirstOrDefault(a =>
+                a.OperationalStatus == OperationalStatus.Up &&
+                (a.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
+                 a.NetworkInterfaceType == NetworkInterfaceType.GigabitEthernet));
         }
     }
 }
