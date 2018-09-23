@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Net.NetworkInformation;
 using jcIDS.library.core.DAL.Objects;
 
 namespace jcIDS.library.core.PlatformInterfaces
@@ -9,5 +9,9 @@ namespace jcIDS.library.core.PlatformInterfaces
         bool IsOnline();
 
         List<NetworkDeviceObject> ScanDevices();
+
+        string DeviceIPAddress { get; }
+
+        NetworkInterface GetNetworkInterface();
     }
 }
