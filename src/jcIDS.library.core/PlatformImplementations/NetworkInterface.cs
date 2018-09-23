@@ -16,7 +16,10 @@ namespace jcIDS.library.core.PlatformImplementations
     {
         public bool IsOnline()
         {
-            throw new System.NotImplementedException();
+            var networkInterfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces();
+
+            return networkInterfaces.Any(a =>
+                a.NetworkInterfaceType != NetworkInterfaceType.Loopback && a.OperationalStatus == OperationalStatus.Up);
         }
 
         public List<NetworkDeviceObject> ScanDevices()
