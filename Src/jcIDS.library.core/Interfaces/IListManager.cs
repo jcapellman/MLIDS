@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using jcIDS.library.core.DAL.Objects.Base;
@@ -12,5 +13,7 @@ namespace jcIDS.library.core.Interfaces
         T GetItem(Expression<Func<T, bool>> expression);
 
         int AddItem(T item);
+
+        List<T> GetAll();
     }
 }
