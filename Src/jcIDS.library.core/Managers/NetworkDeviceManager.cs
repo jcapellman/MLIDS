@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using jcIDS.library.core.DAL.Objects;
@@ -13,6 +14,8 @@ namespace jcIDS.library.core.Managers
         public NetworkDeviceObject GetItem(Expression<Func<NetworkDeviceObject, bool>> expression) => CoreManager.GetService<IDatabase>().GetItem(expression);
 
         public int AddItem(NetworkDeviceObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
+
+        public List<NetworkDeviceObject> GetAll() => CoreManager.GetService<IDatabase>().GetAll<NetworkDeviceObject>();
 
         public bool UpdateItem(NetworkDeviceObject item) => CoreManager.GetService<IDatabase>().UpdateItem(null, item);
     }
