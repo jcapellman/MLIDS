@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using jcIDS.library.core.DAL.Objects.Base;
@@ -51,6 +52,14 @@ namespace jcIDS.library.core.DAL
             using (var db = new LiteDB.LiteDatabase(FILENAME))
             {
                 return db.GetCollection<T>().Update(item);
+            }
+        }
+
+        public List<T> GetAll<T>() where T : BaseObject
+        {
+            using (var db = new LiteDB.LiteDatabase(FILENAME))
+            {
+                return new List<T>(db.GetCollection<T>().FindAll());
             }
         }
 
