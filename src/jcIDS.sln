@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jcIDS.library.core", "jcIDS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jcIDS.library.UnitTests", "jcIDS.library.UnitTests\jcIDS.library.UnitTests.csproj", "{8B6FF7FE-0DB5-4AC7-ABB4-3260F5169532}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcIDS.web.api", "jcIDS.web.api\jcIDS.web.api.csproj", "{01DAE49F-1491-44AD-BDBE-64CF8A302D03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8B6FF7FE-0DB5-4AC7-ABB4-3260F5169532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B6FF7FE-0DB5-4AC7-ABB4-3260F5169532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B6FF7FE-0DB5-4AC7-ABB4-3260F5169532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DAE49F-1491-44AD-BDBE-64CF8A302D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DAE49F-1491-44AD-BDBE-64CF8A302D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DAE49F-1491-44AD-BDBE-64CF8A302D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DAE49F-1491-44AD-BDBE-64CF8A302D03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

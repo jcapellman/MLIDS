@@ -20,9 +20,9 @@ namespace jcIDS.library.core.PlatformImplementations
         public List<NetworkDeviceObject> ScanDevices()
         {
             var devices = new ConcurrentBag<NetworkDeviceObject>();
+
+            var buffer = Encoding.ASCII.GetBytes("A".PadRight(40, 'A'));
             
-            var data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-            var buffer = Encoding.ASCII.GetBytes(data);
             var timeout = 120;
 
             var deviceIP = DeviceIPAddress;
