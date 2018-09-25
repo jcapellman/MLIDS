@@ -31,6 +31,7 @@ namespace jcIDS.web.api
             }
 
             services.AddSingleton(new NetworkDeviceManager());
+            services.AddSingleton(new BlackListManager());
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
