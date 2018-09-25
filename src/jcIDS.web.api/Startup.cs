@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Swashbuckle.AspNetCore.Swagger;
+
 namespace jcIDS.web.api
 {
     public class Startup
@@ -32,6 +34,11 @@ namespace jcIDS.web.api
 
             services.AddSingleton(new NetworkDeviceManager());
             services.AddSingleton(new BlackListManager());
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "jcIDS", Version = "v1" });
+            });
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -44,8 +51,14 @@ namespace jcIDS.web.api
             {
                 app.UseHsts();
             }
+            
+            app.UseSwagger();
 
-            app.UseHttpsRedirection();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "jcIDS API v1");
+            });
+
             app.UseMvc();
         }
     }
