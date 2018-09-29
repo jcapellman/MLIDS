@@ -5,4 +5,13 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="0.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\jcIDS.library.core\jcIDS.library.core.csproj" />
+    <ProjectReference Include="..\jcIDS.library.datascience\jcIDS.library.datascience.csproj" />
+  </ItemGroup>
+
 </Project>
