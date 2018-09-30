@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
+using jcIDS.library.core.Common;
 using jcIDS.library.core.DAL.Objects.Base;
 
 namespace jcIDS.library.core.Interfaces
@@ -15,5 +17,7 @@ namespace jcIDS.library.core.Interfaces
         int AddItem(T item);
 
         List<T> GetAll();
+
+        string ToCSV();
     }
 }
