@@ -1,4 +1,7 @@
-﻿using jcIDS.library.datascience.ModelObjects;
+﻿using System.IO;
+
+using jcIDS.library.core.Managers;
+using jcIDS.library.datascience.ModelObjects;
 
 using Microsoft.ML;
 using Microsoft.ML.Data;
@@ -11,17 +14,20 @@ namespace jcIDS.library.datascience.Managers
     {
         public bool TrainModel(string dbFileName)
         {
-            var pipeline = new LearningPipeline();
-            
-            pipeline.Add(new TextLoader(dbFileName).CreateFrom<NetworkModelObject>(separator: ','));
+            var modelFileName = $"{dbFileName}.model";
 
-            pipeline.Add(new Dictionarizer("Label"));
+            var networkData = new NetworkDeviceManager().ToCSV();
 
-            pipeline.Add(new ColumnConcatenator("IPAddress"));
-            
-            pipeline.Add(new StochasticDualCoordinateAscentClassifier());
+            File.WriteAllText(modelFileName, networkData);
 
-            pipeline.Add(new PredictedLabelColumnOriginalValueConverter() { PredictedLabelColumn = "PredictedLabel" });
+            var pipeline = new LearningPipeline
+            {
+                new TextLoader(modelFileName).CreateFrom<NetworkModelObject>(separator: ','),
+                new Dictionarizer("Label"),
+                new ColumnConcatenator("IPAddress"),
+                new FastTreeBinaryClassifier(),
+                new PredictedLabelColumnOriginalValueConverter() {PredictedLabelColumn = "PredictedLabel"}
+            };
             
             var model = pipeline.Train<NetworkModelObject, NetworkPredictionObject>();
 
