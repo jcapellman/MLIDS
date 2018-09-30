@@ -16,5 +16,9 @@ namespace jcIDS.library.core.Managers
         public int AddItem(BlackListObject item) => CoreManager.GetService<IDatabase>().AddItem(item);
 
         public List<BlackListObject> GetAll() => CoreManager.GetService<IDatabase>().GetAll<BlackListObject>();
+        public string ToCSV()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
