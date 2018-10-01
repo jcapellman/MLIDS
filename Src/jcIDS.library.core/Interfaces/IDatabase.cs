@@ -21,5 +21,7 @@ namespace jcIDS.library.core.Interfaces
         bool UpdateItem<T>(Expression<Func<T, bool>> expression, T item) where T : BaseObject;
 
         List<T> GetAll<T>() where T : BaseObject;
+
+        bool Initialize();
     }
 }
