@@ -20,7 +20,7 @@ namespace jcIDS.service.app
             Console.CancelKeyPress += Console_CancelKeyPress;
 
             _coreManager = new CoreManager();
-
+            
             if (!_coreManager.Initialize())
             {
                 return;
