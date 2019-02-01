@@ -6,3 +6,5 @@ typings/
 *.lock.json
 /Properties/PublishProfiles
 packages/
+src/driver/jcNDIS/Debug
+src/driver/Debug
