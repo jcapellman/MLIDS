@@ -1,5 +1,9 @@
 # jcIDS
 
-A Network Intrusion Detection System using Machine Learning.  The idea behind this at least for now is to install it on a RPI3 or better device and monitor network devices.  Down the road, writing a Windows Packet Filter to send the data back to the "server" for processing.
+jcIDS is a Network Intrusion Detection System using Machine Learning.  The original idea behind this several years ago (2014) was to write a C++ brute force network analyzer for a Cobalt Qube (http://www.jarredcapellman.com/2014/3/9/NetBSD-and-a-Cobalt-Qube-2).  Fast forward a few years and my own shift to utilizing Machine Learning everyday professionally it seemed like a perfect fit.
 
-All the while, displaying an awesome mobile experience for you on the go.
+## Components
+* .NET Core 2.1 Daemon to run predictions and record traffic
+* ASP.NET Core 2.1 REST Service to expose the database
+* Xamarin Forms Apps for iOS, Android and UWP
+* .NET Core 2.1 Model Trainer
