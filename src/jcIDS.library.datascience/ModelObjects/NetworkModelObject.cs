@@ -1,4 +1,4 @@
-﻿using Microsoft.ML.Runtime.Api;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace jcIDS.library.datascience.ModelObjects
 {

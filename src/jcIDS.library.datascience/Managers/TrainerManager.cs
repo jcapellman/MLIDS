@@ -3,10 +3,7 @@
 using jcIDS.library.core.Managers;
 using jcIDS.library.datascience.ModelObjects;
 
-using Microsoft.ML;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers;
-using Microsoft.ML.Transforms;
 
 namespace jcIDS.library.datascience.Managers
 {
