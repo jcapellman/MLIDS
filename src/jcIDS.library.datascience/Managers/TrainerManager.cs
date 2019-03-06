@@ -1,34 +1,41 @@
 ﻿using System.IO;
 
 using jcIDS.library.core.Managers;
-using jcIDS.library.datascience.ModelObjects;
 
-using Microsoft.ML.Data;
+using Microsoft.ML;
 
 namespace jcIDS.library.datascience.Managers
 {
-    public class TrainerManager
-    {
+    public class TrainerManager { 
+        protected MLContext MlContext;
+
+        public TrainerManager()
+        {
+            MlContext = new MLContext(seed: 0);
+        }
+
         public bool TrainModel(string dbFileName)
         {
-            var modelFileName = $"{dbFileName}.model";
+            var dataFileName = $"{dbFileName}.csv";
+            var modelFileName = "jcids.mdl";
 
             var networkData = new NetworkDeviceManager().ToCSV();
 
-            File.WriteAllText(modelFileName, networkData);
+            File.WriteAllText(dataFileName, networkData);
 
-            var pipeline = new LearningPipeline
+            var textReader = MlContext.Data.LoadFromTextFile(dataFileName);
+
+            var pipeline = MlContext.Transforms.Text.FeaturizeText("Content", "Features")
+                .Append(MlContext.BinaryClassification.Trainers.FastTree(numLeaves: 2, numTrees: 10, minDatapointsInLeaves: 1));
+
+            var trainedModel = pipeline.Fit(textReader);
+
+            using (var fs = File.Create(modelFileName))
             {
-                new TextLoader(modelFileName).CreateFrom<NetworkModelObject>(separator: ','),
-                new Dictionarizer("Label"),
-                new ColumnConcatenator("IPAddress"),
-                new FastTreeBinaryClassifier(),
-                new PredictedLabelColumnOriginalValueConverter() {PredictedLabelColumn = "PredictedLabel"}
-            };
-            
-            var model = pipeline.Train<NetworkModelObject, NetworkPredictionObject>();
+                trainedModel.SaveTo(MlContext, fs);
+            }
 
-            return model != null;
+            return true;
         }
     }
 }
