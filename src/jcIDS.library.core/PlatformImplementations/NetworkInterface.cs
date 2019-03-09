@@ -10,15 +10,29 @@ using System.Threading.Tasks;
 
 using jcIDS.library.core.DAL.Objects;
 using jcIDS.library.core.PlatformInterfaces;
+using NLog;
 
 namespace jcIDS.library.core.PlatformImplementations
 {
     public class NetworkInterface : INetworkInterfaces
     {
+        private readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         public bool IsOnline() => GetNetworkInterface().OperationalStatus == OperationalStatus.Up;
 
         public List<NetworkDeviceObject> ScanDevices()
         {
+            var currentNetworkInterface = GetNetworkInterface();
+
+            if (currentNetworkInterface == null)
+            {
+                _log.Warn("No Network Inteface could be found, ending Network Device Enumeration");
+
+                return new List<NetworkDeviceObject>();
+            }
+
+            _log.Info($"Using {currentNetworkInterface.Description} for network connection...");
+
             var devices = new ConcurrentBag<NetworkDeviceObject>();
 
             var buffer = Encoding.ASCII.GetBytes("A".PadRight(40, 'A'));
