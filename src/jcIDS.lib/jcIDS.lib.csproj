@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
@@ -10,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\jcIDS.lib\jcIDS.lib.csproj" />
+    <PackageReference Include="jcDB" Version="0.0.3" />
   </ItemGroup>
 
 </Project>
