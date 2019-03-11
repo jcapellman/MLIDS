@@ -25,22 +25,29 @@ namespace jcIDS.lib.Managers
             PacketArrival?.Invoke(this, e);
         }
 
-        private static NetworkInterface GetNetworkInterface() {
-            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+        private static (NetworkInterface networkInterface, Exception exception) GetNetworkInterface() {
+            try
+            {
+                var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-            return networkInterfaces.FirstOrDefault(a =>
-                a.OperationalStatus == OperationalStatus.Up &&
-                (a.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
-                 a.NetworkInterfaceType == NetworkInterfaceType.GigabitEthernet));
+                return (networkInterfaces.FirstOrDefault(a =>
+                    a.OperationalStatus == OperationalStatus.Up &&
+                    (a.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
+                     a.NetworkInterfaceType == NetworkInterfaceType.GigabitEthernet)), null);
+            }
+            catch (NetworkInformationException exception)
+            {
+                return (null, exception);
+            }
         }
 
         private void Initialize()
         {
-            var networkInterface = GetNetworkInterface();
+            var (networkInterface, exception) = GetNetworkInterface();
 
             if (networkInterface == null)
             {
-                throw new Exception("Could not obtain a valid Network Interface");
+                throw new Exception($"Could not obtain a valid Network Interface due to {exception}");
             }
 
             var ipAddress = networkInterface.GetIPProperties().UnicastAddresses
@@ -51,21 +58,35 @@ namespace jcIDS.lib.Managers
                 throw new Exception($"Could not obtain IP Address from {networkInterface.Description}");
             }
 
-            CreateAndBindSocket(ipAddress.Address);
+            var socketException = CreateAndBindSocket(ipAddress.Address);
+
+            if (socketException != null)
+            {
+                throw new Exception($"Error while binding socket {socketException}");
+            }
 
             _initialized = true;
         }
 
-        private void CreateAndBindSocket(IPAddress ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
+        private Exception CreateAndBindSocket(IPAddress ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
         {
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, protocol)
+            try
             {
-                Blocking = false
-            };
+                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, protocol)
+                {
+                    Blocking = false
+                };
 
-            _socket.Bind(new IPEndPoint(ip, port));
+                _socket.Bind(new IPEndPoint(ip, port));
 
-            _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, 1);
+                _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, 1);
+
+                return null;
+            }
+            catch (Exception exception)
+            {
+                return exception;
+            }
         }
 
         private unsafe void Receive(byte[] buf, int len)
@@ -87,7 +108,7 @@ namespace jcIDS.lib.Managers
                 e.DestinationAddress = new IPAddress(head->ip_destaddr).ToString();
 
                 var tempSrcPort = *(short*)&fixedBuf[e.HeaderLength];
-                var tempDstPort = *(short*)&fixedBuf[e.HeaderLength + 2];
+                var tempDstPort = Math.Abs(*(short*)&fixedBuf[e.HeaderLength + 2]);
 
                 e.OriginationPort = IPAddress.NetworkToHostOrder(tempSrcPort).ToString();
                 e.DestinationPort = IPAddress.NetworkToHostOrder(tempDstPort).ToString();
