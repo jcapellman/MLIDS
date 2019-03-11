@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 
 using jcIDS.lib.Managers;
 using jcIDS.lib.Objects;
@@ -13,7 +14,12 @@ namespace jcIDS.app
             {
                 sListener.PacketArrival += DataArrival;
 
-                sListener.Run();
+                var (success, exception) = sListener.Run();
+
+                if (!success)
+                {
+                    Console.Write(exception);
+                }
 
                 Console.ReadLine();
             }
@@ -21,8 +27,12 @@ namespace jcIDS.app
 
         private static void DataArrival(object sender, PacketArrivedEventArgs e)
         {
-            if (e.Protocol.ToUpper() == "TCP")
-                Console.WriteLine(e.OriginationAddress + " - " + e.OriginationPort + " - " + e.DestinationAddress + " - " + e.DestinationPort + " - " + e.Protocol + " - " + e.PacketLength + " - " + e.HeaderLength + " - " + e.IPVersion);
+            if (e.Protocol == ProtocolType.Tcp)
+            {
+                Console.WriteLine(e.OriginationAddress + " - " + e.OriginationPort + " - " + e.DestinationAddress +
+                                  " - " + e.DestinationPort + " - " + e.Protocol + " - " + e.PacketLength + " - " +
+                                  e.HeaderLength + " - " + e.IPVersion);
+            }
         }
     }
 }
