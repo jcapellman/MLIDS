@@ -5,31 +5,24 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 using jcIDS.lib.Common;
+using jcIDS.lib.Helpers;
 using jcIDS.lib.Objects;
 
 namespace jcIDS.lib.Managers
 {
     public class SocketListener : IDisposable
     {
-        readonly byte[] _receiveBufBytes;
+        private readonly byte[] _receiveBufBytes = new byte[Constants.len_receive_buf];
         private Socket _socket;
         
         public event PacketArrivedEventHandler PacketArrival;
         public delegate void PacketArrivedEventHandler(object sender, PacketArrivedEventArgs args);
 
+        private bool _initialized;
+
         protected virtual void OnPacketArrival(PacketArrivedEventArgs e)
         {
             PacketArrival?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Raw Socket Constructor
-        /// </summary>
-        public SocketListener()
-        {
-            _receiveBufBytes = new byte[Constants.len_receive_buf];
-
-            Initialize();
         }
 
         private static NetworkInterface GetNetworkInterface() {
@@ -45,81 +38,59 @@ namespace jcIDS.lib.Managers
         {
             var networkInterface = GetNetworkInterface();
 
-            var ipAddress = networkInterface?.GetIPProperties().UnicastAddresses
+            if (networkInterface == null)
+            {
+                throw new Exception("Could not obtain a valid Network Interface");
+            }
+
+            var ipAddress = networkInterface.GetIPProperties().UnicastAddresses
                 .FirstOrDefault(a => a.Address.AddressFamily == AddressFamily.InterNetwork);
 
-            CreateAndBindSocket(ipAddress?.Address.ToString());
+            if (ipAddress == null)
+            {
+                throw new Exception($"Could not obtain IP Address from {networkInterface.Description}");
+            }
+
+            CreateAndBindSocket(ipAddress.Address);
+
+            _initialized = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ip"></param>
-        /// <param name="port"></param>
-        /// <param name="protocol"></param>
-        private void CreateAndBindSocket(string ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
+        private void CreateAndBindSocket(IPAddress ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, protocol)
             {
                 Blocking = false
             };
 
-            _socket.Bind(new IPEndPoint(IPAddress.Parse(ip), port));
-
-            if (!SetSocketOption())
-            {
-                throw new Exception("Failed to set IOControl");
-            }
-        }
-
-        private bool SetSocketOption()
-        {
-            var retValue = true;
+            _socket.Bind(new IPEndPoint(ip, port));
 
             _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, 1);
-
-            var OUT = new byte[4];
-
-            var retCode = OUT[0] + OUT[1] + OUT[2] + OUT[3];
-
-            if (retCode != 0)
-            {
-                retValue = false;
-            }
-
-            return retValue;
         }
 
         private unsafe void Receive(byte[] buf, int len)
         {
             var e = new PacketArrivedEventArgs();
 
-            fixed (byte* fixedBuf = buf)
+            fixed (byte * fixedBuf = buf)
             {
                 var head = (IPHeader*)fixedBuf;
+
                 e.HeaderLength = (uint)(head->ip_verlen & 0x0F) << 2;
 
-                switch (head->ip_protocol)
-                {
-                    case 1: e.Protocol = "ICMP"; break;
-                    case 2: e.Protocol = "IGMP"; break;
-                    case 6: e.Protocol = "TCP"; break;
-                    case 17: e.Protocol = "UDP"; break;
-                    default: e.Protocol = "UNKNOWN"; break;
-                }
+                e.Protocol = head->ip_protocol.ToProtocolType();
 
                 var tempVersion = (uint)(head->ip_verlen & 0xF0) >> 4;
                 e.IPVersion = tempVersion.ToString();
 
-                var tempIp = new IPAddress(head->ip_srcaddr);
-                e.OriginationAddress = tempIp.ToString();
-                tempIp = new IPAddress(head->ip_destaddr);
-                e.DestinationAddress = tempIp.ToString();
+                e.OriginationAddress = new IPAddress(head->ip_srcaddr).ToString();
+                e.DestinationAddress = new IPAddress(head->ip_destaddr).ToString();
 
-                var tempSrcport = *(short*)&fixedBuf[e.HeaderLength];
-                var tempDstport = *(short*)&fixedBuf[e.HeaderLength + 2];
-                e.OriginationPort = IPAddress.NetworkToHostOrder(tempSrcport).ToString();
-                e.DestinationPort = IPAddress.NetworkToHostOrder(tempDstport).ToString();
+                var tempSrcPort = *(short*)&fixedBuf[e.HeaderLength];
+                var tempDstPort = *(short*)&fixedBuf[e.HeaderLength + 2];
+
+                e.OriginationPort = IPAddress.NetworkToHostOrder(tempSrcPort).ToString();
+                e.DestinationPort = IPAddress.NetworkToHostOrder(tempDstPort).ToString();
 
                 e.PacketLength = (uint)len;
                 e.MessageLength = (uint)len - e.HeaderLength;
@@ -134,11 +105,26 @@ namespace jcIDS.lib.Managers
             OnPacketArrival(e);
         }
 
-        public void Run()
+        public (bool success, Exception exception) Run()
         {
-            _socket.BeginReceive(_receiveBufBytes, 0, Constants.len_receive_buf, SocketFlags.None, CallReceive, this);
+            try
+            {
+                if (!_initialized)
+                {
+                    Initialize();
+                }
+
+                _socket.BeginReceive(_receiveBufBytes, 0, Constants.len_receive_buf, SocketFlags.None, CallReceive,
+                    this);
+
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex);
+            }
         }
-        
+
         private void CallReceive(IAsyncResult ar)
         {
             int receivedBytes;
@@ -153,21 +139,18 @@ namespace jcIDS.lib.Managers
             }
 
             Receive(_receiveBufBytes, receivedBytes);
+
             Run();
         }
 
         public void Dispose()
         {
-            if (_socket != null)
+            if (_socket != null && Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
-                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                {
-                    _socket.Shutdown(SocketShutdown.Both);
-                }
-
-                _socket.Close();
+                _socket.Shutdown(SocketShutdown.Both);
             }
 
+            _socket?.Close();
             _socket?.Dispose();
         }
     }
