@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 
 namespace jcIDS.lib.Helpers
 {
@@ -6,19 +7,12 @@ namespace jcIDS.lib.Helpers
     {
         public static ProtocolType ToProtocolType(this byte value)
         {
-            switch (value)
+            if (Enum.IsDefined(typeof(ProtocolType), (int)value))
             {
-                case 1:
-                    return ProtocolType.Icmp;
-                case 2:
-                    return ProtocolType.Igmp;
-                case 6:
-                    return ProtocolType.Tcp;
-                case 17:
-                    return ProtocolType.Udp;
-                default:
-                    return ProtocolType.Unknown;
+                return (ProtocolType)value;
             }
+
+            return ProtocolType.Unknown;
         }
     }
 }
