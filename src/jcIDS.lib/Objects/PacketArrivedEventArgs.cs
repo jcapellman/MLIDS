@@ -34,5 +34,8 @@ namespace jcIDS.lib.Objects
             IPHeaderBuffer = new byte[Constants.len_receive_buf];
             MessageBuffer = new byte[Constants.len_receive_buf];
         }
+
+        public override string ToString() => 
+            $"{OriginationAddress}:{OriginationPort} ({Protocol}) - {DestinationAddress}:{DestinationPort} - {PacketLength}";
     }
 }
