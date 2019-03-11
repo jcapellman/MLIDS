@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 using jcIDS.lib.Common;
+using jcIDS.lib.CommonObjects;
 using jcIDS.lib.Helpers;
 using jcIDS.lib.Objects;
 
@@ -15,14 +16,13 @@ namespace jcIDS.lib.Managers
         private readonly byte[] _receiveBufBytes = new byte[Constants.RECEIVE_BUFFER_LENGTH];
         private Socket _socket;
         
-        public event PacketArrivedEventHandler PacketArrival;
-        public delegate void PacketArrivedEventHandler(object sender, PacketArrivedEventArgs args);
-
+        public event EventHandler<Packet> PacketArrival;
+        
         private bool _initialized;
 
-        protected virtual void OnPacketArrival(PacketArrivedEventArgs e)
+        protected virtual void OnPacketArrival(Packet packet)
         {
-            PacketArrival?.Invoke(this, e);
+            PacketArrival?.Invoke(this, packet);
         }
 
         private static (NetworkInterface networkInterface, Exception exception) GetNetworkInterface() {
@@ -91,7 +91,7 @@ namespace jcIDS.lib.Managers
 
         private unsafe void Receive(byte[] buf, int len)
         {
-            var e = new PacketArrivedEventArgs();
+            var e = new Packet();
 
             fixed (byte * fixedBuf = buf)
             {
@@ -113,6 +113,9 @@ namespace jcIDS.lib.Managers
                 e.MessageLength = (uint)len - e.HeaderLength;
 
                 e.ReceiveBuffer = buf;
+
+                e.IPHeaderBuffer = new byte[Constants.RECEIVE_BUFFER_LENGTH];
+                e.MessageBuffer = new byte[Constants.RECEIVE_BUFFER_LENGTH];
 
                 Array.Copy(buf, 0, e.IPHeaderBuffer, 0, (int)e.HeaderLength);
 
