@@ -2,8 +2,6 @@
 {
     public static class Constants
     {
-        public const int SIO_RCVALL = unchecked((int)0x98000001);
-
-        public const int len_receive_buf = 4096;
+        public const int RECEIVE_BUFFER_LENGTH = 4096;
     }
 }
