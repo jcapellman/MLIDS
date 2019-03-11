@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 
 using jcIDS.lib.Common;
 
@@ -6,7 +7,7 @@ namespace jcIDS.lib.Objects
 {
     public class PacketArrivedEventArgs : EventArgs
     {
-        public string Protocol;
+        public ProtocolType Protocol;
         public string DestinationPort;
         public string OriginationPort;
         public string DestinationAddress;
@@ -21,16 +22,13 @@ namespace jcIDS.lib.Objects
 
         public PacketArrivedEventArgs()
         {
-            Protocol = "";
+            Protocol = ProtocolType.Unspecified;
+
             DestinationPort = "";
             OriginationPort = "";
             DestinationAddress = "";
             OriginationAddress = "";
             IPVersion = "";
-
-            PacketLength = 0;
-            MessageLength = 0;
-            HeaderLength = 0;
 
             ReceiveBuffer = new byte[Constants.len_receive_buf];
             IPHeaderBuffer = new byte[Constants.len_receive_buf];
