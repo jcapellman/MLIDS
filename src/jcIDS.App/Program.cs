@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
 
 using jcIDS.lib.Managers;
 using jcIDS.lib.Objects;
@@ -12,7 +11,7 @@ namespace jcIDS.app
         {
             using (var sListener = new SocketListener())
             {
-                sListener.PacketArrival += DataArrival;
+                sListener.PacketArrival += PacketArrival;
 
                 var (success, exception) = sListener.Run();
 
@@ -25,7 +24,7 @@ namespace jcIDS.app
             }
         }
 
-        private static void DataArrival(object sender, PacketArrivedEventArgs e)
+        private static void PacketArrival(object sender, PacketArrivedEventArgs e)
         {
             Console.WriteLine(e);
         }
