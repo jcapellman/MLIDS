@@ -30,9 +30,9 @@ namespace jcIDS.lib.Objects
             OriginationAddress = "";
             IPVersion = "";
 
-            ReceiveBuffer = new byte[Constants.len_receive_buf];
-            IPHeaderBuffer = new byte[Constants.len_receive_buf];
-            MessageBuffer = new byte[Constants.len_receive_buf];
+            ReceiveBuffer = new byte[Constants.RECEIVE_BUFFER_LENGTH];
+            IPHeaderBuffer = new byte[Constants.RECEIVE_BUFFER_LENGTH];
+            MessageBuffer = new byte[Constants.RECEIVE_BUFFER_LENGTH];
         }
 
         public override string ToString() => 

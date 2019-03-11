@@ -12,7 +12,7 @@ namespace jcIDS.lib.Managers
 {
     public class SocketListener : IDisposable
     {
-        private readonly byte[] _receiveBufBytes = new byte[Constants.len_receive_buf];
+        private readonly byte[] _receiveBufBytes = new byte[Constants.RECEIVE_BUFFER_LENGTH];
         private Socket _socket;
         
         public event PacketArrivedEventHandler PacketArrival;
@@ -101,17 +101,13 @@ namespace jcIDS.lib.Managers
 
                 e.Protocol = head->ip_protocol.ToProtocolType();
 
-                var tempVersion = (uint)(head->ip_verlen & 0xF0) >> 4;
-                e.IPVersion = tempVersion.ToString();
+                e.IPVersion = ((uint)(head->ip_verlen & 0xF0) >> 4).ToString();
 
                 e.OriginationAddress = new IPAddress(head->ip_srcaddr).ToString();
                 e.DestinationAddress = new IPAddress(head->ip_destaddr).ToString();
 
-                var tempSrcPort = *(short*)&fixedBuf[e.HeaderLength];
-                var tempDstPort = Math.Abs(*(short*)&fixedBuf[e.HeaderLength + 2]);
-
-                e.OriginationPort = IPAddress.NetworkToHostOrder(tempSrcPort).ToString();
-                e.DestinationPort = IPAddress.NetworkToHostOrder(tempDstPort).ToString();
+                e.OriginationPort = IPAddress.NetworkToHostOrder(*(short*)&fixedBuf[e.HeaderLength]).ToString();
+                e.DestinationPort = IPAddress.NetworkToHostOrder(Math.Abs(*(short*)&fixedBuf[e.HeaderLength + 2])).ToString();
 
                 e.PacketLength = (uint)len;
                 e.MessageLength = (uint)len - e.HeaderLength;
@@ -135,7 +131,7 @@ namespace jcIDS.lib.Managers
                     Initialize();
                 }
 
-                _socket.BeginReceive(_receiveBufBytes, 0, Constants.len_receive_buf, SocketFlags.None, CallReceive,
+                _socket.BeginReceive(_receiveBufBytes, 0, Constants.RECEIVE_BUFFER_LENGTH, SocketFlags.None, CallReceive,
                     this);
 
                 return (true, null);
