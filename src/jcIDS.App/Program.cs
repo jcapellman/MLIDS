@@ -27,12 +27,7 @@ namespace jcIDS.app
 
         private static void DataArrival(object sender, PacketArrivedEventArgs e)
         {
-            if (e.Protocol == ProtocolType.Tcp)
-            {
-                Console.WriteLine(e.OriginationAddress + " - " + e.OriginationPort + " - " + e.DestinationAddress +
-                                  " - " + e.DestinationPort + " - " + e.Protocol + " - " + e.PacketLength + " - " +
-                                  e.HeaderLength + " - " + e.IPVersion);
-            }
+            Console.WriteLine(e);
         }
     }
 }
