@@ -1,7 +1,7 @@
 ﻿using System;
 
+using jcIDS.lib.CommonObjects;
 using jcIDS.lib.Managers;
-using jcIDS.lib.Objects;
 
 namespace jcIDS.app
 {
@@ -24,9 +24,9 @@ namespace jcIDS.app
             }
         }
 
-        private static void PacketArrival(object sender, PacketArrivedEventArgs e)
+        private static void PacketArrival(object sender, Packet packet)
         {
-            Console.WriteLine(e);
+            Console.WriteLine(packet);
         }
     }
 }
