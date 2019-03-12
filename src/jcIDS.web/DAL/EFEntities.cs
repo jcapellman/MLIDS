@@ -6,6 +6,8 @@ namespace jcIDS.web.DAL
 {
     public class EFEntities : DbContext
     {
+        public DbSet<Devices> Devices { get; set; }
+
         public DbSet<Packets> Packets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
