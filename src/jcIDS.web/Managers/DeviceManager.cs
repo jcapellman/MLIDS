@@ -11,13 +11,13 @@ namespace jcIDS.web.Managers
 {
     public class DeviceManager
     {
-        private readonly EFEntities _efEntities;
+        private readonly IDSContext _idsContext;
         private readonly IMemoryCache _memoryCache;
 
-        public DeviceManager(IMemoryCache memoryCache, EFEntities eFEntities)
+        public DeviceManager(IMemoryCache memoryCache, IDSContext eFEntities)
         {
             _memoryCache = memoryCache;
-            _efEntities = eFEntities;
+            _idsContext = eFEntities;
         }
 
         public int? AuthenticateDevice(string token)
@@ -27,7 +27,7 @@ namespace jcIDS.web.Managers
                 return id;
             }
 
-            var device = _efEntities.Devices.FirstOrDefault(a => a.Token == token && a.Active);
+            var device = _idsContext.Devices.FirstOrDefault(a => a.Token == token && a.Active);
 
             if (device == null)
             {
@@ -50,9 +50,9 @@ namespace jcIDS.web.Managers
                 Token = deviceName.SHA1()
             };
 
-            _efEntities.Devices.Add(device);
+            _idsContext.Devices.Add(device);
 
-            _efEntities.SaveChanges();
+            _idsContext.SaveChanges();
 
             _memoryCache.Set(device.Token, device.ID);
 
