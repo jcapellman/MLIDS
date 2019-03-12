@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using jcIDS.web.DAL;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace jcIDS.web.Controllers
@@ -7,11 +9,13 @@ namespace jcIDS.web.Controllers
     [ApiController]
     public class BaseApiController : ControllerBase
     {
-        private IMemoryCache _cache;
+        protected IMemoryCache Cache;
+        protected IDSContext DbContext;
 
-        public BaseApiController(IMemoryCache memoryCache)
+        public BaseApiController(IMemoryCache memoryCache, IDSContext dbContext)
         {
-            _cache = memoryCache;
+            Cache = memoryCache;
+            DbContext = dbContext;
         }
     }
 }
