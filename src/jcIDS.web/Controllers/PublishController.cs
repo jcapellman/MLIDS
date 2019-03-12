@@ -6,11 +6,14 @@ using jcIDS.web.DAL;
 using jcIDS.web.DAL.Tables;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace jcIDS.web.Controllers
 {
     public class PublishController : BaseApiController
     {
+        public PublishController(IMemoryCache memoryCache) : base(memoryCache) { }
+
         private int GetDeviceIDFromToken(string deviceToken)
         {
             // TODO: Add actual logic
