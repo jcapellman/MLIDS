@@ -9,9 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace jcIDS.web.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PublishController : ControllerBase
+    public class PublishController : BaseApiController
     {
         private int GetDeviceIDFromToken(string deviceToken)
         {
