@@ -8,17 +8,43 @@ namespace jcIDS.web.DAL.Tables
 {
     public class Packets : BaseTable
     {
-        public string SourceIP { get; set; }
+        public ProtocolType Protocol;
 
-        public string DestinationIP { get; set; }
+        public string DestinationPort;
 
-        public ProtocolType Protocol { get; set; }
+        public string OriginationPort;
+
+        public string DestinationAddress;
+
+        public string OriginationAddress;
+
+        public string IPVersion;
+
+        public uint PacketLength;
+
+        public uint MessageLength;
+
+        public uint HeaderLength;
 
         public int DeviceID { get; set; }
 
-        public Packets(Packet packet)
+        public Packets(Packet packet, int deviceID)
         {
-            SourceIP = packet.OriginationAddress;
+            Protocol = packet.Protocol;
+
+            OriginationAddress = packet.OriginationAddress;
+            OriginationPort = packet.OriginationPort;
+
+            DestinationAddress = packet.DestinationAddress;
+            DestinationPort = packet.DestinationPort;
+
+            IPVersion = packet.IPVersion;
+
+            PacketLength = packet.PacketLength;
+            MessageLength = packet.MessageLength;
+            HeaderLength = packet.HeaderLength;
+
+            DeviceID = deviceID;
         }
     }
 }
