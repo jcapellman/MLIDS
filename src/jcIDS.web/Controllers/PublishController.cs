@@ -13,16 +13,24 @@ namespace jcIDS.web.Controllers
     [ApiController]
     public class PublishController : ControllerBase
     {
+        private int GetDeviceIDFromToken(string deviceToken)
+        {
+            // TODO: Add actual logic
+            return default;
+        }
+
         [HttpPost]
         public async Task Post(PacketRequestItem requestItem)
         {
+            var deviceID = GetDeviceIDFromToken(requestItem.DeviceToken);
+
             using (var ef = new EFEntities())
             {
                 var tasks = new List<Task>();
 
                 foreach (var packet in requestItem.Packets)
                 {
-                    tasks.Add(ef.Packets.AddAsync(new Packets(packet)));
+                    tasks.Add(ef.Packets.AddAsync(new Packets(packet, deviceID)));
                 }
 
                 await Task.WhenAll(tasks);
