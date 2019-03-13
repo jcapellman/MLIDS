@@ -2,6 +2,7 @@
 
 using jcIDS.web.DAL;
 using jcIDS.web.Managers;
+using jcIDS.web.Objects;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -14,11 +15,13 @@ namespace jcIDS.web.Controllers
     {
         protected IMemoryCache Cache;
         protected IDSContext DbContext;
+        protected ConfigurationValues Configuration;
 
-        public BaseApiController(IMemoryCache memoryCache, IDSContext dbContext)
+        public BaseApiController(IMemoryCache memoryCache, IDSContext dbContext, ConfigurationValues configuration)
         {
             Cache = memoryCache;
             DbContext = dbContext;
+            Configuration = configuration;
         }
 
         protected int GetDeviceIdFromToken(string deviceToken)
