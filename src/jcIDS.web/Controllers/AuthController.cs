@@ -15,6 +15,7 @@ namespace jcIDS.web.Controllers
         [HttpPost]
         public string Post(string deviceName)
         {
+            // TODO: Require an Adoption of the device in the Web View
             var device = new DeviceManager(Cache, DbContext).RegisterDevice(deviceName);
 
             return device.Token;

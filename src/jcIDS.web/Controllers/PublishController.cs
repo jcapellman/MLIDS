@@ -18,13 +18,13 @@ namespace jcIDS.web.Controllers
         [HttpPost]
         public async Task Post(PacketRequestItem requestItem)
         {
-            var deviceID = GetDeviceIdFromToken(requestItem.DeviceToken);
+            var deviceId = GetDeviceIdFromToken(requestItem.DeviceToken);
 
             var tasks = new List<Task>();
 
             foreach (var packet in requestItem.Packets)
             {
-                tasks.Add(DbContext.Packets.AddAsync(new Packets(packet, deviceID)));
+                tasks.Add(DbContext.Packets.AddAsync(new Packets(packet, deviceId)));
             }
 
             await Task.WhenAll(tasks);
