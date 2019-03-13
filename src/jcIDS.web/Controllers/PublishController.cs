@@ -5,6 +5,7 @@ using jcIDS.lib.RESTObjects;
 
 using jcIDS.web.DAL;
 using jcIDS.web.DAL.Tables;
+using jcIDS.web.Objects;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -13,7 +14,7 @@ namespace jcIDS.web.Controllers
 {
     public class PublishController : BaseApiController
     {
-        public PublishController(IMemoryCache memoryCache, IDSContext dbContext) : base(memoryCache, dbContext) { }
+        public PublishController(IMemoryCache memoryCache, IDSContext dbContext, ConfigurationValues configuration) : base(memoryCache, dbContext, configuration) { }
 
         [HttpPost]
         public async Task Post(PacketRequestItem requestItem)
