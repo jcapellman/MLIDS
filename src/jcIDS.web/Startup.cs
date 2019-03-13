@@ -1,4 +1,5 @@
 ﻿using jcIDS.web.DAL;
+using jcIDS.web.Managers;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,9 +23,13 @@ namespace jcIDS.web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = SettingsManager.ParseConfiguration(Configuration);
+
+            services.AddSingleton(settings);
+
             services.AddMemoryCache();
 
-            services.AddDbContext<IDSContext>(options => options.UseSqlServer("Server=localhost;Database=jcIDS;Trusted_Connection=True;"));
+            services.AddDbContext<IDSContext>(options => options.UseSqlServer(settings.DatabaseConnection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
