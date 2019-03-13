@@ -3,5 +3,7 @@
     public static class Constants
     {
         public const int RECEIVE_BUFFER_LENGTH = 4096;
+
+        public const string BASE_URL = "/api/";
     }
 }
