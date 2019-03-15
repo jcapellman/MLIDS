@@ -26,14 +26,14 @@ namespace jcIDS.web.Controllers
 
         protected int GetDeviceIdFromToken(string deviceToken)
         {
-            var deviceId = new DeviceManager(Cache, DbContext).AuthenticateDevice(deviceToken);
+            var deviceIdResult = new DeviceManager(Cache, DbContext).AuthenticateDevice(deviceToken);
 
-            if (deviceId == null)
+            if (deviceIdResult.HasObjectError || !deviceIdResult.ObjectValue.HasValue)
             {
                 throw new UnauthorizedAccessException($"{deviceToken} is invalid");
             }
 
-            return deviceId.Value;
+            return deviceIdResult.ObjectValue.Value;
         }
     }
 }
