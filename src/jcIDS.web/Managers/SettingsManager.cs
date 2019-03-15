@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
+using jcIDS.lib.CommonObjects;
 using jcIDS.web.Objects;
 
 using Microsoft.Extensions.Configuration;
@@ -8,20 +10,27 @@ namespace jcIDS.web.Managers
 {
     public class SettingsManager
     {
-        public static ConfigurationValues ParseConfiguration(IConfiguration configuration)
+        public static ReturnSet<ConfigurationValues> ParseConfiguration(IConfiguration configuration)
         {
-            var config = new ConfigurationValues();
-
-            var properties = typeof(ConfigurationValues).GetProperties().ToList();
-
-            foreach (var property in properties)
+            try
             {
-                var propertyValue = configuration[property.Name];
+                var config = new ConfigurationValues();
 
-                property.SetValue(config, propertyValue);
+                var properties = typeof(ConfigurationValues).GetProperties().ToList();
+
+                foreach (var property in properties)
+                {
+                    var propertyValue = configuration[property.Name];
+
+                    property.SetValue(config, propertyValue);
+                }
+
+                return new ReturnSet<ConfigurationValues>(config);
             }
-
-            return config;
+            catch (Exception ex)
+            {
+                return new ReturnSet<ConfigurationValues>(ex, "Failed to parse configuration file");
+            }
         }
     }
 }
