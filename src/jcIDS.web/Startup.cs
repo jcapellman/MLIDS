@@ -23,7 +23,7 @@ namespace jcIDS.web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var settings = SettingsManager.ParseConfiguration(Configuration);
+            var settings = ConfigurationManager.ParseConfiguration(Configuration);
 
             services.AddSingleton(settings);
 

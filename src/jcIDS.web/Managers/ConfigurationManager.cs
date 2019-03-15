@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace jcIDS.web.Managers
 {
-    public class SettingsManager
+    public class ConfigurationManager
     {
         public static ReturnSet<ConfigurationValues> ParseConfiguration(IConfiguration configuration)
         {
