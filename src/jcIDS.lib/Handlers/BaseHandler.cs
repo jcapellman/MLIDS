@@ -9,15 +9,17 @@ using Newtonsoft.Json;
 
 namespace jcIDS.lib.Handlers
 {
-    public class BaseHandler
+    public abstract class BaseHandler
     {
         private readonly string _hostName;
+
+        protected abstract string EndPoint { get; }
 
         /// <summary>
         /// Initializes the BaseHandler with the hostname
         /// </summary>
         /// <param name="hostname"></param>
-        public BaseHandler(string hostname)
+        protected BaseHandler(string hostname)
         {
             _hostName = hostname;
         }
