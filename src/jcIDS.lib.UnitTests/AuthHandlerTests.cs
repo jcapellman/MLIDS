@@ -13,7 +13,7 @@ namespace jcIDS.lib.UnitTests
         [ExpectedException(typeof(ArgumentNullException))]
         public void AuthHandlerTests_NullConstructor()
         {
-            var authHandler = new AuthHandler(null);
+            new AuthHandler(null);
         }
     }
 }
