@@ -23,13 +23,15 @@ namespace jcIDS.web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var settings = ConfigurationManager.ParseConfiguration(Configuration);
+            var configuration = ConfigurationManager.ParseConfiguration(Configuration);
 
-            services.AddSingleton(settings);
+            // TODO Handle Configuration failure with a fall back?
+
+            services.AddSingleton(configuration);
 
             services.AddMemoryCache();
 
-            services.AddDbContext<IDSContext>(options => options.UseSqlServer(settings.DatabaseConnection));
+            services.AddDbContext<IDSContext>(options => options.UseSqlServer(configuration.ObjectValue.DatabaseConnection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
