@@ -21,10 +21,14 @@ namespace jcIDS.web.Controllers
                 return string.Empty;
             }
 
-            var device = new DeviceManager(Cache, DbContext).RegisterDevice(deviceName);
+            var deviceResult = new DeviceManager(Cache, DbContext).RegisterDevice(deviceName);
 
-            return device.Token;
+            if (deviceResult.HasObjectError || deviceResult.ObjectValue == null)
+            {
+                return null;
+            }
 
+            return deviceResult.ObjectValue.Token;
         }
     }
 }
