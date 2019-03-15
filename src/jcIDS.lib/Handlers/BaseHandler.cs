@@ -21,6 +21,11 @@ namespace jcIDS.lib.Handlers
         /// <param name="hostname"></param>
         protected BaseHandler(string hostname)
         {
+            if (string.IsNullOrEmpty(hostname))
+            {
+                throw new ArgumentNullException(nameof(hostname));
+            }
+
             _hostName = hostname;
         }
 
