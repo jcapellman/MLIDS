@@ -47,6 +47,30 @@ namespace jcIDS.web.Managers
             }
         }
 
+        /// <summary>
+        /// Attempts to retrieve the model for a particular device
+        /// </summary>
+        /// <param name="deviceId">Device Id to return the model for</param>
+        /// <returns>ML.NET Model for the given device, otherwise null</returns>
+        public ReturnSet<byte[]> GetDeviceModel(int deviceId)
+        {
+            try
+            {
+                var device = _idsContext.Devices.FirstOrDefault(a => a.ID == deviceId && a.Active);
+
+                if (device == null)
+                {
+                    throw new Exception($"{deviceId} was not found in the database");
+                }
+
+                return new ReturnSet<byte[]>(device.Model);
+            }
+            catch (Exception ex)
+            {
+                return new ReturnSet<byte[]>(ex, $"Failed to get model for Device {deviceId}");
+            }
+        }
+
         public ReturnSet<Devices> RegisterDevice(string deviceName)
         {
             try
