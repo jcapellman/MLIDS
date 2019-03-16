@@ -21,13 +21,13 @@ namespace jcIDS.web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            if (!File.Exists(Common.Constants.FILENAME_SETTINGS))
+            if (!File.Exists(Common.Constants.FILENAME_CONFIGURATION))
             {
-                ConfigurationManager.WriteDefaultConfiguration(Path.Combine(AppContext.BaseDirectory, Common.Constants.FILENAME_SETTINGS));
+                ConfigurationManager.WriteDefaultConfiguration(Path.Combine(AppContext.BaseDirectory, Common.Constants.FILENAME_CONFIGURATION));
             }
 
             var config = new ConfigurationBuilder()
-                .AddJsonFile(Common.Constants.FILENAME_SETTINGS)
+                .AddJsonFile(Common.Constants.FILENAME_CONFIGURATION)
                 .Build();
 
             return WebHost.CreateDefaultBuilder(args)

@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string FILENAME_SETTINGS = "settings.json";
+        public const string FILENAME_CONFIGURATION = "configuration.json";
     }
 }
