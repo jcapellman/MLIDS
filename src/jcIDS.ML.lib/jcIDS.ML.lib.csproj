@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.ML" Version="0.11.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\jcIDS.lib\jcIDS.lib.csproj" />
+  </ItemGroup>
+
 </Project>
