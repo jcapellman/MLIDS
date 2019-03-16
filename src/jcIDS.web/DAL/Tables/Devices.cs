@@ -7,5 +7,7 @@ namespace jcIDS.web.DAL.Tables
         public string Name { get; set; }
 
         public string Token { get; set; }
+
+        public byte[] Model { get; set; }
     }
 }
