@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 using jcIDS.web.DAL.Tables;
 using jcIDS.web.DAL.Tables.Base;
@@ -16,13 +18,13 @@ namespace jcIDS.web.DAL
 
         public IDSContext(DbContextOptions options) : base(options) { }
 
-        public override int SaveChanges()
+        private bool BaseModifiyLogic()
         {
             var changeSet = ChangeTracker.Entries<BaseTable>();
 
             if (changeSet == null)
             {
-                return base.SaveChanges();
+                return false;
             }
 
             foreach (var entry in changeSet.Where(c => c.State != EntityState.Unchanged))
@@ -41,7 +43,19 @@ namespace jcIDS.web.DAL
                 }
             }
 
-            return base.SaveChanges();
+            return true;
+        }
+
+        public override int SaveChanges() => !BaseModifiyLogic() ? 0 : base.SaveChanges();
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            if (!BaseModifiyLogic())
+            {
+                return 0;
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
