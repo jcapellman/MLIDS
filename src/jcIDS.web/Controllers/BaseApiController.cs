@@ -7,6 +7,8 @@ using jcIDS.web.Objects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
+using NLog;
+
 namespace jcIDS.web.Controllers
 {
     [Route("api/[controller]")]
@@ -16,6 +18,8 @@ namespace jcIDS.web.Controllers
         protected IMemoryCache Cache;
         protected IDSContext DbContext;
         protected ConfigurationValues Configuration;
+
+        protected NLog.Logger Log = LogManager.GetCurrentClassLogger();
 
         public BaseApiController(IMemoryCache memoryCache, IDSContext dbContext, ConfigurationValues configuration)
         {
