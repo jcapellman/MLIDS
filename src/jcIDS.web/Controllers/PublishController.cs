@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using jcIDS.lib.RESTObjects;
 
 using jcIDS.web.DAL;
-using jcIDS.web.DAL.Tables;
+using jcIDS.web.Managers;
 using jcIDS.web.Objects;
 
 using Microsoft.AspNetCore.Mvc;
@@ -17,20 +16,11 @@ namespace jcIDS.web.Controllers
         public PublishController(IMemoryCache memoryCache, IDSContext dbContext, ConfigurationValues configuration) : base(memoryCache, dbContext, configuration) { }
 
         [HttpPost]
-        public async Task Post(PacketRequestItem requestItem)
+        public async Task<bool> Post(PacketRequestItem requestItem)
         {
             var deviceId = GetDeviceIdFromToken(requestItem.DeviceToken);
 
-            var tasks = new List<Task>();
-
-            foreach (var packet in requestItem.Packets)
-            {
-                tasks.Add(DbContext.Packets.AddAsync(new Packets(packet, deviceId)));
-            }
-
-            await Task.WhenAll(tasks);
-
-            await DbContext.SaveChangesAsync();
+            return await new PacketManager(DbContext).StorePacketsAsync(requestItem.Packets, deviceId);
         }
     }
 }
