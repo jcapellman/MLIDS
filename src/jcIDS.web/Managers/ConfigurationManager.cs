@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 using jcIDS.lib.CommonObjects;
 using jcIDS.web.Objects;
 
 using Microsoft.Extensions.Configuration;
+
+using Newtonsoft.Json;
 
 namespace jcIDS.web.Managers
 {
@@ -31,6 +34,11 @@ namespace jcIDS.web.Managers
             {
                 return new ReturnSet<ConfigurationValues>(ex, "Failed to parse configuration file");
             }
+        }
+
+        public static void WriteDefaultConfiguration(string fileName)
+        {
+            File.WriteAllText(fileName, JsonConvert.SerializeObject(new ConfigurationValues()));
         }
     }
 }
