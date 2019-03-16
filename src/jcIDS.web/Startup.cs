@@ -43,6 +43,8 @@ namespace jcIDS.web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            
             app.UseMvc();
         }
     }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jcIDS.web", "jcIDS.web\jcID
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jcIDS.ML.lib", "jcIDS.ML.lib\jcIDS.ML.lib.csproj", "{61127FA4-A077-4F8E-B02D-EC7880CE984C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcIDS.lib.UnitTests", "jcIDS.lib.UnitTests\jcIDS.lib.UnitTests.csproj", "{ED3F6D2C-937E-456E-A780-FAC6F987C98F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jcIDS.lib.UnitTests", "jcIDS.lib.UnitTests\jcIDS.lib.UnitTests.csproj", "{ED3F6D2C-937E-456E-A780-FAC6F987C98F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
