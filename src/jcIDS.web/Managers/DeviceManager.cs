@@ -53,9 +53,6 @@ namespace jcIDS.web.Managers
             {
                 var device = new Devices
                 {
-                    Active = true,
-                    Created = DateTimeOffset.Now,
-                    Modified = DateTimeOffset.Now,
                     Name = deviceName,
                     Token = deviceName.SHA1()
                 };
