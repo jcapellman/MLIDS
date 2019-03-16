@@ -1,5 +1,7 @@
 ﻿using System.Net.Sockets;
 
+using Newtonsoft.Json;
+
 namespace jcIDS.lib.CommonObjects
 {
     public class Packet
@@ -41,5 +43,7 @@ namespace jcIDS.lib.CommonObjects
 
         public override string ToString() =>
             $"{OriginationAddress}:{OriginationPort} ({Protocol}) - {DestinationAddress}:{DestinationPort} - {PacketLength}";
+
+        public string ToJSON() => JsonConvert.SerializeObject(this);
     }
 }
