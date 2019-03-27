@@ -6,6 +6,7 @@ using System.Net.Sockets;
 
 using jcIDS.lib.Common;
 using jcIDS.lib.CommonObjects;
+using jcIDS.lib.Enums;
 using jcIDS.lib.Helpers;
 using jcIDS.lib.Objects;
 
@@ -41,7 +42,7 @@ namespace jcIDS.lib.Managers
             }
         }
 
-        private void Initialize()
+        private ReturnSet<SocketCreationStatusCode> Initialize()
         {
             var (networkInterface, exception) = GetNetworkInterface();
 
@@ -60,15 +61,17 @@ namespace jcIDS.lib.Managers
 
             var socketException = CreateAndBindSocket(ipAddress.Address);
 
-            if (socketException != null)
+            if (socketException.HasObjectError || socketException.ObjectValue != SocketCreationStatusCode.OK)
             {
-                throw new Exception($"Error while binding socket {socketException}");
+                return socketException;
             }
 
             _initialized = true;
+
+            return socketException;
         }
 
-        private Exception CreateAndBindSocket(IPAddress ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
+        private ReturnSet<SocketCreationStatusCode> CreateAndBindSocket(IPAddress ip, int port = 0, ProtocolType protocol = ProtocolType.IP)
         {
             try
             {
@@ -81,11 +84,17 @@ namespace jcIDS.lib.Managers
 
                 _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, 1);
 
-                return null;
+                return new ReturnSet<SocketCreationStatusCode>(SocketCreationStatusCode.OK);
             }
-            catch (Exception exception)
+            catch (SocketException sException)
             {
-                return exception;
+                return sException.ErrorCode == (int) SocketError.AccessDenied ?
+                    new ReturnSet<SocketCreationStatusCode>(SocketCreationStatusCode.ACCESS_DENIED) : 
+                    new ReturnSet<SocketCreationStatusCode>(sException, sException.StackTrace);
+            }
+            catch (Exception)
+            {
+                return new ReturnSet<SocketCreationStatusCode>(SocketCreationStatusCode.UNKNOWN);
             }
         }
 
@@ -125,23 +134,28 @@ namespace jcIDS.lib.Managers
             OnPacketArrival(e);
         }
 
-        public (bool success, Exception exception) Run()
+        public ReturnSet<SocketCreationStatusCode> Run()
         {
             try
             {
                 if (!_initialized)
                 {
-                    Initialize();
+                    var result = Initialize();
+
+                    if (result.HasObjectError || result.ObjectValue != SocketCreationStatusCode.OK)
+                    {
+                        return result;
+                    }
                 }
 
                 _socket.BeginReceive(_receiveBufBytes, 0, Constants.RECEIVE_BUFFER_LENGTH, SocketFlags.None, CallReceive,
                     this);
 
-                return (true, null);
+                return new ReturnSet<SocketCreationStatusCode>(SocketCreationStatusCode.OK);
             }
             catch (Exception ex)
             {
-                return (false, ex);
+                return new ReturnSet<SocketCreationStatusCode>(ex, "Failed to Create Socket");
             }
         }
 
