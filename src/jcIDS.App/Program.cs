@@ -1,6 +1,7 @@
 ﻿using System;
 
 using jcIDS.lib.CommonObjects;
+using jcIDS.lib.Enums;
 using jcIDS.lib.Managers;
 
 namespace jcIDS.app
@@ -13,14 +14,24 @@ namespace jcIDS.app
             {
                 sListener.PacketArrival += PacketArrival;
 
-                var (success, exception) = sListener.Run();
+                var runResult = sListener.Run();
 
-                if (!success)
+                if (runResult.ObjectValue != SocketCreationStatusCode.OK)
                 {
-                    Console.Write(exception);
+                    switch (runResult.ObjectValue)
+                    {
+                        case SocketCreationStatusCode.ACCESS_DENIED:
+                            Console.WriteLine("Access Denied, are you running as Administrator/root?");
+                            break;
+                        case SocketCreationStatusCode.UNKNOWN:
+                            Console.WriteLine(runResult.HasObjectError
+                                ? $"Run Error: {runResult.ObjectException}"
+                                : "Unknown Error Occurred");
+                            break;
+                    }
                 }
 
-                Console.ReadLine();
+                Console.ReadKey();
             }
         }
 
