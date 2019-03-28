@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace jcIDS.lib.Handlers
 {
-    public abstract class BaseHandler
+    public abstract class BaseHandler : IDisposable
     {
         private readonly string _hostName;
 
@@ -69,6 +69,10 @@ namespace jcIDS.lib.Handlers
             {
                 return new ReturnSet<TK>(ex, $"URL: {requestUrl} | Response: {responseText}");
             }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
