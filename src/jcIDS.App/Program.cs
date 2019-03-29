@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using jcIDS.app.Managers;
 using jcIDS.lib.CommonObjects;
 using jcIDS.lib.Enums;
 using jcIDS.lib.Handlers;
@@ -29,6 +29,8 @@ namespace jcIDS.app
 
         static async Task Main(string[] args)
         {
+            var settings = SettingsManager.LoadSettings();
+
             var authResult = await AuthenticateAsync("", "");
 
             if (!authResult)
