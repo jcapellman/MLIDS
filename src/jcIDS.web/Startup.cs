@@ -38,11 +38,9 @@ namespace jcIDS.web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+#if DEBUG
+            app.UseDeveloperExceptionPage();
+#endif
             app.UseStaticFiles();
             
             app.UseMvc();
