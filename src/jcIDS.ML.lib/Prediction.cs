@@ -27,7 +27,7 @@ namespace jcIDS.ML.lib
                 trainedModel = _mlContext.Model.Load(ms, out inputSchema);
             }
 
-            var predFunction = trainedModel.CreatePredictionEngine<Packet, PredictionResult>(_mlContext);
+            var predFunction = _mlContext.Model.CreatePredictionEngine<Packet, PredictionResult>(trainedModel);
 
             var prediction = predFunction.Predict(packet);
 
