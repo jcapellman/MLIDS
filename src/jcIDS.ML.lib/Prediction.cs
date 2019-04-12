@@ -22,7 +22,9 @@ namespace jcIDS.ML.lib
 
             using (var ms = new MemoryStream(model))
             {
-                trainedModel = _mlContext.Model.Load(ms);
+                DataViewSchema inputSchema;
+                
+                trainedModel = _mlContext.Model.Load(ms, out inputSchema);
             }
 
             var predFunction = trainedModel.CreatePredictionEngine<Packet, PredictionResult>(_mlContext);
