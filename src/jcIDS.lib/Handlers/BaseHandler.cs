@@ -57,7 +57,7 @@ namespace jcIDS.lib.Handlers
 
                     requestUrl = BuildUrl(url);
 
-                    var result = await httpClient.PostAsync(url,
+                    var result = await httpClient.PostAsync(requestUrl,
                         new StringContent(data, Encoding.UTF8, "application/json"));
 
                     responseText = await result.Content.ReadAsStringAsync();
