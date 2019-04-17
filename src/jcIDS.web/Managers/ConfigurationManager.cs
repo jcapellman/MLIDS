@@ -25,7 +25,9 @@ namespace jcIDS.web.Managers
                 {
                     var propertyValue = configuration[property.Name];
 
-                    property.SetValue(config, propertyValue);
+                    var propertyVal = Convert.ChangeType(propertyValue, property.PropertyType);
+
+                    property.SetValue(config, propertyVal);
                 }
 
                 return new ReturnSet<ConfigurationValues>(config);
