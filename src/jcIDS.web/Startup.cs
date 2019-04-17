@@ -27,7 +27,7 @@ namespace jcIDS.web
 
             // TODO Handle Configuration failure with a fall back?
 
-            services.AddSingleton(configuration);
+            services.AddSingleton(configuration.ObjectValue);
 
             services.AddMemoryCache();
 
