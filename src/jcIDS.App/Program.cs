@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+    
+using jcIDS.app.Common;
 using jcIDS.app.Managers;
 using jcIDS.lib.CommonObjects;
 using jcIDS.lib.Enums;
@@ -31,7 +33,16 @@ namespace jcIDS.app
         {
             var settings = SettingsManager.LoadSettings();
 
-            var authResult = await AuthenticateAsync("", "");
+            if (settings == null)
+            {
+                settings = new Settings();
+
+                Console.WriteLine("Settings not set, using defaults...");
+            }
+
+            Console.WriteLine($"Using {settings.WebServiceURL} to authenticate...");
+
+            var authResult = await AuthenticateAsync(Environment.MachineName, settings.WebServiceURL);
 
             if (!authResult)
             {
