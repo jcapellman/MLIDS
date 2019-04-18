@@ -14,7 +14,7 @@ namespace jcIDS.web.Controllers
         }
 
         [HttpPost]
-        public string Post(string deviceName)
+        public string Post([FromBody]string deviceName)
         {
             if (!Configuration.AutoDeviceAdoption)
             {

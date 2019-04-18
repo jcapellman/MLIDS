@@ -53,12 +53,11 @@ namespace jcIDS.lib.Handlers
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var data = JsonConvert.SerializeObject(dataToPost);
+                    var content = new StringContent(JsonConvert.SerializeObject(dataToPost), Encoding.UTF8, "application/json");
 
                     requestUrl = BuildUrl(url);
 
-                    var result = await httpClient.PostAsync(requestUrl,
-                        new StringContent(data, Encoding.UTF8, "application/json"));
+                    var result = await httpClient.PostAsync(requestUrl, content);
 
                     responseText = await result.Content.ReadAsStringAsync();
 
