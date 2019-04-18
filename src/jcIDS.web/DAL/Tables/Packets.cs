@@ -28,6 +28,8 @@ namespace jcIDS.web.DAL.Tables
 
         public int DeviceID { get; set; }
 
+        public Packets() { }
+
         public Packets(Packet packet, int deviceID)
         {
             Protocol = packet.Protocol;
