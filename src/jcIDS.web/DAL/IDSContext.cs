@@ -16,7 +16,10 @@ namespace jcIDS.web.DAL
 
         public DbSet<Packets> Packets { get; set; }
 
-        public IDSContext(DbContextOptions options) : base(options) { }
+        public IDSContext(DbContextOptions options) : base(options)
+        {
+            Database.Migrate();
+        }
 
         private bool BaseModifiyLogic()
         {
