@@ -33,17 +33,15 @@ namespace jcIDS.web
 
             services.AddDbContext<IDSContext>(options => options.UseSqlServer(configuration.ObjectValue.DatabaseConnection));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 #if DEBUG
             app.UseDeveloperExceptionPage();
 #endif
             app.UseStaticFiles();
-            
-            app.UseMvc();
         }
     }
 }

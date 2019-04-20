@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using jcIDS.lib.CommonObjects;
@@ -18,14 +19,7 @@ namespace jcIDS.web.Managers
 
         public async Task<bool> StorePacketsAsync(List<Packet> packets, int deviceId)
         {
-            var tasks = new List<Task>();
-
-            foreach (var packet in packets)
-            {
-                tasks.Add(_dbContext.Packets.AddAsync(new Packets(packet, deviceId)));
-            }
-
-            await Task.WhenAll(tasks);
+            await _dbContext.Packets.AddRangeAsync(packets.Select(a => new Packets(a, deviceId)));
 
             var result = await _dbContext.SaveChangesAsync();
 
