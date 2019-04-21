@@ -74,20 +74,23 @@ namespace jcIDS.app
             {
                 sListener.PacketArrival += PacketArrival;
 
-                var runResult = sListener.Run();
-
-                if (runResult.ObjectValue != SocketCreationStatusCode.OK)
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    switch (runResult.ObjectValue)
+                    var runResult = sListener.Run();
+
+                    if (runResult.ObjectValue != SocketCreationStatusCode.OK)
                     {
-                        case SocketCreationStatusCode.ACCESS_DENIED:
-                            Console.WriteLine("Access Denied, are you running as Administrator/root?");
-                            break;
-                        case SocketCreationStatusCode.UNKNOWN:
-                            Console.WriteLine(runResult.HasObjectError
-                                ? $"Run Error: {runResult.ObjectException}"
-                                : "Unknown Error Occurred");
-                            break;
+                        switch (runResult.ObjectValue)
+                        {
+                            case SocketCreationStatusCode.ACCESS_DENIED:
+                                Console.WriteLine("Access Denied, are you running as Administrator/root?");
+                                break;
+                            case SocketCreationStatusCode.UNKNOWN:
+                                Console.WriteLine(runResult.HasObjectError
+                                    ? $"Run Error: {runResult.ObjectException}"
+                                    : "Unknown Error Occurred");
+                                break;
+                        }
                     }
                 }
             }
