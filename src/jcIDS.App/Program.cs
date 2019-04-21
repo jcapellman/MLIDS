@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
     
 using jcIDS.app.Common;
@@ -7,11 +9,14 @@ using jcIDS.lib.CommonObjects;
 using jcIDS.lib.Enums;
 using jcIDS.lib.Handlers;
 using jcIDS.lib.Managers;
+using jcIDS.lib.RESTObjects;
 
 namespace jcIDS.app
 {
     class Program
     {
+        private static string DeviceToken;
+
         private static async Task<bool> AuthenticateAsync(string hostName, string webServiceURL)
         {
             using (var authHandler = new AuthHandler(webServiceURL))
@@ -22,6 +27,8 @@ namespace jcIDS.app
                 {
                     return true;
                 }
+
+                DeviceToken = result.ObjectValue;
 
                 Console.WriteLine($"Error occurred registering: {result.ObjectException} | {result.ObjectExceptionInformation}");
 
@@ -51,6 +58,8 @@ namespace jcIDS.app
                 return;
             }
 
+            Console.WriteLine("App is authenticated, starting socket listener...");
+
             using (var sListener = new SocketListener())
             {
                 sListener.PacketArrival += PacketArrival;
@@ -72,13 +81,22 @@ namespace jcIDS.app
                     }
                 }
 
-                Console.ReadKey();
+                while (true) { Thread.Sleep(200); }
             }
         }
 
-        private static void PacketArrival(object sender, Packet packet)
+        private static async void PacketArrival(object sender, Packet packet)
         {
-            Console.WriteLine(packet);
+            using (var pHandler = new PublishHandler(Environment.MachineName))
+            {
+                await pHandler.SubmitPacketAsync(new PacketRequestItem
+                {
+                    Packets = new List<Packet> {packet},
+                    DeviceToken = DeviceToken
+                });
+
+                Console.WriteLine(packet);
+            }
         }
     }
 }
