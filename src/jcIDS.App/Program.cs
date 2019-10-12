@@ -14,7 +14,7 @@ namespace jcIDS.app
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(loggerFactory => loggerFactory.AddEventSourceLogger())
-                .UseServiceBaseLifetime()
+                .UseConsoleLifetime()
                 .ConfigureServices(services =>
                 {
                     services.AddHostedService<Worker>();

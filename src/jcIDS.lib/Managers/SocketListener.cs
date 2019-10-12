@@ -139,7 +139,7 @@ namespace jcIDS.lib.Managers
             try
             {
                 if (!_initialized)
-                {
+                { 
                     var result = Initialize();
 
                     if (result.HasObjectError || result.ObjectValue != SocketCreationStatusCode.OK)
@@ -173,8 +173,6 @@ namespace jcIDS.lib.Managers
             }
 
             Receive(_receiveBufBytes, receivedBytes);
-
-            Run();
         }
 
         public void Dispose()
