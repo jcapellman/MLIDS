@@ -16,10 +16,10 @@ namespace jcIDS.web
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            BuildWebHost(args).Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        public static IWebHost BuildWebHost(string[] args)
         {
             if (!File.Exists(Common.Constants.FILENAME_CONFIGURATION))
             {
@@ -33,12 +33,17 @@ namespace jcIDS.web
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
                 .UseStartup<Startup>()
+                .UseUrls("http://0.0.0.0:5001")
+                .UseKestrel(options => {
+                    options.Limits.MaxRequestBodySize = null;
+                })
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Trace);
                 })
-                .UseNLog();
+                .UseNLog()
+                .Build();
         }
     }
 }
