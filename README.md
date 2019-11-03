@@ -3,7 +3,7 @@
 jcIDS is a Network Intrusion Detection System using Machine Learning.  The original idea behind this several years ago (2014) was to write a C++ brute force network analyzer for a Cobalt Qube (http://www.jarredcapellman.com/2014/3/9/NetBSD-and-a-Cobalt-Qube-2).  Fast forward a few years and my own shift to utilizing Machine Learning everyday professionally it seemed like a perfect fit.
 
 ## Overview
-* .NET Core 3.0 Daemon to record and pipe up the traffic (Core component available via NuGet, https://www.nuget.org/packages/jcIDS/0.0.1)
+* Windows NDIS Filter Driver (Windows 10/2016/2019)
 * ASP.NET Core 3.0 REST Service to record the traffic from the endpoint
 * .NET Core 3.0 Daemon to build and train models with ML.NET on if the traffic is malicious or not and
 * ASP.NET Core 3.0 MVC App to show metrics and alerts
