@@ -6,7 +6,7 @@ namespace MLIDS.DataCapture
 {
     public partial class MainWindow : Window
     {
-        private MainViewModel VM => (MainViewModel)DataContext;
+        private MainViewModel Vm => (MainViewModel)DataContext;
 
         public MainWindow()
         {
@@ -15,12 +15,12 @@ namespace MLIDS.DataCapture
 
         private void btnStartCapturing_Click(object sender, RoutedEventArgs e)
         {
-            VM.StartCapture();
+            Vm.StartCapture();
         }
 
         private void btnStopCapturing_Click(object sender, RoutedEventArgs e)
         {
-
+            Vm.StopCapture();
         }
     }
 }

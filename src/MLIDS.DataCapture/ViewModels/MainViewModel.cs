@@ -11,6 +11,34 @@ namespace MLIDS.DataCapture.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private bool _startBtnEnabled;
+
+        public bool StartBtnEnabled
+        {
+            get => _startBtnEnabled;
+
+            set
+            {
+                _startBtnEnabled = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _stopBtnEnabled;
+
+        public bool StopBtnEnabled
+        {
+            get => _stopBtnEnabled;
+
+            set
+            {
+                _stopBtnEnabled = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private List<ICaptureDevice> _deviceList = new List<ICaptureDevice>();
 
         public List<ICaptureDevice> DeviceList
@@ -58,19 +86,33 @@ namespace MLIDS.DataCapture.ViewModels
             DeviceList = CaptureDeviceList.Instance.ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
+
+            StartBtnEnabled = true;
+            StopBtnEnabled = false;
         }
 
         public void StartCapture()
         {
+            StartBtnEnabled = false;
+            StopBtnEnabled = true;
+
             if (SelectedDevice is NpcapDevice)
             {
                 var nPcap = SelectedDevice as NpcapDevice;
 
-                nPcap.Open(SharpPcap.Npcap.OpenFlags.DataTransferUdp | SharpPcap.Npcap.OpenFlags.NoCaptureLocal, 1000);
+                nPcap?.Open(SharpPcap.Npcap.OpenFlags.DataTransferUdp | SharpPcap.Npcap.OpenFlags.NoCaptureLocal, 1000);
             }
 
             SelectedDevice.OnPacketArrival += new PacketArrivalEventHandler(device_OnPacketArrival);
             SelectedDevice.StartCapture();
+        }
+
+        public void StopCapture()
+        {
+            SelectedDevice.StopCapture();
+
+            StartBtnEnabled = true;
+            StopBtnEnabled = false;
         }
 
         private void device_OnPacketArrival(object sender, CaptureEventArgs e)
