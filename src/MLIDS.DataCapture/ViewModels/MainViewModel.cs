@@ -103,13 +103,19 @@ namespace MLIDS.DataCapture.ViewModels
                 nPcap?.Open(SharpPcap.Npcap.OpenFlags.DataTransferUdp | SharpPcap.Npcap.OpenFlags.NoCaptureLocal, 1000);
             }
 
-            SelectedDevice.OnPacketArrival += new PacketArrivalEventHandler(device_OnPacketArrival);
+            SelectedDevice.OnPacketArrival += device_OnPacketArrival;
             SelectedDevice.StartCapture();
         }
 
         public void StopCapture()
         {
-            SelectedDevice.StopCapture();
+            try
+            {
+                SelectedDevice.OnPacketArrival -= device_OnPacketArrival;
+
+                SelectedDevice.StopCapture();
+                SelectedDevice.Close();
+            } catch (Exception) { }
 
             StartBtnEnabled = true;
             StopBtnEnabled = false;
