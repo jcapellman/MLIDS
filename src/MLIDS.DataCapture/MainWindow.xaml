@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Content="Device List" />
-            <ComboBox Grid.Row="1" ItemsSource="{Binding DeviceList, Mode=TwoWay}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}" DisplayMemberPath="Description" />
+            <ComboBox Grid.Row="1" ItemsSource="{Binding DeviceList, Mode=TwoWay}" IsEnabled="{Binding DeviceSelectionEnabled, Mode=TwoWay}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}" DisplayMemberPath="Description" />
         </Grid>
 
         <Grid Grid.Row="1" HorizontalAlignment="Center">
@@ -37,7 +37,7 @@
             <Button Grid.Column="1" Click="btnStopCapturing_Click" IsEnabled="{Binding StopBtnEnabled, Mode=TwoWay}" Content="Stop Capturing" Margin="10,10,10,10" Width="150" />
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="10,0,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
