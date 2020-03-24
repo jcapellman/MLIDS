@@ -25,6 +25,20 @@ namespace MLIDS.DataCapture.ViewModels
             }
         }
 
+        private bool _deviceSelectionEnabled;
+
+        public bool DeviceSelectionEnabled
+        {
+            get => _deviceSelectionEnabled;
+
+            set
+            {
+                _deviceSelectionEnabled = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private bool _stopBtnEnabled;
 
         public bool StopBtnEnabled
@@ -89,12 +103,14 @@ namespace MLIDS.DataCapture.ViewModels
 
             StartBtnEnabled = true;
             StopBtnEnabled = false;
+            DeviceSelectionEnabled = true;
         }
 
         public void StartCapture()
         {
             StartBtnEnabled = false;
             StopBtnEnabled = true;
+            DeviceSelectionEnabled = false;
 
             if (SelectedDevice is NpcapDevice)
             {
@@ -119,13 +135,25 @@ namespace MLIDS.DataCapture.ViewModels
 
             StartBtnEnabled = true;
             StopBtnEnabled = false;
+            DeviceSelectionEnabled = true;
         }
 
         private void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                Packets.Add(e.Packet.ToString());
+                var packet = PacketDotNet.Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+
+                var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
+
+                if (tcpPacket == null)
+                {
+                    return;
+                }
+
+                var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
+
+                Packets.Add($"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort}");
             });
         }
 
