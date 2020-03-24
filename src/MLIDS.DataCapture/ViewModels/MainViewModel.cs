@@ -116,10 +116,10 @@ namespace MLIDS.DataCapture.ViewModels
             {
                 var nPcap = SelectedDevice as NpcapDevice;
 
-                nPcap?.Open(SharpPcap.Npcap.OpenFlags.DataTransferUdp | SharpPcap.Npcap.OpenFlags.NoCaptureLocal, 1000);
+                nPcap?.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, 1000);
             }
 
-            SelectedDevice.OnPacketArrival += device_OnPacketArrival;
+            SelectedDevice.OnPacketArrival += Device_OnPacketArrival;
             SelectedDevice.StartCapture();
         }
 
@@ -127,7 +127,7 @@ namespace MLIDS.DataCapture.ViewModels
         {
             try
             {
-                SelectedDevice.OnPacketArrival -= device_OnPacketArrival;
+                SelectedDevice.OnPacketArrival -= Device_OnPacketArrival;
 
                 SelectedDevice.StopCapture();
                 SelectedDevice.Close();
@@ -138,9 +138,9 @@ namespace MLIDS.DataCapture.ViewModels
             DeviceSelectionEnabled = true;
         }
 
-        private void device_OnPacketArrival(object sender, CaptureEventArgs e)
+        private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 var packet = PacketDotNet.Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
 
@@ -153,7 +153,7 @@ namespace MLIDS.DataCapture.ViewModels
 
                 var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
 
-                Packets.Add($"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort}");
+                Packets.Add($"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} - Packet Length: {tcpPacket.TotalPacketLength}");
             });
         }
 
