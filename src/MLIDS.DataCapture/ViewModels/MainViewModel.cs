@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-
+using Microsoft.Win32;
 using SharpPcap;
 using SharpPcap.Npcap;
 
@@ -11,6 +12,36 @@ namespace MLIDS.DataCapture.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private string _fileName;
+
+        private bool _enableFileStream;
+
+        public bool EnableFileStream
+        {
+            get => _enableFileStream;
+
+            set
+            {
+                _enableFileStream = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _chkBxSaveEnabled;
+
+        public bool ChkBxSaveEnabled
+        {
+            get => _chkBxSaveEnabled;
+
+            set
+            {
+                _chkBxSaveEnabled = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private bool _startBtnEnabled;
 
         public bool StartBtnEnabled
@@ -104,6 +135,7 @@ namespace MLIDS.DataCapture.ViewModels
             StartBtnEnabled = true;
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
+            ChkBxSaveEnabled = true;
         }
 
         public void StartCapture()
@@ -111,7 +143,26 @@ namespace MLIDS.DataCapture.ViewModels
             StartBtnEnabled = false;
             StopBtnEnabled = true;
             DeviceSelectionEnabled = false;
+            ChkBxSaveEnabled = false;
 
+            if (EnableFileStream)
+            {
+                var saveDialog = new SaveFileDialog
+                {
+                    Filter = "LOG File|*.log", Title = "Save a Log File"
+                };
+
+                saveDialog.ShowDialog();
+
+                if (string.IsNullOrEmpty(saveDialog.FileName))
+                {
+                    StopCapture();
+
+                    return;
+                }
+
+                _fileName = saveDialog.FileName;
+            }
             if (SelectedDevice is NpcapDevice)
             {
                 var nPcap = SelectedDevice as NpcapDevice;
@@ -136,6 +187,7 @@ namespace MLIDS.DataCapture.ViewModels
             StartBtnEnabled = true;
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
+            ChkBxSaveEnabled = true;
         }
 
         private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
@@ -153,7 +205,15 @@ namespace MLIDS.DataCapture.ViewModels
 
                 var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
 
-                Packets.Add($"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} - Packet Length: {tcpPacket.TotalPacketLength}");
+                var line =
+                    $"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} - Packet Length: {tcpPacket.TotalPacketLength}";
+
+                if (!string.IsNullOrEmpty(_fileName))
+                {
+                    File.AppendAllText(_fileName, line);
+                }
+
+                Packets.Add(line);
             });
         }
 

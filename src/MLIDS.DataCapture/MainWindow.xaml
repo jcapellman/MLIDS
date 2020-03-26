@@ -33,8 +33,23 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Click="btnStartCapturing_Click" IsEnabled="{Binding StartBtnEnabled, Mode=TwoWay}" Content="Start Capturing" Margin="10,10,10,10" Width="150" />
-            <Button Grid.Column="1" Click="btnStopCapturing_Click" IsEnabled="{Binding StopBtnEnabled, Mode=TwoWay}" Content="Stop Capturing" Margin="10,10,10,10" Width="150" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Save Stream to disk" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="1" IsEnabled="{Binding ChkBxSaveEnabled, Mode=TwoWay}" VerticalAlignment="Center" IsChecked="{Binding EnableFileStream, Mode=TwoWay}" />
+            </Grid>
+
+            <Button Grid.Row="1" Grid.Column="0" Click="btnStartCapturing_Click" IsEnabled="{Binding StartBtnEnabled, Mode=TwoWay}" Content="Start Capturing" Margin="10,10,10,10" Width="150" />
+            <Button Grid.Row="1" Grid.Column="1" Click="btnStopCapturing_Click" IsEnabled="{Binding StopBtnEnabled, Mode=TwoWay}" Content="Stop Capturing" Margin="10,10,10,10" Width="150" />
         </Grid>
 
         <Grid Grid.Row="2" Margin="10,0,10,10">
