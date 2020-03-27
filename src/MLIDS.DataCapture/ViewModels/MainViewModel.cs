@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 
 using Microsoft.Win32;
+
 using PacketDotNet;
+
 using SharpPcap;
 using SharpPcap.Npcap;
 
@@ -193,8 +195,15 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
+        private static string PacketToString(byte[] packetContent) => BitConverter.ToString(packetContent);
+
         private string GetPacket(Packet packet)
         {
+            if (!(packet is IPv4Packet))
+            {
+                return string.Empty;
+            }
+
             var ipPacket = (IPv4Packet) packet;
 
             var line = string.Empty;
@@ -206,14 +215,14 @@ namespace MLIDS.DataCapture.ViewModels
                     
                     line =
                         $"TCP: {ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} " +
-                        $"- Packet Length: {tcpPacket.TotalPacketLength} - ";
+                        $"- Packet Length: {tcpPacket.TotalPacketLength} - Packet: {PacketToString(tcpPacket.PayloadData)}";
                     break;
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
 
                     line =
                         $"UDP: {ipPacket.SourceAddress}:{udpPacket.SourcePort} to {ipPacket.DestinationAddress}:{udpPacket.DestinationPort} " +
-                        $"- Packet Length: {udpPacket.TotalPacketLength} - ";
+                        $"- Packet Length: {udpPacket.TotalPacketLength} - Packet: {PacketToString(udpPacket.PayloadData)}";
                     break;
             }
 
@@ -224,7 +233,7 @@ namespace MLIDS.DataCapture.ViewModels
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                var packet = PacketDotNet.Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+                var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
 
                 if (!packet.HasPayloadPacket)
                 {
@@ -232,6 +241,11 @@ namespace MLIDS.DataCapture.ViewModels
                 }
 
                 var line = GetPacket(packet);
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    return;
+                }
 
                 if (!string.IsNullOrEmpty(_fileName))
                 {
