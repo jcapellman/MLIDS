@@ -1,6 +1,6 @@
-﻿using MLIDS.DataCapture.ViewModels;
+﻿using System.Windows;
 
-using System.Windows;
+using MLIDS.DataCapture.ViewModels;
 
 namespace MLIDS.DataCapture
 {

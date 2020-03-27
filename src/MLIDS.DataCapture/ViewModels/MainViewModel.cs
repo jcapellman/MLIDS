@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+
 using Microsoft.Win32;
+using PacketDotNet;
 using SharpPcap;
 using SharpPcap.Npcap;
 
@@ -163,6 +165,7 @@ namespace MLIDS.DataCapture.ViewModels
 
                 _fileName = saveDialog.FileName;
             }
+
             if (SelectedDevice is NpcapDevice)
             {
                 var nPcap = SelectedDevice as NpcapDevice;
@@ -190,23 +193,45 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
+        private string GetPacket(Packet packet)
+        {
+            var ipPacket = (IPv4Packet) packet;
+
+            var line = string.Empty;
+
+            switch (ipPacket.Protocol)
+            {
+                case ProtocolType.Tcp:
+                    var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
+                    
+                    line =
+                        $"TCP: {ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} " +
+                        $"- Packet Length: {tcpPacket.TotalPacketLength} - ";
+                    break;
+                case ProtocolType.Udp:
+                    var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
+
+                    line =
+                        $"UDP: {ipPacket.SourceAddress}:{udpPacket.SourcePort} to {ipPacket.DestinationAddress}:{udpPacket.DestinationPort} " +
+                        $"- Packet Length: {udpPacket.TotalPacketLength} - ";
+                    break;
+            }
+
+            return line;
+        }
+
         private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 var packet = PacketDotNet.Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
 
-                var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
-
-                if (tcpPacket == null)
+                if (!packet.HasPayloadPacket)
                 {
                     return;
                 }
 
-                var ipPacket = (PacketDotNet.IPPacket)tcpPacket.ParentPacket;
-
-                var line =
-                    $"{ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} - Packet Length: {tcpPacket.TotalPacketLength}";
+                var line = GetPacket(packet);
 
                 if (!string.IsNullOrEmpty(_fileName))
                 {
