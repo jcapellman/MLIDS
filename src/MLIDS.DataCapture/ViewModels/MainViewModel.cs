@@ -250,6 +250,8 @@ namespace MLIDS.DataCapture.ViewModels
                 if (!string.IsNullOrEmpty(_fileName))
                 {
                     File.AppendAllText(_fileName, line);
+
+                    return;
                 }
 
                 Packets.Add(line);
