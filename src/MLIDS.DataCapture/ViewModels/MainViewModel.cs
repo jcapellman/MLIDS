@@ -199,12 +199,12 @@ namespace MLIDS.DataCapture.ViewModels
 
         private string GetPacket(Packet packet)
         {
-            if (!(packet is IPv4Packet))
+            if (!(packet.PayloadPacket is IPv4Packet))
             {
                 return string.Empty;
             }
 
-            var ipPacket = (IPv4Packet) packet;
+            var ipPacket = (IPv4Packet) packet.PayloadPacket;
 
             var line = string.Empty;
 
