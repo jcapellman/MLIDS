@@ -153,7 +153,7 @@ namespace MLIDS.DataCapture.ViewModels
             {
                 var saveDialog = new SaveFileDialog
                 {
-                    Filter = "LOG File|*.log", Title = "Save a Log File"
+                    Filter = "LOG File|*.csv", Title = "Save a Log File"
                 };
 
                 saveDialog.ShowDialog();
@@ -244,7 +244,7 @@ namespace MLIDS.DataCapture.ViewModels
 
                 if (!string.IsNullOrEmpty(_fileName))
                 {
-                    File.AppendAllText(_fileName, line);
+                    File.AppendAllLines(_fileName, new List<string> { line });
 
                     return;
                 }
