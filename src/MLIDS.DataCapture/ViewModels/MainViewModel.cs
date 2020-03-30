@@ -195,7 +195,10 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        private static string PacketToString(byte[] packetContent) => BitConverter.ToString(packetContent);
+        private static string PacketDataToString(byte[] packetContent) => BitConverter.ToString(packetContent);
+
+        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) => 
+            $"{protocolType},{sourcePacket.SourceAddress},{payloadPacket.SourcePort},{sourcePacket.DestinationAddress},{payloadPacket.DestinationPort},{payloadPacket.TotalPacketLength},{payloadPacket.PayloadData.Length},{PacketDataToString(payloadPacket.PayloadData)}";
 
         private string GetPacket(Packet packet)
         {
@@ -206,27 +209,19 @@ namespace MLIDS.DataCapture.ViewModels
 
             var ipPacket = (IPv4Packet) packet.PayloadPacket;
 
-            var line = string.Empty;
-
             switch (ipPacket.Protocol)
             {
                 case ProtocolType.Tcp:
                     var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
-                    
-                    line =
-                        $"TCP: {ipPacket.SourceAddress}:{tcpPacket.SourcePort} to {ipPacket.DestinationAddress}:{tcpPacket.DestinationPort} " +
-                        $"- Packet Length: {tcpPacket.TotalPacketLength} - Packet: {PacketToString(tcpPacket.PayloadData)}";
-                    break;
+
+                    return ToCSV("TCP", ipPacket, tcpPacket);
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
 
-                    line =
-                        $"UDP: {ipPacket.SourceAddress}:{udpPacket.SourcePort} to {ipPacket.DestinationAddress}:{udpPacket.DestinationPort} " +
-                        $"- Packet Length: {udpPacket.TotalPacketLength} - Packet: {PacketToString(udpPacket.PayloadData)}";
-                    break;
+                    return ToCSV("UDP", ipPacket, udpPacket);
             }
 
-            return line;
+            return null;
         }
 
         private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
