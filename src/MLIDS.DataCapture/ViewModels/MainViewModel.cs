@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 
 using Microsoft.Win32;
-
+using MLIDS.lib.Objects;
 using PacketDotNet;
 
 using SharpPcap;
@@ -195,10 +195,8 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        private static string PacketDataToString(byte[] packetContent) => BitConverter.ToString(packetContent);
-
-        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) => 
-            $"{protocolType},{sourcePacket.SourceAddress},{payloadPacket.SourcePort},{sourcePacket.DestinationAddress},{payloadPacket.DestinationPort},{payloadPacket.TotalPacketLength},{payloadPacket.PayloadData.Length},{PacketDataToString(payloadPacket.PayloadData)}";
+        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
+            new PayloadItem(protocolType, sourcePacket, payloadPacket).ToString();
 
         private string GetPacket(Packet packet)
         {

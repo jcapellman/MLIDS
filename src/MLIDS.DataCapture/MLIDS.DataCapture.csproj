@@ -20,4 +20,8 @@
     <PackageReference Include="SharpPcap" Version="5.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
+  </ItemGroup>
+
 </Project>

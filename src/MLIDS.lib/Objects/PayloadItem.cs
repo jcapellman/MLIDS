@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Reflection;
 using PacketDotNet;
 
 namespace MLIDS.lib.Objects
@@ -22,7 +23,7 @@ namespace MLIDS.lib.Objects
 
         public string PacketContent { get; private set; }
 
-        public PayloadItem(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket)
+        public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket)
         {
             ProtocolType = protocolType;
 
@@ -36,6 +37,23 @@ namespace MLIDS.lib.Objects
             PayloadSize = payloadPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
+        }
+
+        public override string ToString()
+        {
+            var members = typeof(PayloadItem).GetMembers(BindingFlags.Public);
+
+            var properties = new List<string>();
+
+            foreach (var member in members)
+            {
+                if (member is FieldInfo fieldInfo)
+                {
+                    properties.Add(fieldInfo.GetValue(this).ToString());
+                }
+            }
+
+            return string.Join(',', properties);
         }
     }
 }
