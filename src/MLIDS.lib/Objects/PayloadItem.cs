@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
+
 using PacketDotNet;
 
 namespace MLIDS.lib.Objects
@@ -39,21 +39,7 @@ namespace MLIDS.lib.Objects
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
         }
 
-        public override string ToString()
-        {
-            var members = typeof(PayloadItem).GetMembers(BindingFlags.Public);
-
-            var properties = new List<string>();
-
-            foreach (var member in members)
-            {
-                if (member is FieldInfo fieldInfo)
-                {
-                    properties.Add(fieldInfo.GetValue(this).ToString());
-                }
-            }
-
-            return string.Join(',', properties);
-        }
+        public override string ToString() => 
+            string.Join(',', typeof(PayloadItem).GetProperties().Select(property => property.GetValue(this).ToString()));
     }
 }
