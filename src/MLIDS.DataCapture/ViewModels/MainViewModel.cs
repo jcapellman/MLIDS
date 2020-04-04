@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 
 using Microsoft.Win32;
+using MLIDS.lib.Extensions;
 using MLIDS.lib.Objects;
 using PacketDotNet;
 
@@ -196,7 +197,7 @@ namespace MLIDS.DataCapture.ViewModels
         }
 
         private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket).ToString();
+            new PayloadItem(protocolType, sourcePacket, payloadPacket).ToCSV<PayloadItem>();
 
         private string GetPacket(Packet packet)
         {

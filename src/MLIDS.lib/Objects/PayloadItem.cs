@@ -38,8 +38,5 @@ namespace MLIDS.lib.Objects
 
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
         }
-
-        public override string ToString() => 
-            string.Join(',', typeof(PayloadItem).GetProperties().Select(property => property.GetValue(this).ToString()));
     }
 }
