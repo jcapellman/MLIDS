@@ -1,0 +1,72 @@
+﻿<Window x:Class="MLIDS.ModelTrainer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MLIDS.ModelTrainer" xmlns:viewmodels="clr-namespace:MLIDS.ModelTrainer.ViewModels"
+        mc:Ignorable="d"
+        Title="MLIDS.ModelTrainer" Width="500" Height="600" ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="10,0,10,0">
+            <Label Content="Clean Network Traffic Location" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <Button Grid.Column="1" Content="Select Location..." />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,0">
+            <Label Content="Malicious Network Traffic Location" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <Button Grid.Column="1" Content="Select Location..." />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" Margin="10,0,10,0">
+            <Label Content="Model Output Location" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <Button Grid.Column="1" Content="Select Location..." />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,10,10,10">
+            <Button Content="Train Model" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Margin="10,0,10,10">
+            <TextBlock Text="Model Evaluation" FontWeight="Bold" />
+        </StackPanel>
+    </Grid>
+</Window>
