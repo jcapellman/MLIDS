@@ -66,7 +66,27 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Margin="10,0,10,10">
-            <TextBlock Text="Model Evaluation" FontWeight="Bold" />
+            <TextBlock Text="Model Metrics" FontWeight="Bold" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Area Under ROC Curve: " />
+                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.AreaUnderRocCurve}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Rate of False Positive Count: " />
+                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.DetectionRateAtFalsePositiveCount}" />
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>
