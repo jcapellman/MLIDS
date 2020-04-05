@@ -28,8 +28,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationCleanTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Column="1" Content="Select Location..." />
+                <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationCleanTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" Content="Select Location..." Click="btnCleanLocation_Click" />
             </Grid>
         </StackPanel>
 
@@ -42,7 +42,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationMaliciousTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationMaliciousTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Grid.Column="1" Content="Select Location..." />
             </Grid>
         </StackPanel>
@@ -56,8 +56,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationModelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Column="1" Content="Select Location..." />
+                <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationModelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" Content="Select Location..." Click="btnModelOutput_Click" />
             </Grid>
         </StackPanel>
 

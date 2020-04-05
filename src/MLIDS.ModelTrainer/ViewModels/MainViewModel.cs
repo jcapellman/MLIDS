@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace MLIDS.ModelTrainer.ViewModels
 {
@@ -79,6 +80,24 @@ namespace MLIDS.ModelTrainer.ViewModels
         public MainViewModel()
         {
             UpdateTrainButton();
+        }
+
+        public void SelectModelSaveOutput()
+        {
+            var saveDialog = new SaveFileDialog
+            {
+                Filter = "Model|*.mdl",
+                Title = "Save Model"
+            };
+
+            saveDialog.ShowDialog();
+
+            if (string.IsNullOrEmpty(saveDialog.FileName))
+            {
+                return;
+            }
+
+            LocationModelFile = saveDialog.FileName;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
