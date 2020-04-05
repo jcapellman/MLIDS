@@ -22,13 +22,13 @@
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="10,0,10,0">
             <Label Content="Clean Network Traffic Location" />
 
-            <Grid Grid.Row="1">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationCleanTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Grid.Column="1" Content="Select Location..." />
             </Grid>
         </StackPanel>
@@ -42,7 +42,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationMaliciousTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Grid.Column="1" Content="Select Location..." />
             </Grid>
         </StackPanel>
@@ -56,13 +56,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Margin="0,0,10,0" />
+                <TextBox Grid.Column="0" Margin="0,0,10,0" Text="{Binding LocationModelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Grid.Column="1" Content="Select Location..." />
             </Grid>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,10,10,10">
-            <Button Content="Train Model" />
+            <Button Content="Train Model" IsEnabled="{Binding btnTrainEnable, Mode=TwoWay}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Margin="10,0,10,10">
