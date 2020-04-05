@@ -15,12 +15,22 @@ namespace MLIDS.ModelTrainer
 
         private void btnCleanLocation_Click(object sender, RoutedEventArgs e)
         {
-            
+            ViewModel.SelectCleanFileInput();
         }
 
         private void btnModelOutput_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.SelectModelSaveOutput();
+        }
+
+        private void btnMaliciousLocation_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SelectMaliciousFileInput();
+        }
+
+        private void btnTrain_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.TrainModel();
         }
     }
 }

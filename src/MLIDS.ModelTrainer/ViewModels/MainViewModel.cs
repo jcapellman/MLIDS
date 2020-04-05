@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+
 using Microsoft.Win32;
 
 namespace MLIDS.ModelTrainer.ViewModels
@@ -67,19 +68,81 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        private bool _isTraining = false;
+        private bool _isTraining;
+
+        public bool IsTraining
+        {
+            get => _isTraining;
+
+            set
+            {
+                _isTraining = value;
+
+                OnPropertyChanged();
+
+                btnSelectionEnable = !value;
+            }
+        }
 
         private void UpdateTrainButton()
         {
             btnTrainEnable = !string.IsNullOrEmpty(LocationCleanTrafficFile) &&
                              !string.IsNullOrEmpty(LocationMaliciousTrafficFile) &&
                              !string.IsNullOrEmpty(LocationModelFile) &&
-                             !_isTraining;
+                             !IsTraining;
+        }
+
+        private bool _btnSelectionEnable;
+
+        public bool btnSelectionEnable
+        {
+            get => _btnSelectionEnable;
+
+            set
+            {
+                _btnSelectionEnable = value;
+
+                OnPropertyChanged();
+            }
         }
 
         public MainViewModel()
         {
+            IsTraining = false;
+
             UpdateTrainButton();
+        }
+
+        public void TrainModel()
+        {
+            IsTraining = true;
+
+            // Train model
+
+            IsTraining = false;
+        }
+
+        public void SelectMaliciousFileInput()
+        {
+            LocationMaliciousTrafficFile = SelectInputFile() ?? LocationMaliciousTrafficFile;
+        }
+
+        public void SelectCleanFileInput()
+        {
+            LocationCleanTrafficFile = SelectInputFile() ?? LocationCleanTrafficFile;
+        }
+
+        private string SelectInputFile()
+        {
+            var openDialog = new OpenFileDialog
+            {
+                Filter = "Network Traffic|*.csv",
+                Title = "Select Network Traffic"
+            };
+
+            openDialog.ShowDialog();
+
+            return openDialog.FileName;
         }
 
         public void SelectModelSaveOutput()

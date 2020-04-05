@@ -29,7 +29,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationCleanTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Column="1" Content="Select Location..." Click="btnCleanLocation_Click" />
+                <Button Grid.Column="1" IsEnabled="{Binding btnSelectionEnable, Mode=TwoWay}" Content="Select Location..." Click="btnCleanLocation_Click" />
             </Grid>
         </StackPanel>
 
@@ -43,7 +43,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationMaliciousTrafficFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Column="1" Content="Select Location..." />
+                <Button Grid.Column="1" IsEnabled="{Binding btnSelectionEnable, Mode=TwoWay}" Content="Select Location..." Click="btnMaliciousLocation_Click" />
             </Grid>
         </StackPanel>
 
@@ -57,12 +57,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationModelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Grid.Column="1" Content="Select Location..." Click="btnModelOutput_Click" />
+                <Button Grid.Column="1" IsEnabled="{Binding btnSelectionEnable, Mode=TwoWay}" Content="Select Location..." Click="btnModelOutput_Click" />
             </Grid>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,10,10,10">
-            <Button Content="Train Model" IsEnabled="{Binding btnTrainEnable, Mode=TwoWay}" />
+            <Button Content="Train Model" IsEnabled="{Binding btnTrainEnable, Mode=TwoWay}" Click="btnTrain_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Margin="10,0,10,10">
