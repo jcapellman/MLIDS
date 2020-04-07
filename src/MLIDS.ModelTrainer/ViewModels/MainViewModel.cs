@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-
-using Microsoft.ML;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers;
 
 using Microsoft.Win32;
+
 using MLIDS.lib.ML;
-using MLIDS.lib.Objects;
 
 namespace MLIDS.ModelTrainer.ViewModels
 {
@@ -130,16 +129,52 @@ namespace MLIDS.ModelTrainer.ViewModels
 
         public MainViewModel()
         {
+            ModelMetricsStackPanel = Visibility.Collapsed;
+
             IsTraining = false;
 
             UpdateTrainButton();
+        }
+
+        private string _modelTrainingDuration;
+
+        public string ModelTrainingDuration
+        {
+            get => _modelTrainingDuration;
+
+            set
+            {
+                _modelTrainingDuration = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _modelMetricsStackPanel;
+
+        public Visibility ModelMetricsStackPanel
+        {
+            get => _modelMetricsStackPanel;
+
+            set
+            {
+                _modelMetricsStackPanel = value;
+
+                OnPropertyChanged();
+            }
         }
 
         public void TrainModel()
         {
             IsTraining = true;
 
+            var startTime = DateTime.Now;
+
             ModelMetrics = _trainer.GenerateModel(LocationCleanTrafficFile, LocationModelFile);
+
+            ModelTrainingDuration = $"{DateTime.Now.Subtract(startTime).TotalSeconds} seconds";
+
+            ModelMetricsStackPanel = Visibility.Visible;
 
             IsTraining = false;
         }

@@ -65,7 +65,7 @@
             <Button Content="Train Model" IsEnabled="{Binding btnTrainEnable, Mode=TwoWay}" Click="btnTrain_Click" />
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Margin="10,0,10,10">
+        <StackPanel Grid.Row="4" Margin="10,0,10,10" Visibility="{Binding ModelMetricsStackPanel,Mode=TwoWay}">
             <TextBlock Text="Model Metrics" FontWeight="Bold" />
 
             <Grid>
@@ -86,6 +86,16 @@
 
                 <TextBlock Grid.Column="0" Text="Rate of False Positive Count: " />
                 <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.DetectionRateAtFalsePositiveCount}" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Model Training Time: " />
+                <TextBlock Grid.Column="1" Text="{Binding ModelTrainingDuration}" />
             </Grid>
         </StackPanel>
     </Grid>
