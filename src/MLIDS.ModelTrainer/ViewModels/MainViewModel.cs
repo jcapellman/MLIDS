@@ -4,7 +4,7 @@ using System.Windows;
 using Microsoft.ML.Data;
 
 using Microsoft.Win32;
-
+using MLIDS.lib.Containers;
 using MLIDS.lib.ML;
 
 namespace MLIDS.ModelTrainer.ViewModels
@@ -111,9 +111,9 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        private AnomalyDetectionMetrics _modelMetrics;
+        private ModelMetrics _modelMetrics;
 
-        public AnomalyDetectionMetrics ModelMetrics
+        public ModelMetrics ModelMetrics
         {
             get => _modelMetrics;
 
@@ -168,11 +168,9 @@ namespace MLIDS.ModelTrainer.ViewModels
         {
             IsTraining = true;
 
-            var startTime = DateTime.Now;
+            ModelMetrics = _trainer.GenerateModel(LocationCleanTrafficFile, LocationMaliciousTrafficFile, LocationModelFile);
 
-            ModelMetrics = _trainer.GenerateModel(LocationCleanTrafficFile, LocationModelFile);
-
-            ModelTrainingDuration = $"{DateTime.Now.Subtract(startTime).TotalSeconds} seconds";
+            ModelTrainingDuration = $"{ModelMetrics.Duration.TotalSeconds} seconds";
 
             ModelMetricsStackPanel = Visibility.Visible;
 
