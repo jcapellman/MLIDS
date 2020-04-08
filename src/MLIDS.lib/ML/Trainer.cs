@@ -3,6 +3,7 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 
 using MLIDS.lib.Objects;
+using static Microsoft.ML.DataOperationsCatalog;
 
 namespace MLIDS.lib.ML
 {
@@ -15,25 +16,17 @@ namespace MLIDS.lib.ML
             _mlContext = new MLContext(2020);
         }
 
-        private (IDataView DataView, IEstimator<ITransformer> Transformer) GetDataView(string fileName, bool training = true)
+        private TrainTestData GetDataView(string fileName, bool training = true)
         {
             var trainingDataView = _mlContext.Data.LoadFromTextFile<PayloadItem>(fileName, ',');
 
-            return (trainingDataView, null);
-
-            //      IEstimator<ITransformer> dataProcessPipeline = MlContext.Transforms.Concatenate(
-            //          FEATURES,
-            //           typeof(LoginHistory).ToPropertyList<LoginHistory>(nameof(LoginHistory.Label)));
-
-            //     return (trainingDataView, dataProcessPipeline);
+            return _mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020);
         }
-
 
         public AnomalyDetectionMetrics GenerateModel(string trainingFileName, string modelFileName)
         {
             var options = new RandomizedPcaTrainer.Options
             {
-                //     FeatureColumnName = FEATURES,
                 ExampleWeightColumnName = null,
                 Rank = 5,
                 Oversampling = 20,
@@ -41,19 +34,15 @@ namespace MLIDS.lib.ML
                 Seed = 1
             };
 
-            var trainingDataView = GetDataView(trainingFileName);
+            var data = GetDataView(trainingFileName);
 
             IEstimator<ITransformer> trainer = _mlContext.AnomalyDetection.Trainers.RandomizedPca(options: options);
 
-            EstimatorChain<ITransformer> trainingPipeline = trainingDataView.Transformer.Append(trainer);
+            ITransformer trainedModel = trainer.Fit(data.TrainSet);
 
-            TransformerChain<ITransformer> trainedModel = trainingPipeline.Fit(trainingDataView.DataView);
+            _mlContext.Model.Save(trainedModel, data.TrainSet.Schema, modelFileName);
 
-            _mlContext.Model.Save(trainedModel, trainingDataView.DataView.Schema, modelFileName);
-
-            var testingDataView = GetDataView(trainingFileName, true);
-
-            var testSetTransform = trainedModel.Transform(testingDataView.DataView);
+            var testSetTransform = trainedModel.Transform(data.TestSet);
 
             return _mlContext.AnomalyDetection.Evaluate(testSetTransform);
         }
