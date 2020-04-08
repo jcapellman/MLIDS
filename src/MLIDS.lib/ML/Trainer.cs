@@ -1,8 +1,13 @@
-﻿using Microsoft.ML;
-using Microsoft.ML.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Microsoft.ML;
 using Microsoft.ML.Trainers;
 
+using MLIDS.lib.Containers;
 using MLIDS.lib.Objects;
+
 using static Microsoft.ML.DataOperationsCatalog;
 
 namespace MLIDS.lib.ML
@@ -16,15 +21,29 @@ namespace MLIDS.lib.ML
             _mlContext = new MLContext(2020);
         }
 
-        private TrainTestData GetDataView(string fileName, bool training = true)
+        private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(string cleanFileName, string maliciousFileName, bool training = true)
         {
+            var cleanFileData = File.ReadAllLines(cleanFileName);
+            var maliciousFileData = File.ReadAllLines(maliciousFileName);
+
+            var fileName = Path.GetRandomFileName();
+
+            var combinedData = new List<string>();
+
+            combinedData.AddRange(cleanFileData);
+            combinedData.AddRange(maliciousFileData);
+
+            File.WriteAllLines(fileName, combinedData);
+
             var trainingDataView = _mlContext.Data.LoadFromTextFile<PayloadItem>(fileName, ',');
 
-            return _mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020);
+            return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020), cleanFileData.Length, maliciousFileData.Length);
         }
 
-        public AnomalyDetectionMetrics GenerateModel(string trainingFileName, string modelFileName)
+        public ModelMetrics GenerateModel(string cleanFileName, string maliciousFileName, string modelFileName)
         {
+            var startTime = DateTime.Now;
+
             var options = new RandomizedPcaTrainer.Options
             {
                 ExampleWeightColumnName = null,
@@ -34,17 +53,23 @@ namespace MLIDS.lib.ML
                 Seed = 1
             };
 
-            var data = GetDataView(trainingFileName);
+            var (data, cleanRowCount, maliciousRowCount) = GetDataView(cleanFileName, maliciousFileName);
 
             IEstimator<ITransformer> trainer = _mlContext.AnomalyDetection.Trainers.RandomizedPca(options: options);
 
-            ITransformer trainedModel = trainer.Fit(data.TrainSet);
+            var trainedModel = trainer.Fit(data.TrainSet);
 
             _mlContext.Model.Save(trainedModel, data.TrainSet.Schema, modelFileName);
 
             var testSetTransform = trainedModel.Transform(data.TestSet);
 
-            return _mlContext.AnomalyDetection.Evaluate(testSetTransform);
+            return new ModelMetrics
+            {
+                Metrics = _mlContext.AnomalyDetection.Evaluate(testSetTransform),
+                NumCleanRows = cleanRowCount,
+                NumMaliciousRows = maliciousRowCount,
+                Duration = DateTime.Now.Subtract(startTime)
+            };
         }
     }
 }
