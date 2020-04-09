@@ -7,7 +7,7 @@ using System.Linq;
 
 using Microsoft.Win32;
 using MLIDS.lib.Extensions;
-using MLIDS.lib.Objects;
+using MLIDS.lib.ML.Objects;
 using PacketDotNet;
 
 using SharpPcap;

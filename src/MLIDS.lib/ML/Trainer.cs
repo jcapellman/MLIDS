@@ -6,8 +6,7 @@ using Microsoft.ML;
 using Microsoft.ML.Trainers;
 
 using MLIDS.lib.Containers;
-using MLIDS.lib.Objects;
-
+using MLIDS.lib.ML.Objects;
 using static Microsoft.ML.DataOperationsCatalog;
 
 namespace MLIDS.lib.ML
@@ -50,7 +49,7 @@ namespace MLIDS.lib.ML
                 Rank = 5,
                 Oversampling = 20,
                 EnsureZeroMean = true,
-                Seed = 1
+                Seed = 2020
             };
 
             var (data, cleanRowCount, maliciousRowCount) = GetDataView(cleanFileName, maliciousFileName);
