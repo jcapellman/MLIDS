@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MLIDS.lib.ML.Objects
+﻿namespace MLIDS.lib.ML.Objects
 {
     public class PredictionItem
     {
+        public float Score { get; set; }
 
+        public bool Label { get; set; }
     }
 }
