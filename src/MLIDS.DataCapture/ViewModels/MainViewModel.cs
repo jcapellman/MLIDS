@@ -33,6 +33,20 @@ namespace MLIDS.DataCapture.ViewModels
             }
         }
 
+        private bool _isCleanTraffic;
+
+        public bool IsCleanTraffic
+        {
+            get => _isCleanTraffic;
+
+            set
+            {
+                _isCleanTraffic = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private bool _chkBxSaveEnabled;
 
         public bool ChkBxSaveEnabled
@@ -196,8 +210,8 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket).ToCSV<PayloadItem>();
+        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket, bool cleanTraffic) =>
+            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic).ToCSV<PayloadItem>();
 
         private string GetPacket(Packet packet)
         {
@@ -213,11 +227,11 @@ namespace MLIDS.DataCapture.ViewModels
                 case ProtocolType.Tcp:
                     var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
 
-                    return ToCSV("TCP", ipPacket, tcpPacket);
+                    return ToCSV("TCP", ipPacket, tcpPacket, IsCleanTraffic);
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
 
-                    return ToCSV("UDP", ipPacket, udpPacket);
+                    return ToCSV("UDP", ipPacket, udpPacket, IsCleanTraffic);
             }
 
             return null;
