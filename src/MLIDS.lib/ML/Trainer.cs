@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.ML;
+using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 
 using MLIDS.lib.Containers;
+using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
 using static Microsoft.ML.DataOperationsCatalog;
 
@@ -13,6 +15,8 @@ namespace MLIDS.lib.ML
 {
     public class Trainer
     {
+        protected const string FEATURES = "Features";
+
         private readonly MLContext _mlContext;
 
         public Trainer()
@@ -20,7 +24,7 @@ namespace MLIDS.lib.ML
             _mlContext = new MLContext(2020);
         }
 
-        private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(string cleanFileName, string maliciousFileName, bool training = true)
+        private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(string cleanFileName, string maliciousFileName)
         {
             var cleanFileData = File.ReadAllLines(cleanFileName);
             var maliciousFileData = File.ReadAllLines(maliciousFileName);
@@ -45,6 +49,7 @@ namespace MLIDS.lib.ML
 
             var options = new RandomizedPcaTrainer.Options
             {
+                FeatureColumnName = FEATURES,
                 ExampleWeightColumnName = null,
                 Rank = 5,
                 Oversampling = 20,
@@ -54,9 +59,15 @@ namespace MLIDS.lib.ML
 
             var (data, cleanRowCount, maliciousRowCount) = GetDataView(cleanFileName, maliciousFileName);
 
+            IEstimator<ITransformer> dataProcessPipeline = _mlContext.Transforms.Concatenate(
+                FEATURES,
+                typeof(PayloadItem).ToPropertyList<PayloadItem>(nameof(PayloadItem.Label)));
+
             IEstimator<ITransformer> trainer = _mlContext.AnomalyDetection.Trainers.RandomizedPca(options: options);
 
-            var trainedModel = trainer.Fit(data.TrainSet);
+            EstimatorChain<ITransformer> trainingPipeline = dataProcessPipeline.Append(trainer);
+
+            TransformerChain<ITransformer> trainedModel = trainingPipeline.Fit(data.TrainSet);
 
             _mlContext.Model.Save(trainedModel, data.TrainSet.Schema, modelFileName);
 
