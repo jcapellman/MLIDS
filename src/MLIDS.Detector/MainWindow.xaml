@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MLIDS.Detector"
+        xmlns:viewModels="clr-namespace:MLIDS.Detector.ViewModels"
         mc:Ignorable="d"
         Title="MLIDS.Detector" Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:MainViewModel />
+    </Window.DataContext>
+
     <Grid>
 
     </Grid>

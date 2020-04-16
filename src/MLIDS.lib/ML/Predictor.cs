@@ -12,7 +12,7 @@ namespace MLIDS.lib.ML
         {
             var mlContext = new MLContext(2020);
 
-            var model = mlContext.Model.Load(modelName, out var modelInputSchema);
+            var model = mlContext.Model.Load(modelName, out _);
 
             _predictionEngine = mlContext.Model.CreatePredictionEngine<PayloadItem, PredictionItem>(model);
         }
