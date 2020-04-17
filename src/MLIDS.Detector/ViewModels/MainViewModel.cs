@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Win32;
-using MLIDS.lib.Extensions;
+using MLIDS.lib.ML;
 using MLIDS.lib.ML.Objects;
+
 using PacketDotNet;
+
 using SharpPcap;
 using SharpPcap.Npcap;
 
@@ -56,6 +56,22 @@ namespace MLIDS.Detector.ViewModels
                 _stopBtnEnabled = value;
 
                 OnPropertyChanged();
+            }
+        }
+
+        private string _locationModelFile;
+
+        public string LocationModelFile
+        {
+            get => _locationModelFile;
+
+            set
+            {
+                _locationModelFile = value;
+
+                OnPropertyChanged();
+
+                UpdateTrainButton();
             }
         }
 
@@ -145,14 +161,14 @@ namespace MLIDS.Detector.ViewModels
             DeviceSelectionEnabled = true;
         }
 
-        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket, bool cleanTraffic) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic).ToCSV<PayloadItem>();
+        private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
+            new PayloadItem(protocolType, sourcePacket, payloadPacket, false);
 
-        private string GetPacket(Packet packet)
+        private PayloadItem GetPacket(Packet packet)
         {
             if (!(packet.PayloadPacket is IPv4Packet))
             {
-                return string.Empty;
+                return null;
             }
 
             var ipPacket = (IPv4Packet)packet.PayloadPacket;
@@ -162,11 +178,11 @@ namespace MLIDS.Detector.ViewModels
                 case ProtocolType.Tcp:
                     var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
 
-                    return ToCSV("TCP", ipPacket, tcpPacket, IsCleanTraffic);
+                    return ToPayloadItem("TCP", ipPacket, tcpPacket);
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
 
-                    return ToCSV("UDP", ipPacket, udpPacket, IsCleanTraffic);
+                    return ToPayloadItem("UDP", ipPacket, udpPacket);
             }
 
             return null;
@@ -183,21 +199,19 @@ namespace MLIDS.Detector.ViewModels
                     return;
                 }
 
-                var line = GetPacket(packet);
+                var packetItem = GetPacket(packet);
 
-                if (string.IsNullOrEmpty(line))
+                if (packetItem == null)
                 {
                     return;
                 }
 
-                if (!string.IsNullOrEmpty(_fileName))
+                var result = new Predictor(LocationModelFile).Predict(packetItem);
+
+                if (!result.Label)
                 {
-                    File.AppendAllLines(_fileName, new List<string> { line });
-
-                    return;
+                    Packets.Add($"{packetItem.DestinationIPAddress}:{packetItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
                 }
-
-                Packets.Add(line);
             });
         }
 
