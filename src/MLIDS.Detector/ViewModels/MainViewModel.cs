@@ -71,8 +71,42 @@ namespace MLIDS.Detector.ViewModels
 
                 OnPropertyChanged();
 
-                UpdateTrainButton();
+                UpdateProtectButton();
             }
+        }
+
+        private bool _btnProtectEnable;
+
+        public bool btnProtectEnable
+        {
+            get => _btnProtectEnable;
+
+            set
+            {
+                _btnProtectEnable = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isTraining;
+
+        public bool IsTraining
+        {
+            get => _isTraining;
+
+            set
+            {
+                _isTraining = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateProtectButton()
+        {
+            btnProtectEnable = !string.IsNullOrEmpty(LocationModelFile) &&
+                               !IsTraining;
         }
 
         private List<ICaptureDevice> _deviceList = new List<ICaptureDevice>();
