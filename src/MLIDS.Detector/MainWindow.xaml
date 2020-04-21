@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -28,7 +29,21 @@
             <ComboBox Grid.Row="1" ItemsSource="{Binding DeviceList, Mode=TwoWay}" IsEnabled="{Binding DeviceSelectionEnabled, Mode=TwoWay}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}" DisplayMemberPath="Description" />
         </Grid>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,0,10,0">
+            <Label Content="Clean Network Traffic Location" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" IsReadOnly="True" Margin="0,0,10,0" Text="{Binding LocationModelFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" IsEnabled="{Binding DeviceSelectionEnabled, Mode=TwoWay}" Content="Select Location..." Click="btnCleanLocation_Click" />
+            </Grid>
+        </StackPanel>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -38,7 +53,7 @@
             <Button Grid.Column="1" Click="btnStopCapturing_Click" IsEnabled="{Binding StopBtnEnabled, Mode=TwoWay}" Content="Stop Capturing" Margin="10,10,10,10" Width="150" />
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10,0,10,10">
+        <Grid Grid.Row="3" Margin="10,0,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />

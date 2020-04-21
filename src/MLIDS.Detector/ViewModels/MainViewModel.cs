@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-
+using Microsoft.Win32;
 using MLIDS.lib.ML;
 using MLIDS.lib.ML.Objects;
 
@@ -193,6 +193,24 @@ namespace MLIDS.Detector.ViewModels
             StartBtnEnabled = true;
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
+        }
+
+        private string SelectInputFile()
+        {
+            var openDialog = new OpenFileDialog
+            {
+                Filter = "Network Traffic|*.csv",
+                Title = "Select Network Traffic"
+            };
+
+            openDialog.ShowDialog();
+
+            return openDialog.FileName;
+        }
+
+        public void SelectModelFile()
+        {
+            LocationModelFile = SelectInputFile() ?? LocationModelFile;
         }
 
         private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
