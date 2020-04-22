@@ -105,7 +105,7 @@ namespace MLIDS.Detector.ViewModels
 
         private void UpdateProtectButton()
         {
-            btnProtectEnable = !string.IsNullOrEmpty(LocationModelFile) &&
+            StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
                                !IsTraining;
         }
 
@@ -160,6 +160,7 @@ namespace MLIDS.Detector.ViewModels
             StartBtnEnabled = false;
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
+            IsTraining = false;
         }
 
         public void StartCapture()
@@ -199,8 +200,8 @@ namespace MLIDS.Detector.ViewModels
         {
             var openDialog = new OpenFileDialog
             {
-                Filter = "Network Traffic|*.csv",
-                Title = "Select Network Traffic"
+                Filter = "ML Model |*.mdl",
+                Title = "Select ML Model"
             };
 
             openDialog.ShowDialog();

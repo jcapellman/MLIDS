@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MLIDS.Detector"
         xmlns:viewModels="clr-namespace:MLIDS.Detector.ViewModels"
-        mc:Ignorable="d"
-        Title="MLIDS.Detector" Height="450" Width="800">
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="MLIDS.Detector" Height="600" Width="600">
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
