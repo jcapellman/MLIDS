@@ -13,14 +13,14 @@ namespace MLIDS.Detector
             InitializeComponent();
         }
 
-        private void btnCleanLocation_Click(object sender, RoutedEventArgs e)
-        {
-            Vm.SelectModelFile();
-        }
-
         private void btnStartCapturing_Click(object sender, RoutedEventArgs e)
         {
             Vm.StartCapture();
+        }
+
+        private void btnModelLocation_Click(object sender, RoutedEventArgs e)
+        {
+            Vm.SelectModelFile();
         }
 
         private void btnStopCapturing_Click(object sender, RoutedEventArgs e)
