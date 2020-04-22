@@ -157,7 +157,7 @@ namespace MLIDS.Detector.ViewModels
 
             SelectedDevice = DeviceList.FirstOrDefault();
 
-            StartBtnEnabled = true;
+            StartBtnEnabled = false;
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
         }
