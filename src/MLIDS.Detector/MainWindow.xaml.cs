@@ -18,7 +18,9 @@ namespace MLIDS.Detector
                 return;
             }
 
-            MessageBox.Show("NDIS Driver not installed - please install");
+            MessageBox.Show("NPCAP Driver not installed - please install (https://nmap.org/npcap/)");
+
+            Application.Current.Shutdown();
         }
 
         private void btnStartCapturing_Click(object sender, RoutedEventArgs e)
