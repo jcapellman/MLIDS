@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 
 using MLIDS.Detector.ViewModels;
 
@@ -11,6 +12,13 @@ namespace MLIDS.Detector
         public MainWindow()
         {
             InitializeComponent();
+
+            if (Vm.DeviceList.Any())
+            {
+                return;
+            }
+
+            MessageBox.Show("NDIS Driver not installed - please install");
         }
 
         private void btnStartCapturing_Click(object sender, RoutedEventArgs e)
