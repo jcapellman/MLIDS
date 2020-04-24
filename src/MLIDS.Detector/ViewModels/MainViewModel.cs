@@ -17,6 +17,8 @@ namespace MLIDS.Detector.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private static Predictor _predictor;
+
         private bool _startBtnEnabled;
 
         public bool StartBtnEnabled
@@ -209,9 +211,25 @@ namespace MLIDS.Detector.ViewModels
             return openDialog.FileName;
         }
 
-        public void SelectModelFile()
+        public bool SelectModelFile()
         {
             LocationModelFile = SelectInputFile() ?? LocationModelFile;
+
+            if (string.IsNullOrEmpty(LocationModelFile))
+            {
+                return true;
+            }
+
+            try
+            {
+                _predictor = new Predictor(LocationModelFile);
+
+                LocationModelFile = string.Empty;
+
+                return true;
+            } catch (Exception) { }
+
+            return false;
         }
 
         private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
@@ -259,7 +277,7 @@ namespace MLIDS.Detector.ViewModels
                     return;
                 }
 
-                var result = new Predictor(LocationModelFile).Predict(packetItem);
+                var result = _predictor.Predict(packetItem);
 
                 if (!result.Label)
                 {

@@ -28,7 +28,10 @@ namespace MLIDS.Detector
 
         private void btnModelLocation_Click(object sender, RoutedEventArgs e)
         {
-            Vm.SelectModelFile();
+            if (!Vm.SelectModelFile())
+            {
+                MessageBox.Show("Model file could not be loaded");
+            }
         }
 
         private void btnStopCapturing_Click(object sender, RoutedEventArgs e)
