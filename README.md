@@ -6,4 +6,4 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 * Packet Capture Driver (NPCAP NDIS Filter Driver - https://nmap.org/npcap/)
 * Packet Capture Application (.NET Core 3.1)
 * Model Trainer Application (.NET Core 3.1)
-* Efficacy Tester Application (.NET Core 3.1)
+* Model Testing Application (.NET Core 3.1)
