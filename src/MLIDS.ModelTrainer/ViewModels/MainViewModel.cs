@@ -6,10 +6,11 @@ using Microsoft.ML.Data;
 using Microsoft.Win32;
 using MLIDS.lib.Containers;
 using MLIDS.lib.ML;
+using MLIDS.lib.ViewModels;
 
 namespace MLIDS.ModelTrainer.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
         private string _locationCleanTrafficFile;
 
@@ -59,42 +60,12 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        private bool _btnTrainEnable;
-
-        public bool btnTrainEnable
-        {
-            get => _btnTrainEnable;
-
-            set
-            {
-                _btnTrainEnable = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _isTraining;
-
-        public bool IsTraining
-        {
-            get => _isTraining;
-
-            set
-            {
-                _isTraining = value;
-
-                OnPropertyChanged();
-
-                btnSelectionEnable = !value;
-            }
-        }
-
         private void UpdateTrainButton()
         {
-            btnTrainEnable = !string.IsNullOrEmpty(LocationCleanTrafficFile) &&
+            StartBtnEnabled = !string.IsNullOrEmpty(LocationCleanTrafficFile) &&
                              !string.IsNullOrEmpty(LocationMaliciousTrafficFile) &&
                              !string.IsNullOrEmpty(LocationModelFile) &&
-                             !IsTraining;
+                             !IsRunning;
         }
 
         private bool _btnSelectionEnable;
@@ -131,8 +102,6 @@ namespace MLIDS.ModelTrainer.ViewModels
         {
             ModelMetricsStackPanel = Visibility.Collapsed;
 
-            IsTraining = false;
-
             UpdateTrainButton();
         }
 
@@ -166,7 +135,7 @@ namespace MLIDS.ModelTrainer.ViewModels
 
         public void TrainModel()
         {
-            IsTraining = true;
+            IsRunning = true;
 
             ModelMetrics = _trainer.GenerateModel(LocationCleanTrafficFile, LocationMaliciousTrafficFile, LocationModelFile);
 
@@ -174,7 +143,7 @@ namespace MLIDS.ModelTrainer.ViewModels
 
             ModelMetricsStackPanel = Visibility.Visible;
 
-            IsTraining = false;
+            IsRunning = false;
         }
 
         public void SelectMaliciousFileInput()
@@ -216,13 +185,6 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
 
             LocationModelFile = saveDialog.FileName;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

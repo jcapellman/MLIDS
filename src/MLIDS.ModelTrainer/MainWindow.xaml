@@ -62,7 +62,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="3" Margin="10,10,10,10">
-            <Button Content="Train Model" IsEnabled="{Binding btnTrainEnable, Mode=TwoWay}" Click="btnTrain_Click" />
+            <Button Content="Train Model" IsEnabled="{Binding StartBtnEnabled, Mode=TwoWay}" Click="btnTrain_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Margin="10,0,10,10" Visibility="{Binding ModelMetricsStackPanel,Mode=TwoWay}">
@@ -75,7 +75,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Area Under ROC Curve: " />
-                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.AreaUnderRocCurve}" />
+                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.Metrics.AreaUnderRocCurve}" />
             </Grid>
 
             <Grid>
@@ -85,7 +85,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Rate of False Positive Count: " />
-                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.DetectionRateAtFalsePositiveCount}" />
+                <TextBlock Grid.Column="1" Text="{Binding ModelMetrics.Metrics.DetectionRateAtFalsePositiveCount}" />
             </Grid>
 
             <Grid>
