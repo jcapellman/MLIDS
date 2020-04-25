@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
 
 using Microsoft.Win32;
+
 using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
+using MLIDS.lib.ViewModels;
+
 using PacketDotNet;
 
 using SharpPcap;
@@ -15,7 +15,7 @@ using SharpPcap.Npcap;
 
 namespace MLIDS.DataCapture.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
         private string _fileName;
 
@@ -61,99 +61,8 @@ namespace MLIDS.DataCapture.ViewModels
             }
         }
 
-        private bool _startBtnEnabled;
-
-        public bool StartBtnEnabled
-        {
-            get => _startBtnEnabled;
-
-            set
-            {
-                _startBtnEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _deviceSelectionEnabled;
-
-        public bool DeviceSelectionEnabled
-        {
-            get => _deviceSelectionEnabled;
-
-            set
-            {
-                _deviceSelectionEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _stopBtnEnabled;
-
-        public bool StopBtnEnabled
-        {
-            get => _stopBtnEnabled;
-
-            set
-            {
-                _stopBtnEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private List<ICaptureDevice> _deviceList = new List<ICaptureDevice>();
-
-        public List<ICaptureDevice> DeviceList
-        {
-            get => _deviceList;
-
-            set
-            {
-                _deviceList = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private ICaptureDevice _selectedDevice;
-
-        public ICaptureDevice SelectedDevice
-        {
-            get => _selectedDevice;
-
-            set
-            {
-                _selectedDevice = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<string> _packets = new ObservableCollection<string>();
-
-        public ObservableCollection<string> Packets
-        {
-            get => _packets;
-
-            set
-            {
-                _packets = value;
-
-                OnPropertyChanged();
-            }
-        }
-
         public MainViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.ToList();
-
-            SelectedDevice = DeviceList.FirstOrDefault();
-
-            StartBtnEnabled = true;
-            StopBtnEnabled = false;
-            DeviceSelectionEnabled = true;
             ChkBxSaveEnabled = true;
         }
 
@@ -264,13 +173,6 @@ namespace MLIDS.DataCapture.ViewModels
 
                 Packets.Add(line);
             });
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
