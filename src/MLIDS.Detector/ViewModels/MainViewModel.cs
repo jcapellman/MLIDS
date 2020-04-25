@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
+
 using Microsoft.Win32;
+
 using MLIDS.lib.ML;
 using MLIDS.lib.ML.Objects;
+using MLIDS.lib.ViewModels;
 
 using PacketDotNet;
 
@@ -15,51 +13,9 @@ using SharpPcap.Npcap;
 
 namespace MLIDS.Detector.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
         private static Predictor _predictor;
-
-        private bool _startBtnEnabled;
-
-        public bool StartBtnEnabled
-        {
-            get => _startBtnEnabled;
-
-            set
-            {
-                _startBtnEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _deviceSelectionEnabled;
-
-        public bool DeviceSelectionEnabled
-        {
-            get => _deviceSelectionEnabled;
-
-            set
-            {
-                _deviceSelectionEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _stopBtnEnabled;
-
-        public bool StopBtnEnabled
-        {
-            get => _stopBtnEnabled;
-
-            set
-            {
-                _stopBtnEnabled = value;
-
-                OnPropertyChanged();
-            }
-        }
 
         private string _locationModelFile;
 
@@ -77,92 +33,10 @@ namespace MLIDS.Detector.ViewModels
             }
         }
 
-        private bool _btnProtectEnable;
-
-        public bool btnProtectEnable
-        {
-            get => _btnProtectEnable;
-
-            set
-            {
-                _btnProtectEnable = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _isTraining;
-
-        public bool IsTraining
-        {
-            get => _isTraining;
-
-            set
-            {
-                _isTraining = value;
-
-                OnPropertyChanged();
-            }
-        }
-
         private void UpdateProtectButton()
         {
             StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
-                               !IsTraining;
-        }
-
-        private List<ICaptureDevice> _deviceList = new List<ICaptureDevice>();
-
-        public List<ICaptureDevice> DeviceList
-        {
-            get => _deviceList;
-
-            set
-            {
-                _deviceList = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private ICaptureDevice _selectedDevice;
-
-        public ICaptureDevice SelectedDevice
-        {
-            get => _selectedDevice;
-
-            set
-            {
-                _selectedDevice = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<string> _packets = new ObservableCollection<string>();
-
-        public ObservableCollection<string> Packets
-        {
-            get => _packets;
-
-            set
-            {
-                _packets = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        public MainViewModel()
-        {
-            DeviceList = CaptureDeviceList.Instance.ToList();
-
-            SelectedDevice = DeviceList.FirstOrDefault();
-
-            StartBtnEnabled = false;
-            StopBtnEnabled = false;
-            DeviceSelectionEnabled = true;
-            IsTraining = false;
+                               !IsRunning;
         }
 
         public void StartCapture()
@@ -284,13 +158,6 @@ namespace MLIDS.Detector.ViewModels
                     Packets.Add($"{packetItem.DestinationIPAddress}:{packetItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
                 }
             });
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }    
     }
 }
