@@ -8,7 +8,7 @@ using SharpPcap;
 
 namespace MLIDS.lib.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         private bool _startBtnEnabled;
 
@@ -119,6 +119,10 @@ namespace MLIDS.lib.ViewModels
             DeviceSelectionEnabled = true;
             IsRunning = false;
         }
+
+        public abstract void StartAction();
+
+        public abstract void StopAction();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
