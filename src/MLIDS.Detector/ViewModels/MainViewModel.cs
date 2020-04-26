@@ -39,7 +39,7 @@ namespace MLIDS.Detector.ViewModels
                                !IsRunning;
         }
 
-        public void StartCapture()
+        public override void StartAction()
         {
             StartBtnEnabled = false;
             StopBtnEnabled = true;
@@ -56,7 +56,7 @@ namespace MLIDS.Detector.ViewModels
             SelectedDevice.StartCapture();
         }
 
-        public void StopCapture()
+        public override void StopAction()
         {
             try
             {
