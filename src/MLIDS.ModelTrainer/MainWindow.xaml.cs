@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 
+using MLIDS.lib.Windows;
 using MLIDS.ModelTrainer.ViewModels;
 
 namespace MLIDS.ModelTrainer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : BaseWindow
     {
         private MainViewModel ViewModel => (MainViewModel) DataContext;
 
@@ -26,11 +27,6 @@ namespace MLIDS.ModelTrainer
         private void btnMaliciousLocation_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.SelectMaliciousFileInput();
-        }
-
-        private void btnTrain_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.TrainModel();
         }
     }
 }
