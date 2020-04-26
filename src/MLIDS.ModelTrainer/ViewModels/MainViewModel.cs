@@ -6,7 +6,7 @@ using Microsoft.ML.Data;
 using Microsoft.Win32;
 using MLIDS.lib.Containers;
 using MLIDS.lib.ML;
-using MLIDS.lib.ViewModels;
+using MLIDS.lib.Windows.ViewModels;
 
 namespace MLIDS.ModelTrainer.ViewModels
 {

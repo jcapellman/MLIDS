@@ -4,8 +4,7 @@ using Microsoft.Win32;
 
 using MLIDS.lib.ML;
 using MLIDS.lib.ML.Objects;
-using MLIDS.lib.ViewModels;
-
+using MLIDS.lib.Windows.ViewModels;
 using PacketDotNet;
 
 using SharpPcap;

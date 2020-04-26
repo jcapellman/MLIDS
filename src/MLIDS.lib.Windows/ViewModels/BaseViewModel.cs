@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 using SharpPcap;
 
-namespace MLIDS.lib.ViewModels
+namespace MLIDS.lib.Windows.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {

@@ -1,4 +1,4 @@
-﻿using MLIDS.lib.ViewModels;
+﻿using MLIDS.lib.Windows.ViewModels;
 
 using System.Linq;
 using System.Windows;
