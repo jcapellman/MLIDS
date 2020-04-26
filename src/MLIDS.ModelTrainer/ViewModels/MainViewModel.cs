@@ -133,7 +133,7 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        public void TrainModel()
+        public override void StartAction()
         {
             IsRunning = true;
 
@@ -144,6 +144,11 @@ namespace MLIDS.ModelTrainer.ViewModels
             ModelMetricsStackPanel = Visibility.Visible;
 
             IsRunning = false;
+        }
+
+        public override void StopAction()
+        {
+            // Not Used
         }
 
         public void SelectMaliciousFileInput()
