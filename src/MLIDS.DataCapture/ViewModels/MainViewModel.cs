@@ -66,7 +66,7 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        public void StartCapture()
+        public override void StartAction()
         {
             StartBtnEnabled = false;
             StopBtnEnabled = true;
@@ -84,7 +84,7 @@ namespace MLIDS.DataCapture.ViewModels
 
                 if (string.IsNullOrEmpty(saveDialog.FileName))
                 {
-                    StopCapture();
+                    StopAction();
 
                     return;
                 }
@@ -103,7 +103,7 @@ namespace MLIDS.DataCapture.ViewModels
             SelectedDevice.StartCapture();
         }
 
-        public void StopCapture()
+        public override void StopAction()
         {
             try
             {
