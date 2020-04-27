@@ -16,6 +16,8 @@ namespace MLIDS.lib.DAL
 
         private const string COLLECTION_NAME = "Packets";
 
+        public MongoDAL() : this(new SettingsItem()) { }
+
         public MongoDAL(SettingsItem settings)
         {
             var mongoSettings = new MongoClientSettings()
