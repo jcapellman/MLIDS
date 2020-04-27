@@ -6,7 +6,7 @@ namespace MLIDS.DataCapture
     {
         public MainWindow()
         {
-            InitializeComponent();                        
+            InitializeComponent();
         }
     }
 }

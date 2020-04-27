@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 
 using Microsoft.Win32;
 
-using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
 using PacketDotNet;
@@ -118,14 +115,15 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        private static string ToCSV(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket, bool cleanTraffic) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic).ToCSV<PayloadItem>();
+        private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket,
+            TransportPacket payloadPacket, bool cleanTraffic) =>
+            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
-        private string GetPacket(Packet packet)
+        private PayloadItem GetPacket(Packet packet)
         {
             if (!(packet.PayloadPacket is IPv4Packet))
             {
-                return string.Empty;
+                return null;
             }
 
             var ipPacket = (IPv4Packet) packet.PayloadPacket;
@@ -135,11 +133,11 @@ namespace MLIDS.DataCapture.ViewModels
                 case ProtocolType.Tcp:
                     var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
 
-                    return ToCSV("TCP", ipPacket, tcpPacket, IsCleanTraffic);
+                    return ToPayloadItem("TCP", ipPacket, tcpPacket, IsCleanTraffic);
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
 
-                    return ToCSV("UDP", ipPacket, udpPacket, IsCleanTraffic);
+                    return ToPayloadItem("UDP", ipPacket, udpPacket, IsCleanTraffic);
             }
 
             return null;
@@ -156,21 +154,16 @@ namespace MLIDS.DataCapture.ViewModels
                     return;
                 }
 
-                var line = GetPacket(packet);
+                var payloadItem = GetPacket(packet);
 
-                if (string.IsNullOrEmpty(line))
+                if (payloadItem == null)
                 {
                     return;
                 }
 
-                if (!string.IsNullOrEmpty(_fileName))
-                {
-                    File.AppendAllLines(_fileName, new List<string> { line });
+                _dataStorage.WritePacketAsync(payloadItem);
 
-                    return;
-                }
-
-                Packets.Add(line);
+                Packets.Add(payloadItem.ToString());
             });
         }
     }
