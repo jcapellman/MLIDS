@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Threading.Tasks;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 
 using MLIDS.lib.Containers;
+using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
 using static Microsoft.ML.DataOperationsCatalog;
@@ -24,26 +25,19 @@ namespace MLIDS.lib.ML
             _mlContext = new MLContext(2020);
         }
 
-        private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(string cleanFileName, string maliciousFileName)
+        private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(List<PayloadItem> cleanData, List<PayloadItem> maliciousData)
         {
-            var cleanFileData = File.ReadAllLines(cleanFileName);
-            var maliciousFileData = File.ReadAllLines(maliciousFileName);
+            var cleanDataLength = cleanData.Count;
+            var maliciousDataLength = maliciousData.Count;
 
-            var fileName = Path.GetRandomFileName();
+            cleanData.AddRange(maliciousData);
 
-            var combinedData = new List<string>();
+            var trainingDataView = _mlContext.Data.LoadFromEnumerable(cleanData);
 
-            combinedData.AddRange(cleanFileData);
-            combinedData.AddRange(maliciousFileData);
-
-            File.WriteAllLines(fileName, combinedData);
-
-            var trainingDataView = _mlContext.Data.LoadFromTextFile<PayloadItem>(fileName, ',');
-
-            return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020), cleanFileData.Length, maliciousFileData.Length);
+            return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020), cleanDataLength, maliciousDataLength);
         }
 
-        public ModelMetrics GenerateModel(string cleanFileName, string maliciousFileName, string modelFileName)
+        public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
         {
             var startTime = DateTime.Now;
 
@@ -57,7 +51,7 @@ namespace MLIDS.lib.ML
                 Seed = 2020
             };
 
-            var (data, cleanRowCount, maliciousRowCount) = GetDataView(cleanFileName, maliciousFileName);
+            var (data, cleanRowCount, maliciousRowCount) = GetDataView(await storage.QueryPacketsAsync(a => a.Label), await storage.QueryPacketsAsync(a => !a.Label));
 
             IEstimator<ITransformer> dataProcessPipeline = _mlContext.Transforms.Concatenate(
                 FEATURES,
