@@ -4,12 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
+using MLIDS.lib.DAL;
+using MLIDS.lib.DAL.Base;
+
 using SharpPcap;
 
 namespace MLIDS.lib.Windows.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        protected BaseDAL _dataStorage;
+
         private bool _startBtnEnabled;
 
         public bool StartBtnEnabled
@@ -118,6 +123,8 @@ namespace MLIDS.lib.Windows.ViewModels
             StopBtnEnabled = false;
             DeviceSelectionEnabled = true;
             IsRunning = false;
+
+            _dataStorage = new MongoDAL();
         }
 
         public abstract void StartAction();
