@@ -54,6 +54,8 @@ namespace MLIDS.lib.ML.Objects
             PayloadSize = payloadPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
+
+            HostName = Environment.MachineName;
         }
     }
 }
