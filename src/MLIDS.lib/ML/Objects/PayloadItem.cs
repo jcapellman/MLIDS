@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Microsoft.ML.Data;
-
+using MLIDS.lib.Common;
 using PacketDotNet;
 
 namespace MLIDS.lib.ML.Objects
@@ -38,6 +38,8 @@ namespace MLIDS.lib.ML.Objects
         [LoadColumn(9)]
         public string HostName { get; private set; }
 
+        public int Version { get; private set; }
+
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
         {
             Label = clean;
@@ -56,6 +58,8 @@ namespace MLIDS.lib.ML.Objects
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
 
             HostName = Environment.MachineName;
+
+            Version = Constants.API_VERSION;
         }
     }
 }
