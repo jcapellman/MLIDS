@@ -67,6 +67,8 @@ namespace MLIDS.ModelTrainer.ViewModels
         {
             ModelMetricsStackPanel = Visibility.Collapsed;
 
+            btnSelectionEnable = true;
+
             UpdateTrainButton();
         }
 
