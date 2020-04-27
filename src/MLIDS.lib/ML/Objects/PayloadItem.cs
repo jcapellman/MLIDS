@@ -1,13 +1,23 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 using Microsoft.ML.Data;
+
 using MLIDS.lib.Common;
+
+using MongoDB.Bson.Serialization.Attributes;
+
 using PacketDotNet;
 
 namespace MLIDS.lib.ML.Objects
 {
     public class PayloadItem
     {
+        [BsonId]
+        [DataMember]
+        [NoColumn]
+        public Guid Guid { get; set; }
+
         [LoadColumn(0)]
         public bool Label { get; private set; }
 
@@ -35,9 +45,10 @@ namespace MLIDS.lib.ML.Objects
         [LoadColumn(8)]
         public string PacketContent { get; private set; }
 
-        [LoadColumn(9)]
+        [NoColumn]
         public string HostName { get; private set; }
 
+        [NoColumn]
         public int Version { get; private set; }
 
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
