@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using Microsoft.ML.Data;
+﻿using System.Windows;
 
 using Microsoft.Win32;
+
 using MLIDS.lib.Containers;
 using MLIDS.lib.ML;
 using MLIDS.lib.Windows.ViewModels;
@@ -12,38 +10,6 @@ namespace MLIDS.ModelTrainer.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private string _locationCleanTrafficFile;
-
-        public string LocationCleanTrafficFile
-        {
-            get => _locationCleanTrafficFile;
-
-            set
-            {
-                _locationCleanTrafficFile = value;
-
-                OnPropertyChanged();
-
-                UpdateTrainButton();
-            }
-        }
-
-        private string _locationMaliciousTrafficFile;
-
-        public string LocationMaliciousTrafficFile
-        {
-            get => _locationMaliciousTrafficFile;
-
-            set
-            {
-                _locationMaliciousTrafficFile = value;
-
-                OnPropertyChanged();
-
-                UpdateTrainButton();
-            }
-        }
-
         private string _locationModelFile;
 
         public string LocationModelFile
@@ -62,8 +28,7 @@ namespace MLIDS.ModelTrainer.ViewModels
 
         private void UpdateTrainButton()
         {
-            StartBtnEnabled = !string.IsNullOrEmpty(LocationCleanTrafficFile) &&
-                             !string.IsNullOrEmpty(LocationMaliciousTrafficFile) &&
+            StartBtnEnabled =
                              !string.IsNullOrEmpty(LocationModelFile) &&
                              !IsRunning;
         }
@@ -133,11 +98,11 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        public override void StartAction()
+        public override async void StartAction()
         {
             IsRunning = true;
 
-            ModelMetrics = _trainer.GenerateModel(LocationCleanTrafficFile, LocationMaliciousTrafficFile, LocationModelFile);
+            ModelMetrics = await _trainer.GenerateModel(_dataStorage, LocationModelFile);
 
             ModelTrainingDuration = $"{ModelMetrics.Duration.TotalSeconds} seconds";
 
@@ -149,29 +114,6 @@ namespace MLIDS.ModelTrainer.ViewModels
         public override void StopAction()
         {
             // Not Used
-        }
-
-        public void SelectMaliciousFileInput()
-        {
-            LocationMaliciousTrafficFile = SelectInputFile() ?? LocationMaliciousTrafficFile;
-        }
-
-        public void SelectCleanFileInput()
-        {
-            LocationCleanTrafficFile = SelectInputFile() ?? LocationCleanTrafficFile;
-        }
-
-        private string SelectInputFile()
-        {
-            var openDialog = new OpenFileDialog
-            {
-                Filter = "Network Traffic|*.csv",
-                Title = "Select Network Traffic"
-            };
-
-            openDialog.ShowDialog();
-
-            return openDialog.FileName;
         }
 
         public void SelectModelSaveOutput()
