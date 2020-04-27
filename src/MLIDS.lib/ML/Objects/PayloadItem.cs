@@ -35,6 +35,9 @@ namespace MLIDS.lib.ML.Objects
         [LoadColumn(8)]
         public string PacketContent { get; private set; }
 
+        [LoadColumn(9)]
+        public string HostName { get; private set; }
+
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
         {
             Label = clean;
