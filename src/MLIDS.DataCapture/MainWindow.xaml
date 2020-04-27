@@ -50,8 +50,8 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Save Stream to disk" VerticalAlignment="Center" />
-                <CheckBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding ChkBxSaveEnabled, Mode=TwoWay}" VerticalAlignment="Center" IsChecked="{Binding EnableFileStream, Mode=TwoWay}" />
+                <Label Grid.Row="0" Grid.Column="0" Content="Save Stream" VerticalAlignment="Center" />
+                <CheckBox Grid.Row="0" Grid.Column="1" IsEnabled="{Binding ChkBxSaveEnabled, Mode=TwoWay}" VerticalAlignment="Center" IsChecked="{Binding EnableSaveStream, Mode=TwoWay}" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Is Clean Traffic" VerticalAlignment="Center" />
                 <CheckBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding ChkBxSaveEnabled, Mode=TwoWay}" VerticalAlignment="Center" IsChecked="{Binding IsCleanTraffic, Mode=TwoWay}" />
