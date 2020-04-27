@@ -1,9 +1,8 @@
 ﻿using System;
 
-using Microsoft.Win32;
-
 using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
+
 using PacketDotNet;
 
 using SharpPcap;
@@ -13,17 +12,15 @@ namespace MLIDS.DataCapture.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private string _fileName;
+        private bool _enableSaveStream;
 
-        private bool _enableFileStream;
-
-        public bool EnableFileStream
+        public bool EnableSaveStream
         {
-            get => _enableFileStream;
+            get => _enableSaveStream;
 
             set
             {
-                _enableFileStream = value;
+                _enableSaveStream = value;
 
                 OnPropertyChanged();
             }
@@ -60,6 +57,8 @@ namespace MLIDS.DataCapture.ViewModels
         public MainViewModel()
         {
             ChkBxSaveEnabled = true;
+
+            StartBtnEnabled = true;
         }
 
         public override void StartAction()
@@ -68,25 +67,6 @@ namespace MLIDS.DataCapture.ViewModels
             StopBtnEnabled = true;
             DeviceSelectionEnabled = false;
             ChkBxSaveEnabled = false;
-
-            if (EnableFileStream)
-            {
-                var saveDialog = new SaveFileDialog
-                {
-                    Filter = "LOG File|*.csv", Title = "Save a Log File"
-                };
-
-                saveDialog.ShowDialog();
-
-                if (string.IsNullOrEmpty(saveDialog.FileName))
-                {
-                    StopAction();
-
-                    return;
-                }
-
-                _fileName = saveDialog.FileName;
-            }
 
             if (SelectedDevice is NpcapDevice)
             {
@@ -161,7 +141,10 @@ namespace MLIDS.DataCapture.ViewModels
                     return;
                 }
 
-                _dataStorage.WritePacketAsync(payloadItem);
+                if (EnableSaveStream)
+                {
+                    _dataStorage.WritePacketAsync(payloadItem);
+                }
 
                 Packets.Add(payloadItem.ToString());
             });
