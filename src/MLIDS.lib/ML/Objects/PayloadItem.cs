@@ -28,19 +28,19 @@ namespace MLIDS.lib.ML.Objects
         public string SourceIPAddress { get; private set; }
 
         [LoadColumn(3)]
-        public int SourcePort { get; private set; }
+        public float SourcePort { get; private set; }
 
         [LoadColumn(4)]
         public string DestinationIPAddress { get; private set; }
 
         [LoadColumn(5)]
-        public int DestinationPort { get; private set; }
+        public float DestinationPort { get; private set; }
 
         [LoadColumn(6)]
-        public int HeaderSize { get; private set; }
+        public float HeaderSize { get; private set; }
 
         [LoadColumn(7)]
-        public int PayloadSize { get; private set; }
+        public float PayloadSize { get; private set; }
 
         [LoadColumn(8)]
         public string PacketContent { get; private set; }
