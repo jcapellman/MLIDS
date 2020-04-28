@@ -19,18 +19,21 @@ namespace MLIDS.lib.ML.Objects
         public Guid Guid { get; set; }
 
         [LoadColumn(0)]
-        public bool Label { get; private set; }
+        public float Label { get; private set; }
 
         [LoadColumn(1)]
+        [NoColumn]
         public string ProtocolType { get; private set; }
 
         [LoadColumn(2)]
+        [NoColumn]
         public string SourceIPAddress { get; private set; }
 
         [LoadColumn(3)]
         public float SourcePort { get; private set; }
 
         [LoadColumn(4)]
+        [NoColumn]
         public string DestinationIPAddress { get; private set; }
 
         [LoadColumn(5)]
@@ -43,6 +46,7 @@ namespace MLIDS.lib.ML.Objects
         public float PayloadSize { get; private set; }
 
         [LoadColumn(8)]
+        [NoColumn]
         public string PacketContent { get; private set; }
 
         [NoColumn]
@@ -51,9 +55,14 @@ namespace MLIDS.lib.ML.Objects
         [NoColumn]
         public int Version { get; private set; }
 
+        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        [NoColumn] public bool IsClean { get; private set; }
+
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
         {
-            Label = clean;
+            Label = clean ? 1.0f : 0.0f;
+            
+            IsClean = clean;
 
             ProtocolType = protocolType;
 

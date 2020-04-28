@@ -45,13 +45,13 @@ namespace MLIDS.lib.ML
             {
                 FeatureColumnName = FEATURES,
                 ExampleWeightColumnName = null,
-                Rank = 5,
+                Rank = 4,
                 Oversampling = 20,
                 EnsureZeroMean = true,
                 Seed = 2020
             };
 
-            var (data, cleanRowCount, maliciousRowCount) = GetDataView(await storage.QueryPacketsAsync(a => a.Label), await storage.QueryPacketsAsync(a => !a.Label));
+            var (data, cleanRowCount, maliciousRowCount) = GetDataView(await storage.QueryPacketsAsync(a => a.IsClean), await storage.QueryPacketsAsync(a => !a.IsClean));
 
             IEstimator<ITransformer> dataProcessPipeline = _mlContext.Transforms.Concatenate(
                 FEATURES,
