@@ -19,7 +19,7 @@ namespace MLIDS.lib.ML.Objects
         public Guid Guid { get; set; }
 
         [LoadColumn(0)]
-        public float Label { get; private set; }
+        public bool Label { get; private set; }
 
         [LoadColumn(1)]
         [NoColumn]
@@ -60,7 +60,7 @@ namespace MLIDS.lib.ML.Objects
 
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
         {
-            Label = clean ? 1.0f : 0.0f;
+            Label = clean;
             
             IsClean = clean;
 

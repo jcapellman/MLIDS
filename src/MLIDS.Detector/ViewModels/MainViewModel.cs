@@ -97,10 +97,10 @@ namespace MLIDS.Detector.ViewModels
             {
                 _predictor = new Predictor(LocationModelFile);
 
-                LocationModelFile = string.Empty;
-
                 return true;
             } catch (Exception) { }
+
+            LocationModelFile = string.Empty;
 
             return false;
         }
