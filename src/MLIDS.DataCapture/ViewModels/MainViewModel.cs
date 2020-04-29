@@ -1,6 +1,5 @@
 ﻿using System;
 
-using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
 
 using PacketDotNet;
@@ -95,34 +94,6 @@ namespace MLIDS.DataCapture.ViewModels
             ChkBxSaveEnabled = true;
         }
 
-        private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket,
-            TransportPacket payloadPacket, bool cleanTraffic) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
-
-        private PayloadItem GetPacket(Packet packet)
-        {
-            if (!(packet.PayloadPacket is IPv4Packet))
-            {
-                return null;
-            }
-
-            var ipPacket = (IPv4Packet) packet.PayloadPacket;
-
-            switch (ipPacket.Protocol)
-            {
-                case ProtocolType.Tcp:
-                    var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
-
-                    return ToPayloadItem("TCP", ipPacket, tcpPacket, IsCleanTraffic);
-                case ProtocolType.Udp:
-                    var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
-
-                    return ToPayloadItem("UDP", ipPacket, udpPacket, IsCleanTraffic);
-            }
-
-            return null;
-        }
-
         private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
@@ -134,7 +105,7 @@ namespace MLIDS.DataCapture.ViewModels
                     return;
                 }
 
-                var payloadItem = GetPacket(packet);
+                var payloadItem = GetPacket(packet, IsCleanTraffic);
 
                 if (payloadItem == null)
                 {

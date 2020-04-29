@@ -3,8 +3,8 @@
 using Microsoft.Win32;
 
 using MLIDS.lib.ML;
-using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
+
 using PacketDotNet;
 
 using SharpPcap;
@@ -104,34 +104,7 @@ namespace MLIDS.Detector.ViewModels
 
             return false;
         }
-
-        private static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket, TransportPacket payloadPacket) =>
-            new PayloadItem(protocolType, sourcePacket, payloadPacket, false);
-
-        private PayloadItem GetPacket(Packet packet)
-        {
-            if (!(packet.PayloadPacket is IPv4Packet))
-            {
-                return null;
-            }
-
-            var ipPacket = (IPv4Packet)packet.PayloadPacket;
-
-            switch (ipPacket.Protocol)
-            {
-                case ProtocolType.Tcp:
-                    var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
-
-                    return ToPayloadItem("TCP", ipPacket, tcpPacket);
-                case ProtocolType.Udp:
-                    var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
-
-                    return ToPayloadItem("UDP", ipPacket, udpPacket);
-            }
-
-            return null;
-        }
-
+        
         private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
@@ -143,7 +116,7 @@ namespace MLIDS.Detector.ViewModels
                     return;
                 }
 
-                var packetItem = GetPacket(packet);
+                var packetItem = GetPacket(packet, false);
 
                 if (packetItem == null)
                 {

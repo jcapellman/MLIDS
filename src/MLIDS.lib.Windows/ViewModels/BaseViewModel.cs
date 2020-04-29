@@ -6,7 +6,8 @@ using System.Runtime.CompilerServices;
 
 using MLIDS.lib.DAL;
 using MLIDS.lib.DAL.Base;
-
+using MLIDS.lib.ML.Objects;
+using PacketDotNet;
 using SharpPcap;
 
 namespace MLIDS.lib.Windows.ViewModels
@@ -130,6 +131,34 @@ namespace MLIDS.lib.Windows.ViewModels
         public abstract void StartAction();
 
         public abstract void StopAction();
+
+        protected static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket,
+           TransportPacket payloadPacket, bool cleanTraffic) =>
+           new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
+
+        protected PayloadItem GetPacket(Packet packet, bool isCleanTraffic)
+        {
+            if (!(packet.PayloadPacket is IPv4Packet))
+            {
+                return null;
+            }
+
+            var ipPacket = (IPv4Packet)packet.PayloadPacket;
+
+            switch (ipPacket.Protocol)
+            {
+                case ProtocolType.Tcp:
+                    var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
+
+                    return ToPayloadItem("TCP", ipPacket, tcpPacket, isCleanTraffic);
+                case ProtocolType.Udp:
+                    var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
+
+                    return ToPayloadItem("UDP", ipPacket, udpPacket, isCleanTraffic);
+            }
+
+            return null;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
