@@ -81,5 +81,7 @@ namespace MLIDS.lib.ML.Objects
 
             Version = Constants.API_VERSION;
         }
+
+        public override string ToString() => $"{SourceIPAddress}:{SourcePort} to {DestinationIPAddress}:{DestinationPort} of size {PayloadSize}";
     }
 }
