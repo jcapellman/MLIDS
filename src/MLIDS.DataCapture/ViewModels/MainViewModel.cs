@@ -115,9 +115,10 @@ namespace MLIDS.DataCapture.ViewModels
                 if (EnableSaveStream)
                 {
                     _dataStorage.WritePacketAsync(payloadItem);
+                } else
+                {
+                    Packets.Add(payloadItem.ToString());
                 }
-
-                Packets.Add(payloadItem.ToString());
             });
         }
     }
