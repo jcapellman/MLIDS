@@ -32,9 +32,7 @@ namespace MLIDS.lib.Containers
                 return settingsItem;
             }
 
-            using FileStream fs = File.OpenRead(Path.Combine(AppContext.BaseDirectory, fileName));
-
-            return JsonSerializer.Deserialize<SettingsItem>(fs);
+            return JsonSerializer.Deserialize<SettingsItem>(File.ReadAllBytes(fullPath));
         }
     }
 }
