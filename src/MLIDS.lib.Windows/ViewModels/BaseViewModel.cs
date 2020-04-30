@@ -4,10 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
+using MLIDS.lib.Containers;
 using MLIDS.lib.DAL;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.ML.Objects;
+
 using PacketDotNet;
+
 using SharpPcap;
 
 namespace MLIDS.lib.Windows.ViewModels
@@ -114,6 +117,8 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
+        protected SettingsItem Settings;
+
         public BaseViewModel()
         {
             DeviceList = CaptureDeviceList.Instance.ToList();
@@ -125,7 +130,9 @@ namespace MLIDS.lib.Windows.ViewModels
             DeviceSelectionEnabled = true;
             IsRunning = false;
 
-            _dataStorage = new MongoDAL();
+            Settings = SettingsItem.Load();
+
+            _dataStorage = new MongoDAL(Settings);
         }
 
         public abstract void StartAction();
