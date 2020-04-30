@@ -1,4 +1,8 @@
-﻿using MLIDS.lib.Common;
+﻿using System;
+using System.IO;
+using System.Text.Json;
+
+using MLIDS.lib.Common;
 
 namespace MLIDS.lib.Containers
 {
@@ -13,6 +17,24 @@ namespace MLIDS.lib.Containers
             DAL_HostIP = Constants.DAL_HostIP;
 
             DAL_HostPort = Constants.DAL_HostPort;
+        }
+
+        public static SettingsItem Load(string fileName = Constants.SETTINGS_FILENAME)
+        {
+            var fullPath = Path.Combine(AppContext.BaseDirectory, fileName);
+
+            if (!File.Exists(fullPath))
+            {
+                var settingsItem = new SettingsItem();
+
+                File.WriteAllText(fullPath, JsonSerializer.Serialize(settingsItem));
+
+                return settingsItem;
+            }
+
+            using FileStream fs = File.OpenRead(Path.Combine(AppContext.BaseDirectory, fileName));
+
+            return JsonSerializer.Deserialize<SettingsItem>(fs);
         }
     }
 }
