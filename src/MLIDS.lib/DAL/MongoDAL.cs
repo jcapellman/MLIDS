@@ -39,6 +39,11 @@ namespace MLIDS.lib.DAL
 
         public override async Task<List<PayloadItem>> QueryPacketsAsync(System.Linq.Expressions.Expression<Func<PayloadItem, bool>> queryExpression)
         {
+            if (queryExpression == null)
+            {
+                return new List<PayloadItem>();
+            }
+
             var collection = _db.GetCollection<PayloadItem>(COLLECTION_NAME);
 
             return await(await collection.FindAsync(queryExpression)).ToListAsync();

@@ -29,5 +29,13 @@ namespace MLIDS.UnitTests.lib.DAL
 
             await mongo.WritePacketAsync(null);
         }
+
+        [TestMethod]
+        public async Task MongoDAL_QueryNullTestAsync()
+        {
+            var mongo = new MLIDS.lib.DAL.MongoDAL();
+
+            await mongo.QueryPacketsAsync(null);
+        }
     }
 }
