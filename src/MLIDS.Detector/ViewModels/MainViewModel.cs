@@ -12,7 +12,7 @@ using SharpPcap.Npcap;
 
 namespace MLIDS.Detector.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseCaptureMainViewModel
     {
         private static Predictor _predictor;
 
@@ -36,39 +36,6 @@ namespace MLIDS.Detector.ViewModels
         {
             StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
                                !IsRunning;
-        }
-
-        public override void StartAction()
-        {
-            StartBtnEnabled = false;
-            StopBtnEnabled = true;
-            DeviceSelectionEnabled = false;
-            
-            if (SelectedDevice is NpcapDevice)
-            {
-                var nPcap = SelectedDevice as NpcapDevice;
-
-                nPcap?.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, 1000);
-            }
-
-            SelectedDevice.OnPacketArrival += Device_OnPacketArrival;
-            SelectedDevice.StartCapture();
-        }
-
-        public override void StopAction()
-        {
-            try
-            {
-                SelectedDevice.OnPacketArrival -= Device_OnPacketArrival;
-
-                SelectedDevice.StopCapture();
-                SelectedDevice.Close();
-            }
-            catch (Exception) { }
-
-            StartBtnEnabled = true;
-            StopBtnEnabled = false;
-            DeviceSelectionEnabled = true;
         }
 
         private string SelectInputFile()
@@ -105,7 +72,7 @@ namespace MLIDS.Detector.ViewModels
             return false;
         }
         
-        private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
+        public override void PacketProcessing(CaptureEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
@@ -130,6 +97,6 @@ namespace MLIDS.Detector.ViewModels
                     Packets.Add($"{packetItem.DestinationIPAddress}:{packetItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
                 }
             });
-        }    
+        }
     }
 }
