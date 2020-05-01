@@ -8,7 +8,6 @@ using MLIDS.lib.Windows.ViewModels;
 using PacketDotNet;
 
 using SharpPcap;
-using SharpPcap.Npcap;
 
 namespace MLIDS.Detector.ViewModels
 {
