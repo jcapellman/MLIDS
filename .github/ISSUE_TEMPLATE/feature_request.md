@@ -1,3 +1,7 @@
-assignees: jcapellman
+---
+name: Feature Request
+about: Use this template for tracking new features.
+title: "Unit Tests:"
 labels: feature
-milestone: 0.1
+assignees: jcapellman
+---
