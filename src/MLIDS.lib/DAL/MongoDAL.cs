@@ -46,6 +46,11 @@ namespace MLIDS.lib.DAL
 
         public override async Task<bool> WritePacketAsync(PayloadItem packet)
         {
+            if (packet == null)
+            {
+                return false;
+            }
+
             var collection = _db.GetCollection<PayloadItem>(COLLECTION_NAME);
 
             await collection.InsertOneAsync(packet);
