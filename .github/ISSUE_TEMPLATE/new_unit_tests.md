@@ -1,5 +1,5 @@
 ---
-name: Feature Request
+name: New Unit Tests
 about: Use this template for tracking new features.
 title: "Unit Tests:"
 labels: Feature
