@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MLIDS.UnitTests.lib.DAL
@@ -36,6 +37,16 @@ namespace MLIDS.UnitTests.lib.DAL
             var mongo = new MLIDS.lib.DAL.MongoDAL();
 
             await mongo.QueryPacketsAsync(null);
+        }
+
+        [TestMethod]
+        public async Task MongoDAL_QueryEmptyTestAsync()
+        {
+            var mongo = new MLIDS.lib.DAL.MongoDAL();
+
+            var result = await mongo.QueryPacketsAsync(a => a.Label);
+
+            Assert.IsTrue(result.Any());
         }
     }
 }
