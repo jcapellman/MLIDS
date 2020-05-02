@@ -21,6 +21,11 @@ namespace MLIDS.lib.Containers
 
         public static SettingsItem Load(string fileName = Constants.SETTINGS_FILENAME)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
             var fullPath = Path.Combine(AppContext.BaseDirectory, fileName);
 
             if (!File.Exists(fullPath))
