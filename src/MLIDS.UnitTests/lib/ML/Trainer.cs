@@ -1,6 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using MLIDS.lib.DAL;
+
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MLIDS.UnitTests.lib.ML
@@ -13,6 +16,13 @@ namespace MLIDS.UnitTests.lib.ML
         public async Task Trainer_NullTest()
         {
             await new MLIDS.lib.ML.Trainer().GenerateModel(null, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public async Task Trainer_ModelNotFoundTest()
+        {
+            await new MLIDS.lib.ML.Trainer().GenerateModel(new MongoDAL(), "test");
         }
     }
 }

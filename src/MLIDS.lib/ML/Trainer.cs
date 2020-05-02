@@ -11,6 +11,7 @@ using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
+using System.IO;
 
 namespace MLIDS.lib.ML
 {
@@ -47,6 +48,11 @@ namespace MLIDS.lib.ML
             if (string.IsNullOrEmpty(modelFileName))
             {
                 throw new ArgumentNullException(nameof(modelFileName));
+            }
+
+            if (!File.Exists(modelFileName))
+            {
+                throw new FileNotFoundException(modelFileName);
             }
 
             var startTime = DateTime.Now;
