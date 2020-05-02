@@ -1,9 +1,10 @@
-﻿using Microsoft.ML;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+
+using Microsoft.ML;
 
 using MLIDS.lib.ML.Objects;
-
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MLIDS.lib.ML
 {
@@ -16,6 +17,11 @@ namespace MLIDS.lib.ML
             if (string.IsNullOrEmpty(modelName))
             {
                 throw new ArgumentNullException(nameof(modelName));
+            }
+
+            if (!File.Exists(modelName))
+            {
+                throw new FileNotFoundException(nameof(modelName));
             }
 
             var mlContext = new MLContext(2020);
