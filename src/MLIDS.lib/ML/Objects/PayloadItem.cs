@@ -60,6 +60,21 @@ namespace MLIDS.lib.ML.Objects
 
         public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
         {
+            if (string.IsNullOrEmpty(protocolType))
+            {
+                throw new ArgumentNullException(nameof(protocolType));
+            }
+
+            if (sourcePacket == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePacket));
+            }
+
+            if (payloadPacket == null)
+            {
+                throw new ArgumentNullException(nameof(payloadPacket));
+            }
+
             Label = clean;
             
             IsClean = clean;
