@@ -39,6 +39,16 @@ namespace MLIDS.lib.ML
 
         public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
         {
+            if (storage == null)
+            {
+                throw new ArgumentNullException(nameof(storage));
+            }
+
+            if (string.IsNullOrEmpty(modelFileName))
+            {
+                throw new ArgumentNullException(nameof(modelFileName));
+            }
+
             var startTime = DateTime.Now;
 
             var options = new RandomizedPcaTrainer.Options
