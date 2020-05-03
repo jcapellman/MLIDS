@@ -8,6 +8,8 @@ namespace MLIDS.lib.Containers
 {
     public class SettingsItem
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         public string DAL_HostIP { get; set; }
 
         public int DAL_HostPort { get; set; }
@@ -23,6 +25,8 @@ namespace MLIDS.lib.Containers
         {
             if (string.IsNullOrEmpty(fileName))
             {
+                Log.Error("SettingsItem::Load - Filename was null or empty");
+
                 throw new ArgumentNullException(nameof(fileName));
             }
 
@@ -30,6 +34,8 @@ namespace MLIDS.lib.Containers
 
             if (!File.Exists(fullPath))
             {
+                Log.Warn($"SettingsItem::Load - Filename ({fileName}) does not exist, creating with defaults");
+
                 var settingsItem = new SettingsItem();
 
                 File.WriteAllText(fullPath, JsonSerializer.Serialize(settingsItem));
