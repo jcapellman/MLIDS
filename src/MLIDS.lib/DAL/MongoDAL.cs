@@ -12,6 +12,8 @@ namespace MLIDS.lib.DAL
 {
     public class MongoDAL : BaseDAL
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         private readonly IMongoDatabase _db;
 
         private const string COLLECTION_NAME = "Packets";
@@ -41,7 +43,9 @@ namespace MLIDS.lib.DAL
         {
             if (queryExpression == null)
             {
-                return new List<PayloadItem>();
+                Log.Error($"MongoDAL::QueryPacketsAsync - Query Expression was null");
+
+                throw new ArgumentNullException(nameof(queryExpression));
             }
 
             var collection = _db.GetCollection<PayloadItem>(COLLECTION_NAME);
