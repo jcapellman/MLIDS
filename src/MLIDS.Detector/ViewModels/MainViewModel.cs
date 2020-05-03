@@ -73,6 +73,11 @@ namespace MLIDS.Detector.ViewModels
         
         public override void PacketProcessing(CaptureEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);

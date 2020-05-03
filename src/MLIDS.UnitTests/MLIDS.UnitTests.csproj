@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MLIDS.Detector\MLIDS.Detector.csproj" />
+    <ProjectReference Include="..\MLIDS.lib.Windows\MLIDS.lib.Windows.csproj" />
     <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
   </ItemGroup>
 
