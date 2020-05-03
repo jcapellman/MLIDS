@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
@@ -17,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MLIDS.DataCapture\MLIDS.DataCapture.csproj" />
     <ProjectReference Include="..\MLIDS.Detector\MLIDS.Detector.csproj" />
     <ProjectReference Include="..\MLIDS.lib.Windows\MLIDS.lib.Windows.csproj" />
     <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
