@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 using Microsoft.Win32;
 
@@ -102,6 +103,16 @@ namespace MLIDS.ModelTrainer.ViewModels
 
         public override async void StartAction()
         {
+            if (_dataStorage == null)
+            {
+                throw new NullReferenceException("Data Storage was null");
+            }
+
+            if (string.IsNullOrEmpty(LocationModelFile))
+            {
+                throw new NullReferenceException("Location Model FileName was null");
+            }
+
             IsRunning = true;
 
             ModelMetrics = await _trainer.GenerateModel(_dataStorage, LocationModelFile);
