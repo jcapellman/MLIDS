@@ -57,7 +57,7 @@ namespace MLIDS.lib.DAL
         {
             if (packet == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(packet));
             }
 
             var collection = _db.GetCollection<PayloadItem>(COLLECTION_NAME);
