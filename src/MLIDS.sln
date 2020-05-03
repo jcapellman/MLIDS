@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.Detector", "MLIDS.Det
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.lib.Windows", "MLIDS.lib.Windows\MLIDS.lib.Windows.csproj", "{45527359-A4FF-48C6-9D02-3B530731EA60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLIDS.UnitTests", "MLIDS.UnitTests\MLIDS.UnitTests.csproj", "{DD0A05B4-998F-4CF3-86B4-97550BE6E493}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.UnitTests", "MLIDS.UnitTests\MLIDS.UnitTests.csproj", "{DD0A05B4-998F-4CF3-86B4-97550BE6E493}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
