@@ -9,3 +9,6 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 * Model Testing Application (.NET 5)
 * Shared Code Library (.NET 5)
 * Unit Tests (.NET 5)
+
+## Releases
+Using GitHub Actions, all three Applications will be built and packaged individually
