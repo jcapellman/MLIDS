@@ -65,6 +65,8 @@ namespace MLIDS.Detector.ViewModels
             {
                 _predictor = new Predictor(LocationModelFile);
 
+                Log.Info($"SelectModelFile - Model File {LocationModelFile} was loaded");
+
                 return true;
             }
             catch (Exception ex)
@@ -92,6 +94,8 @@ namespace MLIDS.Detector.ViewModels
 
                 if (!packet.HasPayloadPacket)
                 {
+                    Log.Info("Packet has no payload");
+
                     return;
                 }
 
@@ -99,6 +103,8 @@ namespace MLIDS.Detector.ViewModels
 
                 if (packetItem == null)
                 {
+                    Log.Info("PacketItem was null");
+
                     return;
                 }
 
@@ -106,7 +112,12 @@ namespace MLIDS.Detector.ViewModels
 
                 if (!result.Label)
                 {
+                    Log.Debug("Packet was found to be malicious");
+
                     Packets.Add($"{packetItem.DestinationIPAddress}:{packetItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
+                } else
+                {
+                    Log.Debug("Packet was found to be clean");
                 }
             });
         }
