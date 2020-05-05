@@ -13,6 +13,8 @@ namespace MLIDS.Detector.ViewModels
 {
     public class MainViewModel : BaseCaptureMainViewModel
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         private static Predictor _predictor;
 
         private string _locationModelFile;
@@ -64,7 +66,11 @@ namespace MLIDS.Detector.ViewModels
                 _predictor = new Predictor(LocationModelFile);
 
                 return true;
-            } catch (Exception) { }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"MainViewModel::SelectModelFile - Threw an exception when attempting to use {LocationModelFile}: {ex}");
+            }
 
             LocationModelFile = string.Empty;
 
