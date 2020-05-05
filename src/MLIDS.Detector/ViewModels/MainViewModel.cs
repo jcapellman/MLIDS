@@ -81,6 +81,8 @@ namespace MLIDS.Detector.ViewModels
         {
             if (e == null)
             {
+                Log.Error("MainViewModel::PacketProcessing - e is null");
+
                 throw new ArgumentNullException(nameof(e));
             }
 
