@@ -17,6 +17,8 @@ namespace MLIDS.lib.ML
 {
     public class Trainer
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         protected const string FEATURES = "Features";
 
         private readonly MLContext _mlContext;
@@ -42,16 +44,22 @@ namespace MLIDS.lib.ML
         {
             if (storage == null)
             {
+                Log.Error("Trainer::GenerateModel - BaseDAL is null");
+
                 throw new ArgumentNullException(nameof(storage));
             }
 
             if (string.IsNullOrEmpty(modelFileName))
             {
+                Log.Error("Trainer::GenerateModel - modelFileName is null");
+
                 throw new ArgumentNullException(nameof(modelFileName));
             }
 
             if (!File.Exists(modelFileName))
             {
+                Log.Error($"Trainer::GenerateModel - {modelFileName} does not exist");
+
                 throw new FileNotFoundException(modelFileName);
             }
 
