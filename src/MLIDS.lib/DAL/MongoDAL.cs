@@ -57,6 +57,8 @@ namespace MLIDS.lib.DAL
         {
             if (packet == null)
             {
+                Log.Error($"MongoDAL::WritePacketAsync - packet was null");
+
                 throw new ArgumentNullException(nameof(packet));
             }
 
