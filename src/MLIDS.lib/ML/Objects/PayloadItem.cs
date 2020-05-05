@@ -13,6 +13,8 @@ namespace MLIDS.lib.ML.Objects
 {
     public class PayloadItem
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         [BsonId]
         [DataMember]
         [NoColumn]
@@ -62,16 +64,22 @@ namespace MLIDS.lib.ML.Objects
         {
             if (string.IsNullOrEmpty(protocolType))
             {
+                Log.Error($"PayloadItem - protocolType was null or empty");
+
                 throw new ArgumentNullException(nameof(protocolType));
             }
 
             if (sourcePacket == null)
             {
+                Log.Error($"PayloadItem - sourcePacket was null");
+
                 throw new ArgumentNullException(nameof(sourcePacket));
             }
 
             if (payloadPacket == null)
             {
+                Log.Error($"PayloadItem - payloadPacket was null");
+
                 throw new ArgumentNullException(nameof(payloadPacket));
             }
 
