@@ -1,10 +1,5 @@
-﻿using System;
-
+﻿using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
-
-using PacketDotNet;
-
-using SharpPcap;
 
 namespace MLIDS.DataCapture.ViewModels
 {
@@ -45,48 +40,20 @@ namespace MLIDS.DataCapture.ViewModels
             StartBtnEnabled = true;
         }
 
-        public override void PacketProcessing(CaptureEventArgs e)
+        public override void PacketProcessing(PayloadItem payloadItem)
         {
-            if (e == null)
+            if (EnableSaveStream)
             {
-                Log.Error("MainViewModel::PacketProcessing - e is null");
+                Log.Debug($"Saving Packet to DAL: {payloadItem}");
 
-                throw new ArgumentNullException(nameof(e));
+                _dataStorage.WritePacketAsync(payloadItem);
             }
-
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            else
             {
-                var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
+                Log.Debug($"Saving Packet to Collection: {payloadItem}");
 
-                if (!packet.HasPayloadPacket)
-                {
-                    Log.Info("Packet has no payload");
-
-                    return;
-                }
-
-                var packetItem = GetPacket(packet, false);
-
-                if (packetItem == null)
-                {
-                    Log.Info("PacketItem was null");
-
-                    return;
-                }
-
-                if (EnableSaveStream)
-                {
-                    Log.Debug($"Saving Packet to DAL: {packetItem}");
-
-                    _dataStorage.WritePacketAsync(packetItem);
-                }
-                else
-                {
-                    Log.Debug($"Saving Packet to Collection: {packetItem}");
-
-                    Packets.Add(packetItem.ToString());
-                }
-            });
+                Packets.Add(payloadItem.ToString());
+            }
         }
     }
 }
