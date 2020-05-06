@@ -1,14 +1,17 @@
-﻿using MLIDS.lib.Windows.ViewModels;
+﻿using System;
+
+using MLIDS.lib.Windows.ViewModels;
 
 using PacketDotNet;
 
 using SharpPcap;
-using System;
 
 namespace MLIDS.DataCapture.ViewModels
 {
     public class MainViewModel : BaseCaptureMainViewModel
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         private bool _enableSaveStream;
 
         public bool EnableSaveStream
@@ -46,6 +49,8 @@ namespace MLIDS.DataCapture.ViewModels
         {
             if (e == null)
             {
+                Log.Error("MainViewModel::PacketProcessing - e is null");
+
                 throw new ArgumentNullException(nameof(e));
             }
 
@@ -55,23 +60,31 @@ namespace MLIDS.DataCapture.ViewModels
 
                 if (!packet.HasPayloadPacket)
                 {
+                    Log.Info("Packet has no payload");
+
                     return;
                 }
 
-                var payloadItem = GetPacket(packet, IsCleanTraffic);
+                var packetItem = GetPacket(packet, false);
 
-                if (payloadItem == null)
+                if (packetItem == null)
                 {
+                    Log.Info("PacketItem was null");
+
                     return;
                 }
 
                 if (EnableSaveStream)
                 {
-                    _dataStorage.WritePacketAsync(payloadItem);
+                    Log.Debug($"Saving Packet to DAL: {packetItem}");
+
+                    _dataStorage.WritePacketAsync(packetItem);
                 }
                 else
                 {
-                    Packets.Add(payloadItem.ToString());
+                    Log.Debug($"Saving Packet to Collection: {packetItem}");
+
+                    Packets.Add(packetItem.ToString());
                 }
             });
         }
