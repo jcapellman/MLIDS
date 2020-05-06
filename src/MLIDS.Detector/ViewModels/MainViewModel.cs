@@ -3,11 +3,8 @@
 using Microsoft.Win32;
 
 using MLIDS.lib.ML;
+using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
-
-using PacketDotNet;
-
-using SharpPcap;
 
 namespace MLIDS.Detector.ViewModels
 {
@@ -79,47 +76,19 @@ namespace MLIDS.Detector.ViewModels
             return false;
         }
         
-        public override void PacketProcessing(CaptureEventArgs e)
+        public override void PacketProcessing(PayloadItem payloadItem)
         {
-            if (e == null)
-            {
-                Log.Error("MainViewModel::PacketProcessing - e is null");
+            var result = _predictor.Predict(payloadItem);
 
-                throw new ArgumentNullException(nameof(e));
+            if (!result.Label)
+            {
+                Log.Debug("Packet was found to be malicious");
+
+                Packets.Add($"{payloadItem.DestinationIPAddress}:{payloadItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
+            } else
+            {
+                Log.Debug("Packet was found to be clean");
             }
-
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
-            {
-                var packet = Packet.ParsePacket(e.Packet.LinkLayerType, e.Packet.Data);
-
-                if (!packet.HasPayloadPacket)
-                {
-                    Log.Info("Packet has no payload");
-
-                    return;
-                }
-
-                var packetItem = GetPacket(packet, false);
-
-                if (packetItem == null)
-                {
-                    Log.Info("PacketItem was null");
-
-                    return;
-                }
-
-                var result = _predictor.Predict(packetItem);
-
-                if (!result.Label)
-                {
-                    Log.Debug("Packet was found to be malicious");
-
-                    Packets.Add($"{packetItem.DestinationIPAddress}:{packetItem.DestinationPort} was found to be malicious at a {result.Score} confidence");
-                } else
-                {
-                    Log.Debug("Packet was found to be clean");
-                }
-            });
         }
     }
 }
