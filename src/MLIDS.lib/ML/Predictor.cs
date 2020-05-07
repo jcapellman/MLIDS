@@ -4,6 +4,7 @@ using System.IO;
 
 using Microsoft.ML;
 
+using MLIDS.lib.Common;
 using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.ML
@@ -30,7 +31,7 @@ namespace MLIDS.lib.ML
                 throw new FileNotFoundException(nameof(modelName));
             }
 
-            var mlContext = new MLContext(2020);
+            var mlContext = new MLContext(Constants.ML_SEED);
 
             var model = mlContext.Model.Load(modelName, out _);
 
