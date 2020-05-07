@@ -9,5 +9,7 @@
         public const int API_VERSION = 1;
 
         public const string SETTINGS_FILENAME = "settings.json";
+
+        public const int ML_SEED = 2020;
     }
 }
