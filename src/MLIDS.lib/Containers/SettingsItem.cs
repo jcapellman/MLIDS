@@ -43,6 +43,8 @@ namespace MLIDS.lib.Containers
                 return settingsItem;
             }
 
+            Log.Debug($"SettingsItem::Load - File ({fileName}) was loaded");
+
             return JsonSerializer.Deserialize<SettingsItem>(File.ReadAllBytes(fullPath));
         }
     }
