@@ -30,6 +30,8 @@ namespace MLIDS.lib.DAL
             var client = new MongoClient(mongoSettings);
 
             _db = client.GetDatabase(COLLECTION_NAME);
+
+            Log.Debug($"MongoDAL::MongoDAL - Database Loaded ({settings.DAL_HostIP}:{settings.DAL_HostPort})");
         }
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
