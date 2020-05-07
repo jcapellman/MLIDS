@@ -11,6 +11,8 @@ namespace MLIDS.ModelTrainer.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         private string _locationModelFile;
 
         public string LocationModelFile
@@ -105,11 +107,15 @@ namespace MLIDS.ModelTrainer.ViewModels
         {
             if (_dataStorage == null)
             {
+                Log.Error("MainViewModel::StartAction - Data Storage was null");
+
                 throw new NullReferenceException("Data Storage was null");
             }
 
             if (string.IsNullOrEmpty(LocationModelFile))
             {
+                Log.Error("MainViewModel::StartAction - LocationModelFile was null or empty");
+
                 throw new NullReferenceException("Location Model FileName was null");
             }
 
