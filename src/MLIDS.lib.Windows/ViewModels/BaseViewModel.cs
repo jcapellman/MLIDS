@@ -17,6 +17,8 @@ namespace MLIDS.lib.Windows.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         protected BaseDAL _dataStorage;
 
         private bool _startBtnEnabled;
@@ -139,27 +141,37 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public abstract void StopAction();
 
-        protected static PayloadItem ToPayloadItem(string protocolType, IPv4Packet sourcePacket,
+        protected static PayloadItem ToPayloadItem(string protocolType, IPPacket sourcePacket,
            TransportPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
         protected PayloadItem GetPacket(Packet packet, bool isCleanTraffic)
         {
-            if (!(packet.PayloadPacket is IPv4Packet))
+            IPPacket ipPacket = null;
+
+            if (packet.PayloadPacket is IPv4Packet ipv4Packet)
             {
-                return null;
+                ipPacket = ipv4Packet;
+            } else if (packet.PayloadPacket is IPv6Packet ipv6Packet)
+            {
+                ipPacket = ipv6Packet;
             }
 
-            var ipPacket = (IPv4Packet)packet.PayloadPacket;
+            if (ipPacket == null)
+            {
+                Log.Info("BaseViewModel::GetPacket - Packet was not IPv4 or IPv6");
+
+                return null;
+            }
 
             switch (ipPacket.Protocol)
             {
                 case ProtocolType.Tcp:
-                    var tcpPacket = packet.Extract<PacketDotNet.TcpPacket>();
+                    var tcpPacket = packet.Extract<TcpPacket>();
 
                     return ToPayloadItem("TCP", ipPacket, tcpPacket, isCleanTraffic);
                 case ProtocolType.Udp:
-                    var udpPacket = packet.Extract<PacketDotNet.UdpPacket>();
+                    var udpPacket = packet.Extract<UdpPacket>();
 
                     return ToPayloadItem("UDP", ipPacket, udpPacket, isCleanTraffic);
             }
