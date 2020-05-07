@@ -55,6 +55,8 @@ namespace MLIDS.Detector.ViewModels
 
             if (string.IsNullOrEmpty(LocationModelFile))
             {
+                Log.Debug($"SelectModelFile - Dialog was canceled");
+
                 return true;
             }
 
