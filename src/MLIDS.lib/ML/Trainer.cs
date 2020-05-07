@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 using Microsoft.ML;
@@ -11,7 +12,7 @@ using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
-using System.IO;
+using MLIDS.lib.Common;
 
 namespace MLIDS.lib.ML
 {
@@ -25,7 +26,7 @@ namespace MLIDS.lib.ML
 
         public Trainer()
         {
-            _mlContext = new MLContext(2020);
+            _mlContext = new MLContext(Constants.ML_SEED);
         }
 
         private (TrainTestData Data, int cleanRowCount, int maliciousRowCount) GetDataView(List<PayloadItem> cleanData, List<PayloadItem> maliciousData)
@@ -72,7 +73,7 @@ namespace MLIDS.lib.ML
                 Rank = 4,
                 Oversampling = 20,
                 EnsureZeroMean = true,
-                Seed = 2020
+                Seed = Constants.ML_SEED
             };
 
             var (data, cleanRowCount, maliciousRowCount) = GetDataView(await storage.QueryPacketsAsync(a => a.IsClean), await storage.QueryPacketsAsync(a => !a.IsClean));
