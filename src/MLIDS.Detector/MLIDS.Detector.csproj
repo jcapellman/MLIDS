@@ -15,4 +15,10 @@
     <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\MLIDS.Detector.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
