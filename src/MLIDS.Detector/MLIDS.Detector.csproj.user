@@ -7,6 +7,11 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\MLIDS.Detector.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
