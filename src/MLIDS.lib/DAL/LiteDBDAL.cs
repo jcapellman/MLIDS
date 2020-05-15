@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using LiteDB;
 
+using MLIDS.lib.Common;
 using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.ML.Objects;
@@ -16,11 +17,13 @@ namespace MLIDS.lib.DAL
     {
         private string _connectionString;
 
-        public LiteDBDAL(SettingsItem settings)
+        public LiteDBDAL(string connectionString = Constants.DAL_FileName)
         {
-            _connectionString = settings.DAL_FileName;
+            _connectionString = connectionString;
         }
-
+            
+        public LiteDBDAL(SettingsItem settings) : this(settings.DAL_FileName) { }
+    
         public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName) => 
             Task.Run(() =>
             {
