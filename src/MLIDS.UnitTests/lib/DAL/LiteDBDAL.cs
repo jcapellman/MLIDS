@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MLIDS.UnitTests.lib.DAL
 {
@@ -49,7 +50,7 @@ namespace MLIDS.UnitTests.lib.DAL
 
             var result = await litedb.QueryPacketsAsync(a => a.Label);
 
-            Assert.IsTrue(result.Any());
+            Assert.IsTrue(!result.Any());
         }
     }
 }
