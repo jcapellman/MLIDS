@@ -6,6 +6,8 @@
 
         public const int DAL_HostPort = 27017;
 
+        public const string DAL_FileName = "litedb.db";
+
         public const int API_VERSION = 1;
 
         public const string SETTINGS_FILENAME = "settings.json";
