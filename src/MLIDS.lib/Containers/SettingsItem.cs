@@ -14,11 +14,15 @@ namespace MLIDS.lib.Containers
 
         public int DAL_HostPort { get; set; }
 
+        public string DAL_FileName { get; set; }
+
         public SettingsItem()
         {
             DAL_HostIP = Constants.DAL_HostIP;
 
             DAL_HostPort = Constants.DAL_HostPort;
+
+            DAL_FileName = Constants.DAL_FileName;
         }
 
         public static SettingsItem Load(string fileName = Constants.SETTINGS_FILENAME)
