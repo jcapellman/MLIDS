@@ -18,12 +18,12 @@ namespace MLIDS.lib.DAL
 
         public LiteDBDAL(SettingsItem settings)
         {
-            _connectionString = settings.DAL_HostIP;
+            _connectionString = settings.DAL_FileName;
         }
 
         public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 using var db = new LiteDatabase(_connectionString);
 
@@ -33,7 +33,7 @@ namespace MLIDS.lib.DAL
 
         public override Task<List<PayloadItem>> QueryPacketsAsync(Expression<Func<PayloadItem, bool>> queryExpression)
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 using var db = new LiteDatabase(_connectionString);
 
@@ -43,7 +43,7 @@ namespace MLIDS.lib.DAL
 
         public override Task<bool> WritePacketAsync(PayloadItem packet)
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 using var db = new LiteDatabase(_connectionString);
 
