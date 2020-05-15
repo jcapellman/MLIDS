@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using LiteDB;
 
+using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.ML.Objects;
 
@@ -14,6 +15,11 @@ namespace MLIDS.lib.DAL
     public class LiteDBDAL : BaseDAL
     {
         private string _connectionString;
+
+        public LiteDBDAL(SettingsItem settings)
+        {
+            _connectionString = settings.DAL_HostIP;
+        }
 
         public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
