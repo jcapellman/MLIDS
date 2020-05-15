@@ -15,6 +15,8 @@ namespace MLIDS.lib.DAL
 {
     public class LiteDBDAL : BaseDAL
     {
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
         private string _connectionString;
 
         public LiteDBDAL(string connectionString = Constants.DAL_FileName)
@@ -35,6 +37,13 @@ namespace MLIDS.lib.DAL
         public override Task<List<PayloadItem>> QueryPacketsAsync(Expression<Func<PayloadItem, bool>> queryExpression) => 
             Task.Run(() =>
             {
+                if (queryExpression == null)
+                {
+                    Log.Error($"LiteDBDAL::QueryPacketsAsync - Query Expression was null");
+
+                    throw new ArgumentNullException(nameof(queryExpression));
+                }
+
                 using var db = new LiteDatabase(_connectionString);
 
                 return db.GetCollection<PayloadItem>().Find(queryExpression).ToList();
@@ -43,6 +52,13 @@ namespace MLIDS.lib.DAL
         public override Task<bool> WritePacketAsync(PayloadItem packet) => 
             Task.Run(() =>
             {
+                if (packet == null)
+                {
+                    Log.Error($"LiteDBDAL::WritePacketAsync - packet was null");
+
+                    throw new ArgumentNullException(nameof(packet));
+                }
+
                 using var db = new LiteDatabase(_connectionString);
 
                 return db.GetCollection<PayloadItem>().Insert(packet) > 0;
