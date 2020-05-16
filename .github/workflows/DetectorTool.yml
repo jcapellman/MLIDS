@@ -18,7 +18,7 @@ jobs:
 
     env:
       Solution_Name: src/MLIDS.sln              
-      Test_Project_Path: src/ MLIDS.Unittests/MLIDS.UnitTests.csproj
+      Test_Project_Path: src/MLIDS.Unittests/MLIDS.UnitTests.csproj
       Wap_Project_Directory: src/MLIDS.Detector
       Wap_Project_Path: MLIDS.Detector.csproj
 
@@ -40,7 +40,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test
+      run: dotnet test src/MLIDS.sln
 
     # Restore the WPF application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the WPF application
