@@ -105,7 +105,7 @@ namespace MLIDS.ModelTrainer.ViewModels
 
         public override async void StartAction()
         {
-            if (_dataStorage == null)
+            if (SelectedDataLayer == null)
             {
                 Log.Error("MainViewModel::StartAction - Data Storage was null");
 
@@ -121,7 +121,7 @@ namespace MLIDS.ModelTrainer.ViewModels
 
             IsRunning = true;
 
-            ModelMetrics = await _trainer.GenerateModel(_dataStorage, LocationModelFile);
+            ModelMetrics = await _trainer.GenerateModel(SelectedDataLayer, LocationModelFile);
 
             ModelTrainingDuration = $"{ModelMetrics.Duration.TotalSeconds} seconds";
 
