@@ -5,8 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 
 using MLIDS.lib.Containers;
-using MLIDS.lib.DAL;
 using MLIDS.lib.DAL.Base;
+using MLIDS.lib.Helpers;
 using MLIDS.lib.ML.Objects;
 
 using PacketDotNet;
@@ -19,7 +19,33 @@ namespace MLIDS.lib.Windows.ViewModels
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
-        protected BaseDAL _dataStorage;
+        private List<BaseDAL> _dataLayers;
+
+        public List<BaseDAL> DataLayers
+        {
+            get => _dataLayers;
+
+            set
+            {
+                _dataLayers = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private BaseDAL _selectedDataLayer;
+
+        public BaseDAL SelectedDataLayer
+        {
+            get => _selectedDataLayer;
+
+            set
+            {
+                _selectedDataLayer = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private bool _startBtnEnabled;
 
@@ -134,7 +160,9 @@ namespace MLIDS.lib.Windows.ViewModels
 
             Settings = SettingsItem.Load();
 
-            _dataStorage = new MongoDAL(Settings);
+            DataLayers = DALHelper.GetAvailableDALs(Settings);
+
+            SelectedDataLayer = DataLayers.FirstOrDefault();
         }
 
         public abstract void StartAction();
