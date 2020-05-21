@@ -46,7 +46,7 @@ namespace MLIDS.DataCapture.ViewModels
             {
                 Log.Debug($"Saving Packet to DAL: {payloadItem}");
 
-                _dataStorage.WritePacketAsync(payloadItem);
+                SelectedDataLayer.WritePacketAsync(payloadItem);
             }
             else
             {
