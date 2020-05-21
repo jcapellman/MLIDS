@@ -20,6 +20,8 @@ namespace MLIDS.lib.DAL
 
         private string _fileName;
 
+        public override string Description => "JSON";
+
         public JsonFileDAL(string fileName = DEFAULT_JSON_FILE)
         {
             _fileName = fileName;
