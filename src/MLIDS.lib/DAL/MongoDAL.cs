@@ -18,6 +18,8 @@ namespace MLIDS.lib.DAL
 
         private const string COLLECTION_NAME = "Packets";
 
+        public override string Description => "MongoDB";
+
         public MongoDAL() : this(new SettingsItem()) { }
 
         public MongoDAL(SettingsItem settings)
