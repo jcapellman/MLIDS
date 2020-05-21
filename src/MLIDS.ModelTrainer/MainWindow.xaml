@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -33,11 +34,21 @@
             </Grid>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10,10,10,10">
+        <Grid Grid.Row="1" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Data Source" />
+            <ComboBox Grid.Row="1" ItemsSource="{Binding DataLayers, Mode=TwoWay}" IsEnabled="{Binding DeviceSelectionEnabled, Mode=TwoWay}" SelectedItem="{Binding SelectedDataLayer, Mode=TwoWay}" DisplayMemberPath="Description" />
+        </Grid>
+        
+        <StackPanel Orientation="Vertical" Grid.Row="2" Margin="10,10,10,10">
             <Button Content="Train Model" IsEnabled="{Binding StartBtnEnabled, Mode=TwoWay}" Click="btnStartAction_Click" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Margin="10,0,10,10" Visibility="{Binding ModelMetricsStackPanel,Mode=TwoWay}">
+        <StackPanel Grid.Row="3" Margin="10,0,10,10" Visibility="{Binding ModelMetricsStackPanel,Mode=TwoWay}">
             <TextBlock Text="Model Metrics" FontWeight="Bold" />
 
             <Grid>
