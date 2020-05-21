@@ -19,6 +19,8 @@ namespace MLIDS.lib.DAL
 
         private string _connectionString;
 
+        public override string Description => "LiteDB";
+
         public LiteDBDAL(string connectionString = Constants.DAL_FileName)
         {
             _connectionString = connectionString;
