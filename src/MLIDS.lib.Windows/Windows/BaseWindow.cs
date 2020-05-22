@@ -1,5 +1,7 @@
-﻿using MLIDS.lib.Windows.ViewModels;
+﻿using MLIDS.lib.Common;
+using MLIDS.lib.Windows.ViewModels;
 
+using System;
 using System.Linq;
 using System.Windows;
 
@@ -8,6 +10,18 @@ namespace MLIDS.lib.Windows
     public class BaseWindow : Window
     {
         public BaseViewModel Vm => (BaseViewModel)DataContext;
+
+        public void Vm_OnFailedDAL(object sender, string dalName)
+        {
+            MessageBox.Show($"Failed to initialize the DAL ({dalName}) - check your settings in ({Constants.SETTINGS_FILENAME})");
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            Vm.OnFailedDAL += Vm_OnFailedDAL;
+
+            base.OnActivated(e);
+        }
 
         public void SanityCheckDriver()
         {
