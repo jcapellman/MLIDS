@@ -20,7 +20,7 @@ namespace MLIDS.lib.Windows.ViewModels
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
-        public event EventHandler OnFailedDAL;
+        public event EventHandler<string> OnFailedDAL;
 
         private List<BaseDAL> _dataLayers;
 
@@ -48,7 +48,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
                 if (!_selectedDataLayer.Initialize())
                 {
-                    OnFailedDAL?.Invoke(this, null);
+                    OnFailedDAL?.Invoke(this, _selectedDataLayer.Description);
                 }
 
                 OnPropertyChanged();
