@@ -14,26 +14,28 @@ namespace MLIDS.lib.DAL
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
-        private readonly IMongoDatabase _db;
+        private IMongoDatabase _db;
 
         private const string COLLECTION_NAME = "Packets";
 
         public override string Description => "MongoDB";
 
-        public MongoDAL() : this(new SettingsItem()) { }
+        public MongoDAL(SettingsItem settings) : base(settings) { }
 
-        public MongoDAL(SettingsItem settings)
+        public bool Initialize()
         {
             var mongoSettings = new MongoClientSettings()
             {
-                Server = new MongoServerAddress(settings.DAL_HostIP, settings.DAL_HostPort)
+                Server = new MongoServerAddress(settingsItem.DAL_HostIP, settingsItem.DAL_HostPort)
             };
 
             var client = new MongoClient(mongoSettings);
 
             _db = client.GetDatabase(COLLECTION_NAME);
 
-            Log.Debug($"MongoDAL::MongoDAL - Database Loaded ({settings.DAL_HostIP}:{settings.DAL_HostPort})");
+            Log.Debug($"MongoDAL::MongoDAL - Database Loaded ({settingsItem.DAL_HostIP}:{settingsItem.DAL_HostPort})");
+
+            return true;
         }
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
