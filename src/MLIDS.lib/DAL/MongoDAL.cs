@@ -22,20 +22,29 @@ namespace MLIDS.lib.DAL
 
         public MongoDAL(SettingsItem settings) : base(settings) { }
 
-        public bool Initialize()
+        public override bool Initialize()
         {
-            var mongoSettings = new MongoClientSettings()
+            try
             {
-                Server = new MongoServerAddress(settingsItem.DAL_HostIP, settingsItem.DAL_HostPort)
-            };
+                var mongoSettings = new MongoClientSettings()
+                {
+                    Server = new MongoServerAddress(settingsItem.DAL_HostIP, settingsItem.DAL_HostPort)
+                };
 
-            var client = new MongoClient(mongoSettings);
+                var client = new MongoClient(mongoSettings);
 
-            _db = client.GetDatabase(COLLECTION_NAME);
+                _db = client.GetDatabase(COLLECTION_NAME);
 
-            Log.Debug($"MongoDAL::MongoDAL - Database Loaded ({settingsItem.DAL_HostIP}:{settingsItem.DAL_HostPort})");
+                Log.Debug($"MongoDAL::Initialize - Database Loaded ({settingsItem.DAL_HostIP}:{settingsItem.DAL_HostPort})");
 
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"MongoDAL::Initialize - Failed to connect due to: {ex}");
+
+                return false;
+            }
         }
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
