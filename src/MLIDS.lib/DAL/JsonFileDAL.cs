@@ -83,5 +83,12 @@ namespace MLIDS.lib.DAL
 
             return true;
         }
+
+        public override bool Initialize()
+        {
+            _fileName = settingsItem.DAL_FileName ?? DEFAULT_JSON_FILE;
+
+            return File.Exists(_fileName);
+        }
     }
 }
