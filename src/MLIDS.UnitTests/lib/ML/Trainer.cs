@@ -22,7 +22,7 @@ namespace MLIDS.UnitTests.lib.ML
         [ExpectedException(typeof(FileNotFoundException))]
         public async Task Trainer_ModelNotFoundTest()
         {
-            await new MLIDS.lib.ML.Trainer().GenerateModel(new MongoDAL(), "test");
+            await new MLIDS.lib.ML.Trainer().GenerateModel(new MongoDAL(new MLIDS.lib.Containers.SettingsItem()), "test");
         }
     }
 }
