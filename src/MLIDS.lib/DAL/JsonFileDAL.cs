@@ -22,12 +22,7 @@ namespace MLIDS.lib.DAL
 
         public override string Description => "JSON";
 
-        public JsonFileDAL(string fileName = DEFAULT_JSON_FILE)
-        {
-            _fileName = fileName;
-        }
-
-        public JsonFileDAL(SettingsItem settings) : this(settings.DAL_FileName) { }
+        public JsonFileDAL(SettingsItem settings) : base(settings) { }
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
