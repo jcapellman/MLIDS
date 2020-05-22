@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace MLIDS.lib.Windows.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
+        public event EventHandler OnFailedDAL;
 
         private List<BaseDAL> _dataLayers;
 
@@ -42,6 +45,11 @@ namespace MLIDS.lib.Windows.ViewModels
             set
             {
                 _selectedDataLayer = value;
+
+                if (!_selectedDataLayer.Initialize())
+                {
+                    OnFailedDAL?.Invoke(this, null);
+                }
 
                 OnPropertyChanged();
             }
