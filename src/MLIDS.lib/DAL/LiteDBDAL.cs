@@ -59,5 +59,22 @@ namespace MLIDS.lib.DAL
 
                 return db.GetCollection<PayloadItem>().Insert(packet) > 0;
             });
+
+        public override bool Initialize()
+        {
+            try
+            {
+                _connectionString = $"Filename={settingsItem.DAL_FileName}";
+
+                using var db = new LiteDatabase(_connectionString);
+
+                return true;
+            } catch (Exception ex)
+            {
+                Log.Error($"LiteDBDAL::Initialize - Exception when loading: {ex}");
+
+                return false;
+            }
+        }
     }
 }
