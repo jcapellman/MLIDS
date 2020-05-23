@@ -20,6 +20,8 @@ namespace MLIDS.lib.DAL
 
         public override string Description => "LiteDB";
 
+        public override bool IsEmpty => false;
+
         public LiteDBDAL(SettingsItem settings) : base(settings) { }
     
         public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName) => 
