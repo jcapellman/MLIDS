@@ -11,6 +11,6 @@ namespace MLIDS.lib.Helpers
     {
         public static List<BaseDAL> GetAvailableDALs(SettingsItem settings) => 
             typeof(DALHelper).Assembly.GetTypes().Where(a => typeof(BaseDAL) == 
-            a.BaseType && !a.IsAbstract).Select(b => (BaseDAL)Activator.CreateInstance(b, new[] { settings })).OrderBy(c => c.Description).ToList();
+            a.BaseType && !a.IsAbstract).Select(b => (BaseDAL)Activator.CreateInstance(b, new[] { settings })).OrderBy(c => c.IsEmpty).ThenBy(d => d.Description).ToList();
     }
 }
