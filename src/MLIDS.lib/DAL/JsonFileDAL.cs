@@ -24,6 +24,8 @@ namespace MLIDS.lib.DAL
 
         public JsonFileDAL(SettingsItem settings) : base(settings) { }
 
+        public override bool IsEmpty => false;
+
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
             if (!File.Exists(_fileName))
