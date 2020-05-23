@@ -37,7 +37,7 @@ namespace MLIDS.DataCapture.ViewModels
 
         public MainViewModel()
         {
-            StartBtnEnabled = true;
+            StartBtnEnabled = false;
         }
 
         public override void PacketProcessing(PayloadItem payloadItem)
