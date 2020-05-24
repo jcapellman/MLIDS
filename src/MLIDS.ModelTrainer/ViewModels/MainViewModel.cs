@@ -152,5 +152,12 @@ namespace MLIDS.ModelTrainer.ViewModels
 
             LocationModelFile = saveDialog.FileName;
         }
+
+        public override void StartButtonEnablement()
+        {
+            StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
+                                SelectedDataLayer.IsSelectable &&
+                                !IsRunning;
+        }
     }
 }
