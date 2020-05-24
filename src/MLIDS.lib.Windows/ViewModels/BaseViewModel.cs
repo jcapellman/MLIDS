@@ -46,7 +46,7 @@ namespace MLIDS.lib.Windows.ViewModels
             {
                 _selectedDataLayer = value;
 
-                if (_selectedDataLayer != null && !_selectedDataLayer.IsEmpty && !_selectedDataLayer.Initialize())
+                if (_selectedDataLayer != null && _selectedDataLayer.IsSelectable && !_selectedDataLayer.Initialize())
                 {
                     OnFailedDAL?.Invoke(this, _selectedDataLayer.Description);
                 } else
@@ -173,7 +173,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
             DataLayers = DALHelper.GetAvailableDALs(Settings);
 
-            SelectedDataLayer = DataLayers.FirstOrDefault(a => a.IsEmpty);
+            SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
         }
 
         public abstract void StartAction();

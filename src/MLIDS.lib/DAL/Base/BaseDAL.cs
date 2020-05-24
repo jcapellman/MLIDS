@@ -18,7 +18,7 @@ namespace MLIDS.lib.DAL.Base
 
         public abstract string Description { get; }
 
-        public abstract bool IsEmpty { get; }
+        public abstract bool IsSelectable { get; }
 
         public abstract bool Initialize();
         

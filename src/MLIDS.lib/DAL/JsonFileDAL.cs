@@ -24,7 +24,7 @@ namespace MLIDS.lib.DAL
 
         public JsonFileDAL(SettingsItem settings) : base(settings) { }
 
-        public override bool IsEmpty => false;
+        public override bool IsSelectable => true;
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {

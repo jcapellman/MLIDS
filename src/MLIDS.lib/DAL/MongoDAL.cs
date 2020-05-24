@@ -20,7 +20,7 @@ namespace MLIDS.lib.DAL
 
         public override string Description => "MongoDB";
 
-        public override bool IsEmpty => false;
+        public override bool IsSelectable => true;
 
         public MongoDAL(SettingsItem settings) : base(settings) { }
 

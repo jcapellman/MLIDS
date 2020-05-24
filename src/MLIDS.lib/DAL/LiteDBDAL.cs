@@ -20,7 +20,7 @@ namespace MLIDS.lib.DAL
 
         public override string Description => "LiteDB";
 
-        public override bool IsEmpty => false;
+        public override bool IsSelectable => true;
 
         public LiteDBDAL(SettingsItem settings) : base(settings) { }
     

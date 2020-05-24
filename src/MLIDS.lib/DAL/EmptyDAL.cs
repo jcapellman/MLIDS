@@ -13,7 +13,7 @@ namespace MLIDS.lib.DAL
     {
         public override string Description => "--Select a Data Layer--";
 
-        public override bool IsEmpty => true;
+        public override bool IsSelectable => false;
 
         public EmptyDAL(SettingsItem settings) : base(settings) { }
 
