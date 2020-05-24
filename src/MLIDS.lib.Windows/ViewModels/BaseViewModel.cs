@@ -54,6 +54,8 @@ namespace MLIDS.lib.Windows.ViewModels
                     StartBtnEnabled = true;
                 }
 
+                StartButtonEnablement();
+
                 OnPropertyChanged();
             }
         }
@@ -175,6 +177,8 @@ namespace MLIDS.lib.Windows.ViewModels
 
             SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
         }
+
+        public abstract void StartButtonEnablement();
 
         public abstract void StartAction();
 
