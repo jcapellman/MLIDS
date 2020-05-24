@@ -55,5 +55,10 @@ namespace MLIDS.DataCapture.ViewModels
                 Packets.Add(payloadItem.ToString());
             }
         }
+
+        public override void StartButtonEnablement()
+        {
+            StartBtnEnabled = SelectedDataLayer.IsSelectable && !IsRunning;
+        }
     }
 }
