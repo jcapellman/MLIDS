@@ -26,14 +26,8 @@ namespace MLIDS.Detector.ViewModels
 
                 OnPropertyChanged();
 
-                UpdateProtectButton();
+                StartButtonEnablement();
             }
-        }
-
-        private void UpdateProtectButton()
-        {
-            StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
-                               !IsRunning;
         }
 
         private string SelectInputFile()
@@ -91,6 +85,12 @@ namespace MLIDS.Detector.ViewModels
             {
                 Log.Debug("Packet was found to be clean");
             }
+        }
+
+        public override void StartButtonEnablement()
+        {
+            StartBtnEnabled = !string.IsNullOrEmpty(LocationModelFile) &&
+                                !IsRunning;
         }
     }
 }
