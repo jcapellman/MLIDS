@@ -13,7 +13,7 @@ namespace MLIDS.lib.DAL.Base
 
         protected BaseDAL(SettingsItem settingsItem)
         {
-            this.settingsItem = settingsItem;
+            this.settingsItem = settingsItem ?? throw new ArgumentNullException(nameof(settingsItem));
         }
 
         public abstract string Description { get; }
