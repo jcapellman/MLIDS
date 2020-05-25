@@ -1,6 +1,8 @@
 ﻿using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Windows.ViewModels;
 
+using System;
+
 namespace MLIDS.DataCapture.ViewModels
 {
     public class MainViewModel : BaseCaptureMainViewModel
@@ -42,6 +44,11 @@ namespace MLIDS.DataCapture.ViewModels
 
         public override void PacketProcessing(PayloadItem payloadItem)
         {
+            if (payloadItem == null)
+            {
+                throw new ArgumentNullException(nameof(payloadItem));
+            }
+
             if (EnableSaveStream)
             {
                 Log.Debug($"Saving Packet to DAL: {payloadItem}");
