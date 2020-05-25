@@ -13,6 +13,8 @@ namespace MLIDS.UnitTests.lib.DAL
         {
             var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
 
+            mongo.Initialize();
+
             await mongo.GetHostPacketsAsync(null);
         }
 
@@ -20,6 +22,8 @@ namespace MLIDS.UnitTests.lib.DAL
         public async Task MongoDAL_StringTestAsync()
         {
             var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+
+            mongo.Initialize();
 
             await mongo.GetHostPacketsAsync("test");
         }
@@ -46,6 +50,8 @@ namespace MLIDS.UnitTests.lib.DAL
         public async Task MongoDAL_QueryEmptyTestAsync()
         {
             var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+
+            mongo.Initialize();
 
             var result = await mongo.QueryPacketsAsync(a => a.Label);
 
