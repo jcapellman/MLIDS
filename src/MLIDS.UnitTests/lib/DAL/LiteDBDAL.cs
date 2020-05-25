@@ -10,14 +10,14 @@ namespace MLIDS.UnitTests.lib.DAL
     public class LiteDBDAL
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task LiteDBDAL_NullTestAsync()
         {
             var litedb = new MLIDS.lib.DAL.LiteDBDAL(null);
-
-            await litedb.GetHostPacketsAsync(null);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task LiteDBDAL_StringTestAsync()
         {
             var litedb = new MLIDS.lib.DAL.LiteDBDAL(new MLIDS.lib.Containers.SettingsItem());
@@ -44,6 +44,7 @@ namespace MLIDS.UnitTests.lib.DAL
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task LiteDBDAL_QueryEmptyTestAsync()
         {
             var litedb = new MLIDS.lib.DAL.LiteDBDAL(new MLIDS.lib.Containers.SettingsItem());
