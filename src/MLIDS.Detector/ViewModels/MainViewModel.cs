@@ -74,6 +74,11 @@ namespace MLIDS.Detector.ViewModels
         
         public override void PacketProcessing(PayloadItem payloadItem)
         {
+            if (payloadItem == null)
+            {
+                throw new ArgumentNullException(nameof(payloadItem));
+            }
+
             var result = _predictor.Predict(payloadItem);
 
             if (!result.Label)
