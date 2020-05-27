@@ -38,7 +38,7 @@ namespace MLIDS.lib.ML
 
             var trainingDataView = _mlContext.Data.LoadFromEnumerable(cleanData);
 
-            return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: 2020), cleanDataLength, maliciousDataLength);
+            return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: Constants.ML_SEED), cleanDataLength, maliciousDataLength);
         }
 
         public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
