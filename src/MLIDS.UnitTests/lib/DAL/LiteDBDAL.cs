@@ -11,7 +11,7 @@ namespace MLIDS.UnitTests.lib.DAL
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async Task LiteDBDAL_NullTestAsync()
+        public void LiteDBDAL_NullTest()
         {
             var litedb = new MLIDS.lib.DAL.LiteDBDAL(null);
         }
