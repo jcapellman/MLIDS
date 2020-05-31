@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using MLIDS.lib.DAL.Base;
+using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
@@ -48,7 +49,9 @@ namespace MLIDS.lib.DAL
                 return new List<PayloadItem>();
             }
 
-            using var fs = File.OpenRead(_fileName);
+            var lines = await File.ReadAllLinesAsync(_fileName);
+
+            // TODO: Translate CSV to PayloadItem
 
             var data = new List<PayloadItem>();
 
@@ -64,7 +67,7 @@ namespace MLIDS.lib.DAL
                 throw new ArgumentNullException(nameof(packet));
             }
 
-            await File.AppendAllLinesAsync(_fileName, new[] { packet.ToString() });
+            await File.AppendAllLinesAsync(_fileName, new[] { packet.ToCSV<PayloadItem>() });
 
             return true;
         }
