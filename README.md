@@ -16,7 +16,7 @@ Using GitHub Actions, all three Applications will be built and packaged individu
 ## Requirements
 * Windows 7 SP1+ (.NET 5's oldest supported OS)
 * Npcap Driver Installed
-* MongoDB Installed (or write a different DAL)
+* MongoDB Installed or usage of LiteDB, JSON or CSV if storing of the data is needed
 
 ## Usage
 The idea is to follow the steps:
@@ -30,4 +30,3 @@ The idea is to follow the steps:
 * Documentation
 * Malicious Traffic samples
 * Benign Traffic Samples
-* Ability to switch DALs (support LiteDB and flat files)
