@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Extensions;
 using MLIDS.lib.ML.Objects;
@@ -18,6 +19,10 @@ namespace MLIDS.lib.DAL
         private const string DEFAULT_CSV_FILE = "db.csv";
 
         private string _fileName;
+
+        public CSVFileDAL(SettingsItem settingsItem) : base(settingsItem)
+        {
+        }
 
         public override string Description => "CSV";
 
