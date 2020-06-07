@@ -56,9 +56,12 @@ namespace MLIDS.lib.DAL
 
             var lines = await File.ReadAllLinesAsync(_fileName);
 
-            // TODO: Translate CSV to PayloadItem
-
             var data = new List<PayloadItem>();
+
+            foreach (var line in lines)
+            {
+                data.Add(line.FromCSV<PayloadItem>());
+            }
 
             return data.AsQueryable().Where(queryExpression).ToList();
         }
