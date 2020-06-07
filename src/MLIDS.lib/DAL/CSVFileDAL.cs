@@ -28,9 +28,23 @@ namespace MLIDS.lib.DAL
 
         public override bool IsSelectable => true;
 
-        public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
+        public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
-            throw new NotImplementedException();
+            if (!File.Exists(_fileName))
+            {
+                return new List<PayloadItem>();
+            }
+
+            var lines = await File.ReadAllLinesAsync(_fileName);
+
+            var data = new List<PayloadItem>();
+
+            foreach (var line in lines)
+            {
+                data.Add(line.FromCSV<PayloadItem>());
+            }
+
+            return data.Where(a => a.HostName == hostName).ToList();
         }
 
         public override bool Initialize()
