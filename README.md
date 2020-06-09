@@ -7,6 +7,8 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 * Packet Capture Application (.NET 5)
 * Model Trainer Application (.NET 5)
 * Model Testing Application (.NET 5)
+* Attacker Application (.NET 5)
+* Scripting Application (.NET 5)
 * Shared Code Library (.NET 5)
 * Unit Tests (.NET 5)
 
@@ -23,6 +25,7 @@ The idea is to follow the steps:
 1. Run the Packet Capture Application to generate a sizeable training and test set
 2. Run the Model Trainer Application to generate a model
 3. Run the Model Testing Application to test the FP/FN of the model along with performance and other metrics
+4. *Optionally* Run the attacker and scripting tool to recreate scenarios
 
 ## Remaining work items
 * Binary Classification Model once a detection has been made
