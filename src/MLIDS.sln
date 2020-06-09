@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.lib.Windows", "MLIDS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.UnitTests", "MLIDS.UnitTests\MLIDS.UnitTests.csproj", "{DD0A05B4-998F-4CF3-86B4-97550BE6E493}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLIDS.Scripter", "MLIDS.Scripter\MLIDS.Scripter.csproj", "{6462928B-08AC-44EF-B3F7-A3727EBA602C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{DD0A05B4-998F-4CF3-86B4-97550BE6E493}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD0A05B4-998F-4CF3-86B4-97550BE6E493}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD0A05B4-998F-4CF3-86B4-97550BE6E493}.Release|x86.Build.0 = Release|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Debug|x86.Build.0 = Debug|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6462928B-08AC-44EF-B3F7-A3727EBA602C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
