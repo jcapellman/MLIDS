@@ -33,6 +33,7 @@ The idea is to follow the steps:
 * Documentation
 * Malicious Traffic samples
 * Benign Traffic Samples
+* Scripting and Automation tools to promote repeatability
 
 ## License
 As noted this is licensed under the GPL-3.0 License.
