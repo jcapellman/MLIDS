@@ -11,13 +11,13 @@ namespace MLIDS.Scripter.lib.Vectors
 
         public override int NumRequiredArguments => 2;
 
-        public override async void Execute(string[] arguments)
+        public override async void Execute()
         {
             using (var httpClient = new HttpClient())
             {
-                var result = await httpClient.GetByteArrayAsync(arguments[0]);
+                var result = await httpClient.GetByteArrayAsync(Arguments[0]);
 
-                await File.WriteAllBytesAsync(arguments[1], result);
+                await File.WriteAllBytesAsync(Arguments[1], result);
             }
         }
     }
