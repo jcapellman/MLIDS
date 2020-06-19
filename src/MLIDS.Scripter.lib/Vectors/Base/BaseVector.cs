@@ -8,6 +8,8 @@ namespace MLIDS.Scripter.lib
 
         public abstract ScriptVectors ScriptType { get; }
 
-        public abstract void Execute(string[] arguments);
+        public string[] Arguments { get; set; }
+
+        public abstract void Execute();
     }
 }
