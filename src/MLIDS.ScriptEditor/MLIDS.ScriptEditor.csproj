@@ -6,4 +6,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
+    <ProjectReference Include="..\MLIDS.Scripter.lib\MLIDS.Scripter.lib.csproj" />
+  </ItemGroup>
+
 </Project>
