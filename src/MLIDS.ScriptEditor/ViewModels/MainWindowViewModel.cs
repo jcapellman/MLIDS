@@ -4,6 +4,5 @@ namespace MLIDS.ScriptEditor.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-
     }
 }

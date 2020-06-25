@@ -1,9 +1,12 @@
-﻿using System.Windows;
+﻿using MLIDS.ScriptEditor.ViewModels;
+using System.Windows;
 
 namespace MLIDS.ScriptEditor
 {
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+
         public MainWindow()
         {
             InitializeComponent();
