@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using MLIDS.ScriptEditor.ViewModels.Base;
 using MLIDS.Scripter.lib;
-
+using MLIDS.Scripter.lib.Common;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -42,9 +42,10 @@ namespace MLIDS.ScriptEditor.ViewModels
                 return;
             }
 
-            var ofd = new OpenFileDialog();
-
-            ofd.Filter = ".mlidss";
+            var ofd = new OpenFileDialog
+            {
+                Filter = $"MLIDS Script (*{Constants.FILE_EXTENSION})"
+            };
 
             var result = ofd.ShowDialog();
 
