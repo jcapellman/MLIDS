@@ -7,6 +7,11 @@ namespace MLIDS.Scripter.lib
 {
     public class VectorParser
     {
+        public static string ToJson(IEnumerable<BaseVector> scriptEntries)
+        {
+            return string.Empty;
+        }
+
         public async Task<List<BaseVector>> ParseScriptAsync(string fileName)
         {
             if (!File.Exists(fileName))
