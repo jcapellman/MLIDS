@@ -1,4 +1,5 @@
 ﻿using MLIDS.ScriptEditor.ViewModels;
+
 using System.Windows;
 
 namespace MLIDS.ScriptEditor
@@ -14,27 +15,27 @@ namespace MLIDS.ScriptEditor
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.NewScript();
         }
 
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.OpenScript();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.SaveScript();
         }
 
         private void btnSaveAs_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.SaveAsScript();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.Exit();
         }
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
