@@ -1,12 +1,13 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+
+using Microsoft.Win32;
+
 using MLIDS.ScriptEditor.ViewModels.Base;
 using MLIDS.Scripter.lib;
 using MLIDS.Scripter.lib.Common;
-using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
 
 namespace MLIDS.ScriptEditor.ViewModels
 {
@@ -35,7 +36,7 @@ namespace MLIDS.ScriptEditor.ViewModels
             _fileName = string.Empty;
         }
 
-        public void OpenScript()
+        public async void OpenScript()
         {
             if (_unsavedChanges && !ConfirmUnsavedChanges())
             {
@@ -44,7 +45,7 @@ namespace MLIDS.ScriptEditor.ViewModels
 
             var ofd = new OpenFileDialog
             {
-                Filter = $"MLIDS Script (*{Constants.FILE_EXTENSION})"
+                Filter = $"MLIDS script (*{Constants.FILE_EXTENSION})"
             };
 
             var result = ofd.ShowDialog();
@@ -54,9 +55,19 @@ namespace MLIDS.ScriptEditor.ViewModels
                 return;
             }
 
-            // TODO: Read File
+            _unsavedChanges = false;
 
-            _fileName = ofd.FileName;
+            try
+            {
+                var entries = await VectorParser.ParseScriptAsync(ofd.FileName);
+
+                ScriptEntries = new ObservableCollection<BaseVector>(entries);
+
+                _fileName = ofd.FileName;
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening file: {ex}");
+            }
         }
 
         public void SaveScript()
