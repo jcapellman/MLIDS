@@ -12,7 +12,7 @@ namespace MLIDS.Scripter.lib
             return string.Empty;
         }
 
-        public async Task<List<BaseVector>> ParseScriptAsync(string fileName)
+        public static async Task<List<BaseVector>> ParseScriptAsync(string fileName)
         {
             if (!File.Exists(fileName))
             {
