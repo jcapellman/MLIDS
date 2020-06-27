@@ -35,7 +35,12 @@ namespace MLIDS.ScriptEditor
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Exit();
+            if (!ViewModel.Exit())
+            {
+                return;
+            }
+
+            Application.Current.Shutdown();
         }
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
