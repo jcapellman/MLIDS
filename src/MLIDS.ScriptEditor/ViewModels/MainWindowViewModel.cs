@@ -36,6 +36,16 @@ namespace MLIDS.ScriptEditor.ViewModels
             _fileName = string.Empty;
         }
 
+        public bool Exit()
+        {
+            if (_unsavedChanges && !ConfirmUnsavedChanges())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async void OpenScript()
         {
             if (_unsavedChanges && !ConfirmUnsavedChanges())
