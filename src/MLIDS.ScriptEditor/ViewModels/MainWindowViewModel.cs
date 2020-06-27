@@ -29,6 +29,27 @@ namespace MLIDS.ScriptEditor.ViewModels
         private bool ConfirmUnsavedChanges() => MessageBox.Show("Proceed without saving changes?", "Unsaved changes detected...",
                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
 
+        internal void SaveAsScript()
+        {
+            var sfd = new SaveFileDialog
+            {
+                Filter = $"MLIDS script (*{Constants.FILE_EXTENSION})"
+            };
+
+            var result = sfd.ShowDialog();
+
+            if (!result.HasValue || !result.Value)
+            {
+                return;
+            }
+
+            _fileName = sfd.FileName;
+
+            File.WriteAllText(_fileName, VectorParser.ToJson(ScriptEntries));
+
+            _unsavedChanges = false;
+        }
+
         public void NewScript()
         {
             ScriptEntries = new ObservableCollection<BaseVector>();
