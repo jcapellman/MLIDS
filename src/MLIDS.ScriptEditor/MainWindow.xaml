@@ -12,12 +12,17 @@
     </Window.DataContext>
     
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Click="btnNew_Click" />
                 <MenuItem Header="_Open" Click="btnOpen_Click" />
@@ -32,7 +37,7 @@
             </MenuItem>
         </Menu>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -42,6 +47,12 @@
             <ListView Grid.Row="1">
                 
             </ListView>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                
+            </Grid.RowDefinitions>            
         </Grid>
     </Grid>
 </Window>

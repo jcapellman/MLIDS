@@ -113,9 +113,12 @@ namespace MLIDS.ScriptEditor.ViewModels
 
         public void SaveScript()
         {
+            // If the filename isn't set - treat it like SaveAs
             if (string.IsNullOrEmpty(_fileName))
             {
-                // TODO: Show Save Dialog
+                SaveAsScript();
+
+                return;
             }
 
             File.WriteAllText(_fileName, VectorParser.ToJson(ScriptEntries));
