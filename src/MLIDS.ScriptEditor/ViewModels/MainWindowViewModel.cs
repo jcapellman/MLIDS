@@ -15,7 +15,17 @@ namespace MLIDS.ScriptEditor.ViewModels
     {
         private ObservableCollection<BaseVector> _scriptEntries;
 
-        public ObservableCollection<BaseVector> ScriptEntries;
+        public ObservableCollection<BaseVector> ScriptEntries
+        {
+            get => _scriptEntries;
+
+            set
+            {
+                _scriptEntries = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private string _fileName;
 
