@@ -21,11 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MLIDS.Attacker\MLIDS.Attacker.csproj" />
     <ProjectReference Include="..\MLIDS.DataCapture\MLIDS.DataCapture.csproj" />
     <ProjectReference Include="..\MLIDS.Detector\MLIDS.Detector.csproj" />
     <ProjectReference Include="..\MLIDS.lib.Windows\MLIDS.lib.Windows.csproj" />
     <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
     <ProjectReference Include="..\MLIDS.ModelTrainer\MLIDS.ModelTrainer.csproj" />
+    <ProjectReference Include="..\MLIDS.ScriptEditor\MLIDS.ScriptEditor.csproj" />
+    <ProjectReference Include="..\MLIDS.Scripter.lib\MLIDS.Scripter.lib.csproj" />
+    <ProjectReference Include="..\MLIDS.Scripter\MLIDS.Scripter.csproj" />
   </ItemGroup>
 
 </Project>
