@@ -162,7 +162,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.ToList();
+            DeviceList = CaptureDeviceList.Instance.OrderBy(a => a.Description).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 
