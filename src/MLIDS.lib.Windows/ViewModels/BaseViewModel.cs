@@ -13,6 +13,7 @@ using MLIDS.lib.ML.Objects;
 using PacketDotNet;
 
 using SharpPcap;
+using SharpPcap.Npcap;
 
 namespace MLIDS.lib.Windows.ViewModels
 {
@@ -162,7 +163,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.OrderBy(a => a.Description).ToList();
+            DeviceList = CaptureDeviceList.Instance.Where(a => a is NpcapDevice).OrderBy(a => a.Description).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 

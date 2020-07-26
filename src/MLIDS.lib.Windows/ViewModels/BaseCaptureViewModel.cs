@@ -1,5 +1,6 @@
 ﻿using System;
 
+using MLIDS.lib.Common;
 using MLIDS.lib.ML.Objects;
 
 using PacketDotNet;
@@ -39,12 +40,9 @@ namespace MLIDS.lib.Windows.ViewModels
             DeviceSelectionEnabled = false;
             ChkBxSaveEnabled = false;
 
-            if (SelectedDevice is NpcapDevice)
-            {
-                var nPcap = SelectedDevice as NpcapDevice;
+            var nPcap = SelectedDevice as NpcapDevice;
 
-                nPcap?.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, 1000);
-            }
+            nPcap?.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, Constants.PACKET_READ_TIMEOUT_MS);
 
             SelectedDevice.OnPacketArrival += Device_OnPacketArrival;
             SelectedDevice.StartCapture();

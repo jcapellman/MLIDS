@@ -13,5 +13,7 @@
         public const string SETTINGS_FILENAME = "settings.json";
 
         public const int ML_SEED = 2020;
+
+        public const int PACKET_READ_TIMEOUT_MS = 1000;
     }
 }
