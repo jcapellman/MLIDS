@@ -9,7 +9,7 @@ using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Helpers;
 using MLIDS.lib.ML.Objects;
-
+using MLIDS.lib.Objects;
 using PacketDotNet;
 
 using SharpPcap;
@@ -103,9 +103,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private List<ICaptureDevice> _deviceList = new List<ICaptureDevice>();
+        private List<MLIDSDevice> _deviceList = new List<MLIDSDevice>();
 
-        public List<ICaptureDevice> DeviceList
+        public List<MLIDSDevice> DeviceList
         {
             get => _deviceList;
 
@@ -117,9 +117,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private ICaptureDevice _selectedDevice;
+        private MLIDSDevice _selectedDevice;
 
-        public ICaptureDevice SelectedDevice
+        public MLIDSDevice SelectedDevice
         {
             get => _selectedDevice;
 
@@ -163,7 +163,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.Where(a => a is NpcapDevice).OrderBy(a => a.Description).ToList();
+            DeviceList = CaptureDeviceList.Instance.Where(a => a is NpcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 

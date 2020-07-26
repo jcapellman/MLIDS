@@ -40,11 +40,7 @@ namespace MLIDS.lib.Windows.ViewModels
             DeviceSelectionEnabled = false;
             ChkBxSaveEnabled = false;
 
-            var nPcap = SelectedDevice as NpcapDevice;
-
-            nPcap?.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, Constants.PACKET_READ_TIMEOUT_MS);
-
-            SelectedDevice.OnPacketArrival += Device_OnPacketArrival;
+            SelectedDevice.OnPacketArrival += SelectedDevice_OnPacketArrival;
             SelectedDevice.StartCapture();
         }
 
@@ -52,10 +48,9 @@ namespace MLIDS.lib.Windows.ViewModels
         {
             try
             {
-                SelectedDevice.OnPacketArrival -= Device_OnPacketArrival;
+                SelectedDevice.OnPacketArrival -= SelectedDevice_OnPacketArrival;
 
                 SelectedDevice.StopCapture();
-                SelectedDevice.Close();
             }
             catch (Exception) { }
 
@@ -67,8 +62,8 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public abstract void PacketProcessing(PayloadItem payloadItem);
 
-        private void Device_OnPacketArrival(object sender, CaptureEventArgs e)
-        {
+    private void SelectedDevice_OnPacketArrival(object sender, CaptureEventArgs e)
+    {
             if (e == null)
             {
                 Log.Error("MainViewModel::PacketProcessing - e is null");
