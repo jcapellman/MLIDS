@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
 using MLIDS.lib.Containers;
@@ -14,6 +15,34 @@ namespace MLIDS.lib.DAL
 {
     public class CSVFileDAL : BaseDAL
     {
+        public class CSVWriter
+        {
+            private string _filepath { get; set; }
+
+            private static readonly object locker = new Object();
+
+            public CSVWriter(string filePath)
+            {
+                _filepath = filePath;
+            }
+
+            public void WriteToFile(string text)
+            {
+                lock (locker)
+                {
+                    using (var file = new FileStream(_filepath, FileMode.Append, FileAccess.Write, FileShare.Read))
+                    {
+                        using (var writer = new StreamWriter(file, Encoding.Unicode))
+                        {
+                            writer.Write(text);
+                        }
+                    }
+                }
+            }
+        }
+
+        private CSVWriter _writer;
+
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
         private const string DEFAULT_CSV_FILE = "db.csv";
@@ -50,6 +79,8 @@ namespace MLIDS.lib.DAL
         public override bool Initialize()
         {
             _fileName = settingsItem.DAL_FileName ?? DEFAULT_CSV_FILE;
+
+            _writer = new CSVWriter(_fileName);
 
             return File.Exists(_fileName);
         }
@@ -89,7 +120,7 @@ namespace MLIDS.lib.DAL
                 throw new ArgumentNullException(nameof(packet));
             }
 
-            await File.AppendAllLinesAsync(_fileName, new[] { packet.ToCSV<PayloadItem>() });
+            _writer.WriteToFile(packet.ToCSV<PayloadItem>());
 
             return true;
         }
