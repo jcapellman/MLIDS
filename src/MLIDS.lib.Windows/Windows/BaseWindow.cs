@@ -20,6 +20,8 @@ namespace MLIDS.lib.Windows
         {
             Vm.OnFailedDAL += Vm_OnFailedDAL;
 
+            SanityCheckDriver();
+
             base.OnActivated(e);
         }
 
@@ -30,7 +32,7 @@ namespace MLIDS.lib.Windows
                 return;
             }
 
-            MessageBox.Show("NPCAP Driver not installed - please install (https://nmap.org/npcap/)");
+            MessageBox.Show("NPCAP Driver is required and is not installed - please install (https://nmap.org/npcap/)");
 
             Application.Current.Shutdown();
         }
