@@ -32,7 +32,7 @@ namespace MLIDS.lib.Windows
                 return;
             }
 
-            MessageBox.Show("NPCAP Driver is required and is not installed - please install (https://nmap.org/npcap/)");
+            MessageBox.Show(Constants.NPCAP_NOT_FOUND_MESSAGE);
 
             Application.Current.Shutdown();
         }
