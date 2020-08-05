@@ -105,6 +105,49 @@ namespace MLIDS.lib.ML.Objects
             Version = Constants.API_VERSION;
         }
 
+        public PayloadItem(string protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean)
+        {
+            if (string.IsNullOrEmpty(protocolType))
+            {
+                Log.Error($"PayloadItem - protocolType was null or empty");
+
+                throw new ArgumentNullException(nameof(protocolType));
+            }
+
+            if (sourcePacket == null)
+            {
+                Log.Error($"PayloadItem - sourcePacket was null");
+
+                throw new ArgumentNullException(nameof(sourcePacket));
+            }
+
+            if (internetPacket == null)
+            {
+                Log.Error($"PayloadItem - payloadPacket was null");
+
+                throw new ArgumentNullException(nameof(internetPacket));
+            }
+
+            Label = clean;
+
+            IsClean = clean;
+
+            ProtocolType = protocolType;
+
+            SourceIPAddress = sourcePacket.SourceAddress.ToString();
+            
+            DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
+            
+            HeaderSize = internetPacket.HeaderData.Length;
+            PayloadSize = internetPacket.PayloadData.Length;
+
+            PacketContent = BitConverter.ToString(internetPacket.PayloadData);
+
+            HostName = Environment.MachineName;
+
+            Version = Constants.API_VERSION;
+        }
+
         public override string ToString() => $"{SourceIPAddress}:{SourcePort} to {DestinationIPAddress}:{DestinationPort} of size {PayloadSize}";
     }
 }

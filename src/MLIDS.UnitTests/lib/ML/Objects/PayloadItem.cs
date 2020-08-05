@@ -11,7 +11,7 @@ namespace MLIDS.UnitTests.lib.ML.Objects
         [ExpectedException(typeof(ArgumentNullException))]
         public void PayloadItem_NullTest()
         {
-            new MLIDS.lib.ML.Objects.PayloadItem(null, null, null, false);
+            new MLIDS.lib.ML.Objects.PayloadItem(null, null, payloadPacket: null, false);
         }
     }
 }

@@ -186,6 +186,10 @@ namespace MLIDS.lib.Windows.ViewModels
         public abstract void StopAction();
 
         protected static PayloadItem ToPayloadItem(string protocolType, IPPacket sourcePacket,
+           InternetPacket payloadPacket, bool cleanTraffic) =>
+           new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
+
+        protected static PayloadItem ToPayloadItem(string protocolType, IPPacket sourcePacket,
            TransportPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
@@ -218,6 +222,10 @@ namespace MLIDS.lib.Windows.ViewModels
                     var udpPacket = packet.Extract<UdpPacket>();
 
                     return ToPayloadItem("UDP", ipPacket, udpPacket, isCleanTraffic);
+                case ProtocolType.Icmp:
+                    var icmpPacket = packet.Extract<IcmpV4Packet>();
+
+                    return ToPayloadItem("ICMP", ipPacket, icmpPacket, isCleanTraffic);
             }
 
             return null;
