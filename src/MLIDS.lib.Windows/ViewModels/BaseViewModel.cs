@@ -226,6 +226,10 @@ namespace MLIDS.lib.Windows.ViewModels
                     var icmpPacket = packet.Extract<IcmpV4Packet>();
 
                     return ToPayloadItem("ICMP", ipPacket, icmpPacket, isCleanTraffic);
+                case ProtocolType.IcmpV6:
+                    var icmpvPacket = packet.Extract<IcmpV6Packet>();
+
+                    return ToPayloadItem("ICMPv6", ipPacket, icmpvPacket, isCleanTraffic);
             }
 
             return null;
