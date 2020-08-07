@@ -60,20 +60,36 @@ namespace MLIDS.lib.ML.Objects
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         [NoColumn] public bool IsClean { get; private set; }
 
-        public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean)
+        public PayloadItem(string protocolType, IPPacket sourcePacket, bool clean)
+        {
+            if (sourcePacket == null)
+            {
+                Log.Error($"PayloadItem - sourcePacket was null");
+
+                throw new ArgumentNullException(nameof(sourcePacket));
+            }
+
+            Label = clean;
+
+            IsClean = clean;
+
+            ProtocolType = protocolType;
+
+            SourceIPAddress = sourcePacket.SourceAddress.ToString();
+            DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
+
+            HostName = Environment.MachineName;
+
+            Version = Constants.API_VERSION;
+        }
+
+        public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
         {
             if (string.IsNullOrEmpty(protocolType))
             {
                 Log.Error($"PayloadItem - protocolType was null or empty");
 
                 throw new ArgumentNullException(nameof(protocolType));
-            }
-
-            if (sourcePacket == null)
-            {
-                Log.Error($"PayloadItem - sourcePacket was null");
-
-                throw new ArgumentNullException(nameof(sourcePacket));
             }
 
             if (payloadPacket == null)
@@ -83,26 +99,15 @@ namespace MLIDS.lib.ML.Objects
                 throw new ArgumentNullException(nameof(payloadPacket));
             }
 
-            Label = clean;
-            
-            IsClean = clean;
-
-            ProtocolType = protocolType;
-
             SourceIPAddress = sourcePacket.SourceAddress.ToString();
             SourcePort = payloadPacket.SourcePort;
-
-            DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
+           
             DestinationPort = payloadPacket.DestinationPort;
 
             HeaderSize = payloadPacket.HeaderData.Length;
             PayloadSize = payloadPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
-
-            HostName = Environment.MachineName;
-
-            Version = Constants.API_VERSION;
         }
 
         public PayloadItem(string protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean)
@@ -128,24 +133,12 @@ namespace MLIDS.lib.ML.Objects
                 throw new ArgumentNullException(nameof(internetPacket));
             }
 
-            Label = clean;
-
-            IsClean = clean;
-
-            ProtocolType = protocolType;
-
-            SourceIPAddress = sourcePacket.SourceAddress.ToString();
-            
             DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
             
             HeaderSize = internetPacket.HeaderData.Length;
             PayloadSize = internetPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(internetPacket.PayloadData);
-
-            HostName = Environment.MachineName;
-
-            Version = Constants.API_VERSION;
         }
 
         public override string ToString() => $"{SourceIPAddress}:{SourcePort} to {DestinationIPAddress}:{DestinationPort} of size {PayloadSize}";
