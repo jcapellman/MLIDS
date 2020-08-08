@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -39,7 +40,19 @@
             <ComboBox Grid.Row="1" ItemsSource="{Binding DataLayers, Mode=TwoWay}" IsEnabled="{Binding DeviceSelectionEnabled, Mode=TwoWay}" SelectedItem="{Binding SelectedDataLayer, Mode=TwoWay}" DisplayMemberPath="Description" />
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Center">
+        <Grid Grid.Row="2" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Configuration" />
+            <TextBox Grid.Row="1" Text="{Binding SettingsJSON, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="2" Content="Save Settings" Click="btnSaveSettings_Click" />
+        </Grid>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-
+using System.Text.Json;
 using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Helpers;
@@ -161,6 +161,20 @@ namespace MLIDS.lib.Windows.ViewModels
 
         protected SettingsItem Settings;
 
+        private string _settingsJSON;
+
+        public string SettingsJSON
+        {
+            get => _settingsJSON;
+
+            set
+            {
+                _settingsJSON = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         public BaseViewModel()
         {
             DeviceList = CaptureDeviceList.Instance.Where(a => a is NpcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
@@ -174,9 +188,16 @@ namespace MLIDS.lib.Windows.ViewModels
 
             Settings = SettingsItem.Load();
 
+            SettingsJSON = JsonSerializer.Serialize(Settings);
+
             DataLayers = DALHelper.GetAvailableDALs(Settings);
 
             SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
+        }
+
+        public void SaveSettings()
+        {
+            SettingsItem.Save(SettingsJSON);
         }
 
         public abstract void StartButtonEnablement();

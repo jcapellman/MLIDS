@@ -17,5 +17,7 @@
         public const int PACKET_READ_TIMEOUT_MS = 1000;
 
         public const string NPCAP_NOT_FOUND_MESSAGE = "NPCAP Driver is required and is not installed - please install (https://nmap.org/npcap/)";
+
+        public const string MESSAGE_SAVE_SETTINGS = "Settings were saved successfully";
     }
 }

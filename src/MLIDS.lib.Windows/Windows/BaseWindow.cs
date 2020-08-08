@@ -37,6 +37,13 @@ namespace MLIDS.lib.Windows
             Application.Current.Shutdown();
         }
 
+        public void btnSaveSettings_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Vm.SaveSettings();
+
+            MessageBox.Show(Constants.MESSAGE_SAVE_SETTINGS);
+        }
+
         public void btnStartAction_Click(object sender, RoutedEventArgs e)
         {
             Vm.StartAction();
