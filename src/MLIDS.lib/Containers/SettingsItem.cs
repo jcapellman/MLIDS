@@ -61,6 +61,15 @@ namespace MLIDS.lib.Containers
                 throw new ArgumentNullException(nameof(fileName));
             }
 
+            if (string.IsNullOrEmpty(settingsJSON))
+            {
+                Log.Error("SettingsItem::Save - JSON was null upon save");
+
+                throw new ArgumentNullException(nameof(settingsJSON));
+            }
+
+            var _ = JsonSerializer.Deserialize<SettingsItem>(settingsJSON);
+
             var fullPath = Path.Combine(AppContext.BaseDirectory, fileName);
 
             Log.Debug($"SettingsItem::Load - File ({fileName}) was loaded");

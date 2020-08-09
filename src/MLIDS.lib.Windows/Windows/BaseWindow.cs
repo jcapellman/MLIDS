@@ -39,9 +39,15 @@ namespace MLIDS.lib.Windows
 
         public void btnSaveSettings_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Vm.SaveSettings();
+            try
+            {
+                Vm.SaveSettings();
 
-            MessageBox.Show(Constants.MESSAGE_SAVE_SETTINGS);
+                MessageBox.Show(Constants.MESSAGE_SAVE_SETTINGS);
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Error while saving Settings: {ex}");
+            }
         }
 
         public void btnStartAction_Click(object sender, RoutedEventArgs e)

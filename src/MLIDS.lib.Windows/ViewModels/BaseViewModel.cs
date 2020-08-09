@@ -195,10 +195,7 @@ namespace MLIDS.lib.Windows.ViewModels
             SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
         }
 
-        public void SaveSettings()
-        {
-            SettingsItem.Save(SettingsJSON);
-        }
+        public void SaveSettings() => SettingsItem.Save(SettingsJSON);
 
         public abstract void StartButtonEnablement();
 
