@@ -52,7 +52,7 @@ namespace MLIDS.lib.Containers
             return JsonSerializer.Deserialize<SettingsItem>(File.ReadAllBytes(fullPath));
         }
 
-        public static void Save(string settingsJSON, string fileName = Constants.SETTINGS_FILENAME)
+        public static SettingsItem Save(string settingsJSON, string fileName = Constants.SETTINGS_FILENAME)
         {
             if (string.IsNullOrEmpty(fileName))
             {
@@ -68,13 +68,15 @@ namespace MLIDS.lib.Containers
                 throw new ArgumentNullException(nameof(settingsJSON));
             }
 
-            var _ = JsonSerializer.Deserialize<SettingsItem>(settingsJSON);
+            var settings = JsonSerializer.Deserialize<SettingsItem>(settingsJSON);
 
             var fullPath = Path.Combine(AppContext.BaseDirectory, fileName);
 
             Log.Debug($"SettingsItem::Load - File ({fileName}) was loaded");
 
             File.WriteAllText(fullPath, settingsJSON);
+
+            return settings;
         }
     }
 }
