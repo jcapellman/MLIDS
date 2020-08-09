@@ -32,7 +32,7 @@ namespace MLIDS.lib.Windows
                 return;
             }
 
-            MessageBox.Show(Constants.NPCAP_NOT_FOUND_MESSAGE);
+            MessageBox.Show(Constants.MESSAGE_NPCAP_NOT_FOUND);
 
             Application.Current.Shutdown();
         }
