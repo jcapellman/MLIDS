@@ -1,12 +1,10 @@
 ﻿using System;
 
-using MLIDS.lib.Common;
 using MLIDS.lib.ML.Objects;
 
 using PacketDotNet;
 
 using SharpPcap;
-using SharpPcap.Npcap;
 
 namespace MLIDS.lib.Windows.ViewModels
 {
@@ -62,8 +60,8 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public abstract void PacketProcessing(PayloadItem payloadItem);
 
-    private void SelectedDevice_OnPacketArrival(object sender, CaptureEventArgs e)
-    {
+        private void SelectedDevice_OnPacketArrival(object sender, CaptureEventArgs e)
+        {
             if (e == null)
             {
                 Log.Error("MainViewModel::PacketProcessing - e is null");

@@ -2,7 +2,9 @@
 using MLIDS.lib.Windows.ViewModels;
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Windows;
 
 namespace MLIDS.lib.Windows
@@ -44,9 +46,17 @@ namespace MLIDS.lib.Windows
                 Vm.SaveSettings();
 
                 MessageBox.Show(Constants.MESSAGE_SAVE_SETTINGS);
-            } catch (Exception ex)
+            } catch (JsonException jex)
             {
-                MessageBox.Show($"Error while saving Settings: {ex}");
+                MessageBox.Show($"Invalid JSON settings (Exception: {jex}");
+            }
+            catch (IOException iex)
+            {
+                MessageBox.Show($"IO Exception when saving the settings (Exception: {iex}");
+            }
+            catch (ArgumentNullException aex)
+            {
+                MessageBox.Show($"Null was passed into the settings (Exception: {aex}");
             }
         }
 
