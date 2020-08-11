@@ -195,6 +195,9 @@ namespace MLIDS.lib.Windows.ViewModels
             SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
         }
 
+        /// <exception cref="System.ArgumentNullException">JSON or Filename is null</exception>
+        /// <exception cref="System.IO.IOException">On writing the Settings to disk</exception>
+        /// <exception cref="JsonException">Invalid JSON to write to disk</exception>
         public void SaveSettings()
         {
             Settings = SettingsItem.Save(SettingsJSON);
