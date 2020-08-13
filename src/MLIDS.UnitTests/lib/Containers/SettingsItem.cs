@@ -30,6 +30,19 @@ namespace MLIDS.UnitTests.lib.Containers
         }
 
         [TestMethod]
+        public void SettingsItem_NotFoundOnLoad()
+        {
+            MLIDS.lib.Containers.SettingsItem.Load("wick.json");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SettingsItem_NullFileSave()
+        {
+            MLIDS.lib.Containers.SettingsItem.Save(null, null);
+        }
+
+        [TestMethod]
         public void SettingsItem_GoodJSONSaveTest()
         {
             var setting = MLIDS.lib.Containers.SettingsItem.Save("{\"DAL_HostIP\":\"192.168.0.1\",\"DAL_HostPort\":0,\"DAL_FileName\":\"\"}");
