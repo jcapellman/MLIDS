@@ -211,11 +211,11 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public abstract void StopAction();
 
-        protected static PayloadItem ToPayloadItem(PayloadType protocolType, IPPacket sourcePacket,
+        protected static PayloadItem ToPayloadItem(ProtocolType protocolType, IPPacket sourcePacket,
            InternetPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
-        protected static PayloadItem ToPayloadItem(PayloadType protocolType, IPPacket sourcePacket,
+        protected static PayloadItem ToPayloadItem(ProtocolType protocolType, IPPacket sourcePacket,
            TransportPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PacketDotNet;
 
 namespace MLIDS.UnitTests.lib.ML.Objects
 {
@@ -11,7 +12,7 @@ namespace MLIDS.UnitTests.lib.ML.Objects
         [ExpectedException(typeof(ArgumentNullException))]
         public void PayloadItem_NullTest()
         {
-            new MLIDS.lib.ML.Objects.PayloadItem(null, null, payloadPacket: null, false);
+            new MLIDS.lib.ML.Objects.PayloadItem(ProtocolType.IPv6NoNextHeader, null, payloadPacket: null, false);
         }
     }
 }

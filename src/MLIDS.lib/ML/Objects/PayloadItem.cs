@@ -60,7 +60,7 @@ namespace MLIDS.lib.ML.Objects
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         [NoColumn] public bool IsClean { get; private set; }
 
-        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, bool clean)
+        public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, bool clean)
         {
             if (sourcePacket == null)
             {
@@ -83,7 +83,7 @@ namespace MLIDS.lib.ML.Objects
             Version = Constants.API_VERSION;
         }
 
-        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
+        public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
         {
             if (payloadPacket == null)
             {
@@ -103,7 +103,7 @@ namespace MLIDS.lib.ML.Objects
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
         }
 
-        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean) : this(protocolType, sourcePacket, clean)
+        public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean) : this(protocolType, sourcePacket, clean)
         {
             if (sourcePacket == null)
             {
