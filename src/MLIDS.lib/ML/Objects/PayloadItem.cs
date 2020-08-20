@@ -136,6 +136,12 @@ namespace MLIDS.lib.ML.Objects
             DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
             
             HeaderSize = internetPacket.HeaderData.Length;
+
+            if (internetPacket.PayloadData == null)
+            {
+                return;
+            }
+
             PayloadSize = internetPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(internetPacket.PayloadData);
