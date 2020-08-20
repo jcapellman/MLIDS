@@ -60,7 +60,7 @@ namespace MLIDS.lib.ML.Objects
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         [NoColumn] public bool IsClean { get; private set; }
 
-        public PayloadItem(string protocolType, IPPacket sourcePacket, bool clean)
+        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, bool clean)
         {
             if (sourcePacket == null)
             {
@@ -73,7 +73,7 @@ namespace MLIDS.lib.ML.Objects
 
             IsClean = clean;
 
-            ProtocolType = protocolType;
+            ProtocolType = protocolType.ToString();
 
             SourceIPAddress = sourcePacket.SourceAddress.ToString();
             DestinationIPAddress = sourcePacket.DestinationAddress.ToString();
@@ -83,15 +83,8 @@ namespace MLIDS.lib.ML.Objects
             Version = Constants.API_VERSION;
         }
 
-        public PayloadItem(string protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
+        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
         {
-            if (string.IsNullOrEmpty(protocolType))
-            {
-                Log.Error($"PayloadItem - protocolType was null or empty");
-
-                throw new ArgumentNullException(nameof(protocolType));
-            }
-
             if (payloadPacket == null)
             {
                 Log.Error($"PayloadItem - payloadPacket was null");
@@ -110,15 +103,8 @@ namespace MLIDS.lib.ML.Objects
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
         }
 
-        public PayloadItem(string protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean)
+        public PayloadItem(PayloadType protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean) : this(protocolType, sourcePacket, clean)
         {
-            if (string.IsNullOrEmpty(protocolType))
-            {
-                Log.Error($"PayloadItem - protocolType was null or empty");
-
-                throw new ArgumentNullException(nameof(protocolType));
-            }
-
             if (sourcePacket == null)
             {
                 Log.Error($"PayloadItem - sourcePacket was null");

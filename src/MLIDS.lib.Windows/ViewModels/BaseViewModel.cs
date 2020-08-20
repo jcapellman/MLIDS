@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+
 using MLIDS.lib.Containers;
 using MLIDS.lib.DAL.Base;
 using MLIDS.lib.Helpers;
 using MLIDS.lib.ML.Objects;
 using MLIDS.lib.Objects;
+
 using PacketDotNet;
 
 using SharpPcap;
@@ -209,11 +211,11 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public abstract void StopAction();
 
-        protected static PayloadItem ToPayloadItem(string protocolType, IPPacket sourcePacket,
+        protected static PayloadItem ToPayloadItem(PayloadType protocolType, IPPacket sourcePacket,
            InternetPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
-        protected static PayloadItem ToPayloadItem(string protocolType, IPPacket sourcePacket,
+        protected static PayloadItem ToPayloadItem(PayloadType protocolType, IPPacket sourcePacket,
            TransportPacket payloadPacket, bool cleanTraffic) =>
            new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
@@ -240,20 +242,20 @@ namespace MLIDS.lib.Windows.ViewModels
             {
                 case ProtocolType.Tcp:
                     var tcpPacket = packet.Extract<TcpPacket>();
-
-                    return ToPayloadItem("TCP", ipPacket, tcpPacket, isCleanTraffic);
+                    
+                    return ToPayloadItem(ProtocolType.Tcp, ipPacket, tcpPacket, isCleanTraffic);
                 case ProtocolType.Udp:
                     var udpPacket = packet.Extract<UdpPacket>();
 
-                    return ToPayloadItem("UDP", ipPacket, udpPacket, isCleanTraffic);
+                    return ToPayloadItem(ProtocolType.Udp, ipPacket, udpPacket, isCleanTraffic);
                 case ProtocolType.Icmp:
                     var icmpPacket = packet.Extract<IcmpV4Packet>();
 
-                    return ToPayloadItem("ICMP", ipPacket, icmpPacket, isCleanTraffic);
+                    return ToPayloadItem(ProtocolType.Icmp, ipPacket, icmpPacket, isCleanTraffic);
                 case ProtocolType.IcmpV6:
                     var icmpvPacket = packet.Extract<IcmpV6Packet>();
 
-                    return ToPayloadItem("ICMPv6", ipPacket, icmpvPacket, isCleanTraffic);
+                    return ToPayloadItem(ProtocolType.IcmpV6, ipPacket, icmpvPacket, isCleanTraffic);
             }
 
             return null;
