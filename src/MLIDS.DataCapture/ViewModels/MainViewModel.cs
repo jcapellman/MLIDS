@@ -23,20 +23,6 @@ namespace MLIDS.DataCapture.ViewModels
             }
         }
 
-        private bool _isCleanTraffic;
-
-        public bool IsCleanTraffic
-        {
-            get => _isCleanTraffic;
-
-            set
-            {
-                _isCleanTraffic = value;
-
-                OnPropertyChanged();
-            }
-        }
-
         public MainViewModel()
         {
             StartBtnEnabled = false;

@@ -26,6 +26,20 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
+        private bool _isCleanTraffic;
+
+        public bool IsCleanTraffic
+        {
+            get => _isCleanTraffic;
+
+            set
+            {
+                _isCleanTraffic = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         public BaseCaptureMainViewModel()
         {
             ChkBxSaveEnabled = true;
@@ -80,7 +94,7 @@ namespace MLIDS.lib.Windows.ViewModels
                     return;
                 }
 
-                var packetItem = GetPacket(packet, false);
+                var packetItem = GetPacket(packet, IsCleanTraffic);
 
                 if (packetItem == null)
                 {
