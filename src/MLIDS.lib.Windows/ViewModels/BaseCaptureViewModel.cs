@@ -47,6 +47,8 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public override void StartAction()
         {
+            Packets = new System.Collections.ObjectModel.ObservableCollection<string>();
+
             StartBtnEnabled = false;
             StopBtnEnabled = true;
             DeviceSelectionEnabled = false;
