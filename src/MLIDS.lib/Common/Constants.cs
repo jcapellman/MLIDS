@@ -8,7 +8,7 @@
 
         public const string DAL_FileName = "litedb.db";
 
-        public const int API_VERSION = 1;
+        public const int API_VERSION = 2;
 
         public const string SETTINGS_FILENAME = "settings.json";
 
