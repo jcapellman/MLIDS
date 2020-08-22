@@ -60,6 +60,8 @@ namespace MLIDS.lib.ML.Objects
         // ReSharper disable once CompareOfFloatsByEqualityOperator
         [NoColumn] public bool IsClean { get; private set; }
 
+        [NoColumn] public DateTime Timestamp { get; private set; }
+
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, bool clean)
         {
             if (sourcePacket == null)
@@ -81,6 +83,8 @@ namespace MLIDS.lib.ML.Objects
             HostName = Environment.MachineName;
 
             Version = Constants.API_VERSION;
+
+            Timestamp = DateTime.Now;
         }
 
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
