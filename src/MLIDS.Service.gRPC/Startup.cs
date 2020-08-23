@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using MLIDS.Service.gRPC.Services;
+
 namespace MLIDS.Service.gRPC
 {
     public class Startup
@@ -27,7 +29,7 @@ namespace MLIDS.Service.gRPC
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<PacketStorageService>();
 
                 endpoints.MapGet("/", async context =>
                 {
