@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using MLIDS.lib.Containers;
+using MLIDS.lib.DAL;
+using MLIDS.lib.DAL.Base;
+
 using MLIDS.Service.gRPC.Services;
 
 namespace MLIDS.Service.gRPC
@@ -12,6 +16,15 @@ namespace MLIDS.Service.gRPC
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = SettingsItem.Load();
+
+            // Swap out the Class if DAL swap
+            var dal = new MongoDAL(settings);
+
+            dal.Initialize();
+
+            services.AddSingleton<BaseDAL>(dal);
+
             services.AddGrpc();
         }
 
