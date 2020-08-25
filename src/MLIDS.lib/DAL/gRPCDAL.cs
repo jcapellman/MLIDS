@@ -16,9 +16,9 @@ namespace MLIDS.lib.DAL
     {
         private PacketStorage.PacketStorageClient _gClient;
 
-        public override string Description => throw new NotImplementedException();
+        public override string Description => "gRPC";
 
-        public override bool IsSelectable => throw new NotImplementedException();
+        public override bool IsSelectable => true;
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
@@ -29,7 +29,9 @@ namespace MLIDS.lib.DAL
 
         public override bool Initialize()
         {
-            var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            var channel = GrpcChannel.ForAddress($"http://{settingsItem.DAL_HostIP}");
 
             _gClient = new PacketStorage.PacketStorageClient(channel);
 
