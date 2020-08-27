@@ -3,7 +3,7 @@
     "MLIDS.Service.gRPC": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5000;https://localhost:5001",
+      "applicationUrl": "http://localhost:80;https://localhost",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
