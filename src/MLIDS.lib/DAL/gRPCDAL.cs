@@ -29,11 +29,11 @@ namespace MLIDS.lib.DAL
 
         public override bool Initialize()
         {
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
             var channel = GrpcChannel.ForAddress($"http://{settingsItem.DAL_HostIP}");
 
             _gClient = new PacketStorage.PacketStorageClient(channel);
+
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             return true;
         }
