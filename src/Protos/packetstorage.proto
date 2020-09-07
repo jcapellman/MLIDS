@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "MLIDS.Service.gRPC.Protos";
+
+package packetstorage.v1;
+
+service PacketStorage {
+  rpc WritePacket (PacketStorageRequest) returns (PacketStorageReply);
+}
+
+message PacketStorageRequest {
+  int32 API = 1;
+  string JSON = 2;
+}
+
+message PacketStorageReply {
+  bool success = 1;
+}
