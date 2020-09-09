@@ -1,0 +1,44 @@
+﻿@page "/packetsdashboard"
+
+@using MLIDS.Web.Blazor.Data
+@inject PacketDataService PacketService
+
+<h1>Packets Dashboard</h1>
+
+@if (packets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Source IP</th>
+                <th>Source Port</th>
+                <th>Dest IP</th>
+                <th>Dest Port</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var packet in packets)
+            {
+                <tr>
+                    <td>@packet.SourceIPAddress</td>
+                    <td>@packet.SourcePort</td>
+                    <td>@packet.DestinationIPAddress</td>
+                    <td>@packet.DestinationPort</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<MLIDS.lib.ML.Objects.PayloadItem> packets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        packets = await PacketService.GetPayloadItemsAsync();
+    }
+}

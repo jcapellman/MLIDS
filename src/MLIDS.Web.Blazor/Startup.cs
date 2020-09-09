@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using MLIDS.lib.Containers;
+using MLIDS.lib.DAL;
+using MLIDS.lib.DAL.Base;
+
 using MLIDS.Web.Blazor.Data;
 
 namespace MLIDS.Web.Blazor
@@ -25,9 +25,18 @@ namespace MLIDS.Web.Blazor
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = SettingsItem.Load();
+
+            // Swap out the Class if DAL swap
+            var dal = new MongoDAL(settings);
+
+            dal.Initialize();
+
+            services.AddSingleton<BaseDAL>(dal);
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<PacketDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
