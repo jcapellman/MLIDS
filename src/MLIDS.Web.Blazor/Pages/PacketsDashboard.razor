@@ -5,6 +5,14 @@
 
 <h1>Packets Dashboard</h1>
 
+<EditForm Model="_requestModel" OnValidSubmit="HandleValidSubmit">
+    <div class="form-group">
+        <InputDate />
+
+        <button type="submit" class="btn-lg btn-primary">Run Query</button>
+    </div>
+</EditForm>
+
 @if (packets == null)
 {
     <p><em>Loading...</em></p>
@@ -37,7 +45,8 @@ else
 @code {
     private List<MLIDS.lib.ML.Objects.PayloadItem> packets;
 
-    protected override async Task OnInitializedAsync()
+
+    private async void HandleValidSubmit()
     {
         packets = await PacketService.GetPayloadItemsAsync();
     }

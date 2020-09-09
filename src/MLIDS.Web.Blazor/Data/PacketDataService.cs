@@ -16,6 +16,6 @@ namespace MLIDS.Web.Blazor.Data
             _dal = dal;
         }
 
-        public async Task<List<PayloadItem>> GetPayloadItemsAsync() => await _dal.QueryPacketsAsync(a => a.Timestamp > DateTime.Now.AddDays(-1));
+        public async Task<List<PayloadItem>> GetPayloadItemsAsync(DateTime startTime, DateTime endTime) => await _dal.QueryPacketsAsync(a => a.Timestamp > startTime && a.Timestamp < endTime);
     }
 }
