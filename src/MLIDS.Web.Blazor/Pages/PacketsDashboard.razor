@@ -9,18 +9,17 @@
 
 <EditForm Model="@_requestModel" OnValidSubmit="HandleValidSubmit">
     <div class="form-group">
-        <InputDate @bind-Value="@_requestModel.StartTime" />
-        <InputDate @bind-Value="@_requestModel.EndTime" />
+        <label for="startDate">Start Date</label>
+        <InputDate id="startDate" @bind-Value="@_requestModel.StartTime" />
+
+        <label for="endDate">End Date</label>
+        <InputDate id="endDate" @bind-Value="@_requestModel.EndTime" />
 
         <button type="submit" class="btn-lg btn-primary">Run Query</button>
     </div>
 </EditForm>
 
-@if (packets == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
+@if (packets != null)
 {
     <table class="table">
         <thead>
