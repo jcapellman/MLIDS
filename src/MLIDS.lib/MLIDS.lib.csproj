@@ -16,7 +16,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
     <PackageReference Include="NLog" Version="4.7.4" />
     <PackageReference Include="SharpPcap" Version="5.2.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0-preview.8.20407.11" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
   <ItemGroup>
