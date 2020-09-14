@@ -42,6 +42,7 @@ namespace MLIDS.Web.Blazor
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
