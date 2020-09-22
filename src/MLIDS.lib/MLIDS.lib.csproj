@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.13.0" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.31.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.32.0-pre1" />
     <PackageReference Include="Grpc.Tools" Version="2.32.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,8 +15,8 @@
     <PackageReference Include="Microsoft.ML" Version="1.5.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
     <PackageReference Include="NLog" Version="4.7.4" />
-    <PackageReference Include="SharpPcap" Version="5.2.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0-preview.8.20407.11" />
+    <PackageReference Include="SharpPcap" Version="5.3.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0-rc.1.20451.14" />
   </ItemGroup>
 
   <ItemGroup>
