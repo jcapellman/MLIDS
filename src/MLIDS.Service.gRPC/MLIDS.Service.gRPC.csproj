@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0-pre1" />
-    <PackageReference Include="NLog" Version="4.7.4" />
+    <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.6.5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
   </ItemGroup>
