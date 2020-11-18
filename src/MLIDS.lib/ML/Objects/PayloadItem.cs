@@ -137,6 +137,7 @@ namespace MLIDS.lib.ML.Objects
             PacketContent = BitConverter.ToString(internetPacket.PayloadData);
         }
 
-        public override string ToString() => $"{SourceIPAddress}:{SourcePort} to {DestinationIPAddress}:{DestinationPort} of size {PayloadSize}";
+        public override string ToString() => $"({ProtocolType}): {SourceIPAddress}:{SourcePort} to " +
+                                             $"{DestinationIPAddress}:{DestinationPort} - Header Size: {HeaderSize} | Packet Size: {PayloadSize}";
     }
 }
