@@ -5,18 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.14.0" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.34.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.35.0">
+    <PackageReference Include="Google.Protobuf" Version="3.15.8" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.36.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.37.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LiteDB" Version="5.0.10" />
-    <PackageReference Include="Microsoft.ML" Version="1.5.4" />
-    <PackageReference Include="MongoDB.Driver" Version="2.12.0-beta1" />
-    <PackageReference Include="NLog" Version="4.7.7" />
+    <PackageReference Include="Microsoft.ML" Version="1.5.5" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
+    <PackageReference Include="NLog" Version="4.7.9" />
     <PackageReference Include="SharpPcap" Version="5.4.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
