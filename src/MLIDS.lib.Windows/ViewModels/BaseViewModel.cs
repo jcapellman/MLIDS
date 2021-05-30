@@ -15,7 +15,7 @@ using MLIDS.lib.Objects;
 using PacketDotNet;
 
 using SharpPcap;
-using SharpPcap.Npcap;
+using SharpPcap.LibPcap;
 
 namespace MLIDS.lib.Windows.ViewModels
 {
@@ -49,7 +49,7 @@ namespace MLIDS.lib.Windows.ViewModels
             {
                 _selectedDataLayer = value;
 
-                if (_selectedDataLayer != null && _selectedDataLayer.IsSelectable && !_selectedDataLayer.Initialize())
+                if (_selectedDataLayer is {IsSelectable: true} && !_selectedDataLayer.Initialize())
                 {
                     OnFailedDAL?.Invoke(this, _selectedDataLayer.Description);
                 } else
@@ -179,7 +179,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.Where(a => a is NpcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
+            DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 
