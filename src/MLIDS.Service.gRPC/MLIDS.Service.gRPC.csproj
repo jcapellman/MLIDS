@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
-    <PackageReference Include="NLog" Version="5.0.0-preview.3" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.0-preview.3" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0-preview.3" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.42.0-pre1" />
+    <PackageReference Include="NLog" Version="5.0.0-rc1" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.0.0-rc1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0-rc1" />
   </ItemGroup>
 
   <ItemGroup>
