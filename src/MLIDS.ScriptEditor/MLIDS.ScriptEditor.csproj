@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="NLog" Version="5.0.0-rc1" />
-    <PackageReference Include="System.Text.Json" Version="6.0.1" />
+    <PackageReference Include="NLog" Version="5.0.0-rc2" />
+    <PackageReference Include="System.Text.Json" Version="6.0.2-mauipre.1.22054.8" />
   </ItemGroup>
 
   <ItemGroup>
