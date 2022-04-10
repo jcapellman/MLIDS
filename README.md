@@ -4,19 +4,19 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 
 ## Components
 * Packet Capture Driver (NPCAP NDIS Filter Driver - https://nmap.org/npcap/)
-* Packet Capture Application (.NET 5)
-* Model Trainer Application (.NET 5)
-* Model Testing Application (.NET 5)
-* Attacker Application (.NET 5)
-* Scripting Application (.NET 5)
-* Shared Code Library (.NET 5)
-* Unit Tests (.NET 5)
+* Packet Capture Application (.NET 6)
+* Model Trainer Application (.NET 6)
+* Model Testing Application (.NET 6)
+* Attacker Application (.NET 6)
+* Scripting Application (.NET 6)
+* Shared Code Library (.NET 6)
+* Unit Tests (.NET 6)
 
 ## Releases
 Using GitHub Actions, all three Applications will be built and packaged individually (there maybe a launcher created at some point)
 
 ## Requirements
-* Windows 7 SP1+ (.NET 5's oldest supported OS)
+* Windows 7 SP1+ (.NET 6's oldest supported OS)
 * Npcap Driver Installed
 * MongoDB Installed or use of LiteDB, JSON or CSV if storing of the data is needed
 
