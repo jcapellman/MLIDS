@@ -4,13 +4,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MLIDS.DataCapture" xmlns:viewmodels="clr-namespace:MLIDS.DataCapture.ViewModels"
+        xmlns:local="clr-namespace:MLIDS.DataCapture"
         mc:Ignorable="d"       
         Title="MLIDS - Data Capture Tool" Height="600" Width="500" ResizeMode="NoResize">
-    <windows:BaseWindow.DataContext>
-        <viewmodels:MainViewModel />
-    </windows:BaseWindow.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
