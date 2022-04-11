@@ -105,7 +105,7 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private List<MLIDSDevice> _deviceList = new List<MLIDSDevice>();
+        private List<MLIDSDevice> _deviceList = new();
 
         public List<MLIDSDevice> DeviceList
         {
@@ -147,7 +147,7 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private ObservableCollection<string> _packets = new ObservableCollection<string>();
+        private ObservableCollection<string> _packets = new();
 
         public ObservableCollection<string> Packets
         {
@@ -213,13 +213,13 @@ namespace MLIDS.lib.Windows.ViewModels
 
         protected static PayloadItem ToPayloadItem(ProtocolType protocolType, IPPacket sourcePacket,
            InternetPacket payloadPacket, bool cleanTraffic) =>
-           new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
+           new(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
         protected static PayloadItem ToPayloadItem(ProtocolType protocolType, IPPacket sourcePacket,
            TransportPacket payloadPacket, bool cleanTraffic) =>
-           new PayloadItem(protocolType, sourcePacket, payloadPacket, cleanTraffic);
+           new(protocolType, sourcePacket, payloadPacket, cleanTraffic);
 
-        protected PayloadItem GetPacket(Packet packet, bool isCleanTraffic)
+        protected static PayloadItem GetPacket(Packet packet, bool isCleanTraffic)
         {
             IPPacket ipPacket = null;
 
