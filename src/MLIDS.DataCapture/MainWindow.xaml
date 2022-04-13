@@ -5,8 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MLIDS.DataCapture"
-        mc:Ignorable="d"       
-        Title="MLIDS - Data Capture Tool" Height="600" Width="500" ResizeMode="NoResize">
+        mc:Ignorable="d"   
+        Title="MLIDS - Data Capture Tool" Height="600" Width="750" ResizeMode="CanResizeWithGrip">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -92,7 +92,7 @@
             <ListView Grid.Row="1" ItemsSource="{Binding Packets, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Label Content="{Binding}" />
+                        <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -62,6 +62,11 @@ namespace MLIDS.lib.ML.Objects
 
         [NoColumn] public DateTime Timestamp { get; private set; }
 
+        [LoadColumn(9)]
+        public bool IsEncrypted { get; private set; }
+
+        [NoColumn] public string DecodedPayload { get; private set; }
+
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, bool clean)
         {
             if (sourcePacket == null)
@@ -85,6 +90,8 @@ namespace MLIDS.lib.ML.Objects
             Version = Constants.API_VERSION;
 
             Timestamp = DateTime.Now;
+
+            DecodedPayload = string.Empty;
         }
 
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, TransportPacket payloadPacket, bool clean) : this(protocolType, sourcePacket, clean)
@@ -105,6 +112,19 @@ namespace MLIDS.lib.ML.Objects
             PayloadSize = payloadPacket.PayloadData.Length;
 
             PacketContent = BitConverter.ToString(payloadPacket.PayloadData);
+
+            if (!string.IsNullOrEmpty(PacketContent)) { 
+                string[] hexValuesSplit = PacketContent.Split('-');
+
+                foreach (string hex in hexValuesSplit)
+                {
+                    DecodedPayload += (char)Convert.ToInt32(hex, 16);
+                }
+
+                DecodedPayload = DecodedPayload.Replace(Convert.ToChar(0x0).ToString(), "");
+
+                IsEncrypted = (System.Text.Encoding.UTF8.GetByteCount(DecodedPayload) != DecodedPayload.Length);
+            }
         }
 
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, InternetPacket internetPacket, bool clean) : this(protocolType, sourcePacket, clean)
@@ -138,6 +158,6 @@ namespace MLIDS.lib.ML.Objects
         }
 
         public override string ToString() => $"({ProtocolType}): {SourceIPAddress}:{SourcePort} to " +
-                                             $"{DestinationIPAddress}:{DestinationPort} - Header Size: {HeaderSize} | Packet Size: {PayloadSize}";
+                                             $"{DestinationIPAddress}:{DestinationPort} - Header Size: {HeaderSize} | Packet Size: {PayloadSize} | Encrypted: {IsEncrypted} | Decoded Payload: {DecodedPayload}";
     }
 }
