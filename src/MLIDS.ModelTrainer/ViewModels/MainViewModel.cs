@@ -29,6 +29,20 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
+        private string _selectedAlgorithm;
+
+        public string SelectedAlgorithm
+        {
+            get => _selectedAlgorithm;
+
+            set
+            {
+                _selectedAlgorithm = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private void UpdateTrainButton()
         {
             StartBtnEnabled =
