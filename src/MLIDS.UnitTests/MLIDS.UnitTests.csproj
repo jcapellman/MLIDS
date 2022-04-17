@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	  <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFramework>net6.0-windows</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -12,27 +12,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200806-02" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
-    <PackageReference Include="coverlet.collector" Version="1.3.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.9" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.9" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NLog" Version="4.7.4" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0-preview.7.20364.11" />
+	  <PackageReference Include="NLog" Version="4.7.15" />
+	  <PackageReference Include="System.Text.Json" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MLIDS.Attacker\MLIDS.Attacker.csproj" />
     <ProjectReference Include="..\MLIDS.DataCapture\MLIDS.DataCapture.csproj" />
-    <ProjectReference Include="..\MLIDS.Detector\MLIDS.Detector.csproj" />
     <ProjectReference Include="..\MLIDS.lib.Windows\MLIDS.lib.Windows.csproj" />
     <ProjectReference Include="..\MLIDS.lib\MLIDS.lib.csproj" />
     <ProjectReference Include="..\MLIDS.ModelTrainer\MLIDS.ModelTrainer.csproj" />
-    <ProjectReference Include="..\MLIDS.ScriptEditor\MLIDS.ScriptEditor.csproj" />
-    <ProjectReference Include="..\MLIDS.Scripter.lib\MLIDS.Scripter.lib.csproj" />
-    <ProjectReference Include="..\MLIDS.Scripter\MLIDS.Scripter.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="1.7.1" />
-    <PackageReference Include="NLog" Version="5.0.0-rc2" />
-    <PackageReference Include="System.Text.Json" Version="7.0.0-preview.2.22152.2" />
+	  <PackageReference Include="NLog" Version="4.7.15" />
+	  <PackageReference Include="System.Text.Json" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
