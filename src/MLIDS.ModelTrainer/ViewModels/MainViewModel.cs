@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 using Microsoft.Win32;
 
 using MLIDS.lib.Containers;
 using MLIDS.lib.ML;
+using MLIDS.lib.Models.Base;
 using MLIDS.lib.Windows.ViewModels;
 
 namespace MLIDS.ModelTrainer.ViewModels
@@ -29,15 +32,29 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        private string _selectedAlgorithm;
+        private List<BaseModelRunner> _availableRunners;
 
-        public string SelectedAlgorithm
+        public List<BaseModelRunner> AvailableRunners
         {
-            get => _selectedAlgorithm;
+            get => _availableRunners;
 
             set
             {
-                _selectedAlgorithm = value;
+                _availableRunners = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private BaseModelRunner _selectedRunner;
+
+        public BaseModelRunner SelectedRunner
+        {
+            get => _selectedRunner;
+
+            set
+            {
+                _selectedRunner = value;
 
                 OnPropertyChanged();
             }
@@ -83,6 +100,10 @@ namespace MLIDS.ModelTrainer.ViewModels
         public MainViewModel()
         {
             ModelMetricsStackPanel = Visibility.Collapsed;
+
+            AvailableRunners = lib.Helpers.ModelRunnerHelper.GetAvailableRunners();
+
+            SelectedRunner = AvailableRunners.FirstOrDefault();
 
             btnSelectionEnable = true;
 
