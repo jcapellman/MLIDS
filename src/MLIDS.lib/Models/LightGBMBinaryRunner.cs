@@ -4,9 +4,9 @@ using MLIDS.lib.Models.Base;
 
 namespace MLIDS.lib.Models
 {
-    public class LightGBMRunner : BaseModelRunner
+    public class LightGBMBinaryRunner : BaseModelRunner
     {
-        public override string ModelTypeName => "LightGBM";
+        public override string ModelTypeName => "LightGBM (Binary)";
 
         protected override bool Run(string modelFile, BaseDAL dataLayer, SettingsItem settingsItem)
         {

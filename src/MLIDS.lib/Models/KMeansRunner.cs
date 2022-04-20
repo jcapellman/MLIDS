@@ -6,9 +6,9 @@ using MLIDS.lib.Models.Base;
 
 namespace MLIDS.lib.Models
 {
-    public class PCARunner : BaseModelRunner
+    public class KMeansRunner : BaseModelRunner
     {
-        public override string ModelTypeName => "PCA";
+        public override string ModelTypeName => "K-Means";
 
         protected override bool Run(string modelFile, BaseDAL dataLayer, SettingsItem settingsItem)
         {
