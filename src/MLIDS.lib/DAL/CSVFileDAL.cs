@@ -17,27 +17,19 @@ namespace MLIDS.lib.DAL
     {
         public class CSVWriter
         {
-            private string _filepath { get; set; }
-
-            private static readonly object locker = new Object();
+            private string Filepath { get; set; }
 
             public CSVWriter(string filePath)
             {
-                _filepath = filePath;
+                Filepath = filePath;
             }
 
-            public void WriteToFile(string text)
+            public async Task WriteToFileAsync(string text)
             {
-                lock (locker)
-                {
-                    using (var file = new FileStream(_filepath, FileMode.Append, FileAccess.Write, FileShare.Read))
-                    {
-                        using (var writer = new StreamWriter(file, Encoding.Unicode))
-                        {
-                            writer.Write(text);
-                        }
-                    }
-                }
+                using var file = new FileStream(Filepath, FileMode.Append, FileAccess.Write, FileShare.Read);
+                using var writer = new StreamWriter(file, Encoding.Unicode);
+
+                await writer.WriteAsync(text);
             }
         }
 
@@ -120,7 +112,7 @@ namespace MLIDS.lib.DAL
                 throw new ArgumentNullException(nameof(packet));
             }
 
-            _writer.WriteToFile(packet.ToCSV<PayloadItem>());
+            await _writer.WriteToFileAsync(packet.ToCSV<PayloadItem>());
 
             return true;
         }
