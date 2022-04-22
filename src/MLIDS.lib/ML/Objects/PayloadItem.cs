@@ -67,6 +67,8 @@ namespace MLIDS.lib.ML.Objects
 
         [NoColumn] public string DecodedPayload { get; private set; }
 
+        private const string UNICODE_START_OF_HEADING = "\u0001";
+
         public PayloadItem(ProtocolType protocolType, IPPacket sourcePacket, bool clean)
         {
             if (sourcePacket == null)
@@ -124,6 +126,11 @@ namespace MLIDS.lib.ML.Objects
                 DecodedPayload = DecodedPayload.Replace(Convert.ToChar(0x0).ToString(), "");
 
                 IsEncrypted = (System.Text.Encoding.UTF8.GetByteCount(DecodedPayload) != DecodedPayload.Length);
+
+                if (DecodedPayload == UNICODE_START_OF_HEADING)
+                {
+                    DecodedPayload = string.Empty;
+                }
             }
         }
 
@@ -158,6 +165,6 @@ namespace MLIDS.lib.ML.Objects
         }
 
         public override string ToString() => $"({ProtocolType}): {SourceIPAddress}:{SourcePort} to " +
-                                             $"{DestinationIPAddress}:{DestinationPort} - Header Size: {HeaderSize} | Packet Size: {PayloadSize} | Encrypted: {IsEncrypted} | Decoded Payload: {DecodedPayload}";
+                                             $"{DestinationIPAddress}:{DestinationPort} - Header Size: {HeaderSize} | Packet Size: {PayloadSize} | Encrypted: {IsEncrypted} | Decoded Payload: {(DecodedPayload == string.Empty ? "(Empty Payload)" : DecodedPayload)}";
     }
 }
