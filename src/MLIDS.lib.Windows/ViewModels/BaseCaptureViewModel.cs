@@ -78,13 +78,6 @@ namespace MLIDS.lib.Windows.ViewModels
 
         private void SelectedDevice_OnPacketArrival(object sender, PacketCapture e)
         {
-            if (e.Data == null)
-            {
-                Log.Error("MainViewModel::PacketProcessing - e is null");
-
-                throw new ArgumentNullException(nameof(e));
-            }
-
             var packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.Data.ToArray());
 
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
