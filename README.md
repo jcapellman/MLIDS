@@ -21,15 +21,6 @@ Using GitHub Actions, all three Applications will be built and packaged individu
 The idea is to follow the steps:
 1. Run the Packet Capture Application to generate a sizeable training and test set
 2. Run the Model Trainer Application to generate a model
-3. Run the Model Testing Application to test the FP/FN of the model along with performance and other metrics
-
-## Remaining work items
-* Binary Classification Model once a detection has been made
-* Performance Tuning
-* Documentation
-* Malicious Traffic samples
-* Benign Traffic Samples
-* Scripting and Automation tools to promote repeatability
 
 ## License
 As noted this is licensed under the GPL-3.0 License.
