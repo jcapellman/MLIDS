@@ -55,7 +55,7 @@ namespace MLIDS.UnitTests.lib.DAL
 
             var result = await mongo.QueryPacketsAsync(a => a.Label);
 
-            Assert.IsTrue(result.Any());
+            Assert.IsTrue(!result.Any());
         }
     }
 }
