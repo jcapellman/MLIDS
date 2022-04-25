@@ -85,7 +85,7 @@ namespace MLIDS.lib.ML
 
             IEstimator<ITransformer> dataProcessPipeline = _mlContext.Transforms.Concatenate(
                 FEATURES,
-                typeof(PayloadItem).ToPropertyList<PayloadItem>(nameof(PayloadItem.Label)));
+                typeof(PayloadItem).ToPropertyList(nameof(PayloadItem.Label)));
 
             IEstimator<ITransformer> trainer = _mlContext.AnomalyDetection.Trainers.RandomizedPca(options: options);
 

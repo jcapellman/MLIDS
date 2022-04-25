@@ -11,7 +11,7 @@ namespace MLIDS.UnitTests.lib.Extensions
         [TestMethod]
         public void ExtensionMethods_ClassTestNullLabel()
         {
-            var result = typeof(ModelMetrics).ToPropertyList<ModelMetrics>(null);
+            var result = typeof(ModelMetrics).ToPropertyList(null);
 
             Assert.IsNotNull(result);
         }
@@ -19,7 +19,7 @@ namespace MLIDS.UnitTests.lib.Extensions
         [TestMethod]
         public void ExtensionMethods_ClassTestActualLabel()
         {
-            var result = typeof(ModelMetrics).ToPropertyList<ModelMetrics>("test");
+            var result = typeof(ModelMetrics).ToPropertyList("test");
 
             Assert.IsNotNull(result);
         }
@@ -27,7 +27,7 @@ namespace MLIDS.UnitTests.lib.Extensions
         [TestMethod]
         public void ExtensionMethods_StringTest()
         {
-            var result = typeof(string).ToPropertyList<ModelMetrics>(null);
+            var result = typeof(string).ToPropertyList(null);
 
             Assert.IsNotNull(result);
         }

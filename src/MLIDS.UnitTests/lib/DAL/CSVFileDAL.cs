@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,13 +20,12 @@ namespace MLIDS.UnitTests.lib.DAL
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
         public async Task CSVFileDAL_StringTestAsync()
         {
             var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            var result = await csvDal.GetHostPacketsAsync("test");
-
-            Assert.IsNotNull(result);
+            await csvDal.GetHostPacketsAsync("test");
         }
 
         [TestMethod]

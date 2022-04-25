@@ -144,14 +144,14 @@ namespace MLIDS.ModelTrainer.ViewModels
             {
                 Log.Error("MainViewModel::StartAction - Data Storage was null");
 
-                throw new NullReferenceException("Data Storage was null");
+                throw new InvalidOperationException("Data Storage was null");
             }
 
             if (string.IsNullOrEmpty(LocationModelFile))
             {
                 Log.Error("MainViewModel::StartAction - LocationModelFile was null or empty");
 
-                throw new NullReferenceException("Location Model FileName was null");
+                throw new InvalidOperationException("Location Model FileName was null");
             }
 
             IsRunning = true;
