@@ -51,6 +51,11 @@ namespace MLIDS.lib.DAL
 
         public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {
+            if (string.IsNullOrEmpty(hostName))
+            {
+                throw new ArgumentNullException(nameof(hostName));
+            }
+
             if (!File.Exists(_fileName))
             {
                 return new List<PayloadItem>();

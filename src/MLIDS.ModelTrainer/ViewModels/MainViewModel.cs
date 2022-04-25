@@ -95,7 +95,7 @@ namespace MLIDS.ModelTrainer.ViewModels
             }
         }
 
-        private readonly Trainer _trainer = new Trainer();
+        private readonly Trainer _trainer = new();
 
         public MainViewModel()
         {

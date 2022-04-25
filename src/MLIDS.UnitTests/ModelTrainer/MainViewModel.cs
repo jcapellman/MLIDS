@@ -8,7 +8,6 @@ namespace MLIDS.UnitTests.ModelTrainer
     public class MainViewModel
     {
         [TestMethod]
-        [ExpectedException(typeof(SharpPcap.PcapException))]
         public void ModelTrainer_NullTest()
         {
             var model = new MLIDS.ModelTrainer.ViewModels.MainViewModel();

@@ -11,19 +11,25 @@ namespace MLIDS.UnitTests.lib.Extensions
         [TestMethod]
         public void ExtensionMethods_ClassTestNullLabel()
         {
-            typeof(ModelMetrics).ToPropertyList<ModelMetrics>(null);
+            var result = typeof(ModelMetrics).ToPropertyList<ModelMetrics>(null);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public void ExtensionMethods_ClassTestActualLabel()
         {
-            typeof(ModelMetrics).ToPropertyList<ModelMetrics>("test");
+            var result = typeof(ModelMetrics).ToPropertyList<ModelMetrics>("test");
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public void ExtensionMethods_StringTest()
         {
-            typeof(string).ToPropertyList<ModelMetrics>(null);
+            var result = typeof(string).ToPropertyList<ModelMetrics>(null);
+
+            Assert.IsNotNull(result);
         }
     }
 }

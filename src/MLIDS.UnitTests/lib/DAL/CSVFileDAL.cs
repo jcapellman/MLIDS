@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MLIDS.UnitTests.lib.DAL
@@ -11,6 +10,7 @@ namespace MLIDS.UnitTests.lib.DAL
     public class CSVFileDAL
     {
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task CSVFileDAL_NullTestAsync()
         {
             var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
@@ -23,7 +23,9 @@ namespace MLIDS.UnitTests.lib.DAL
         {
             var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            await csvDal.GetHostPacketsAsync("test");
+            var result = await csvDal.GetHostPacketsAsync("test");
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -32,7 +34,9 @@ namespace MLIDS.UnitTests.lib.DAL
         {
             var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            await csvDal.WritePacketAsync(null);
+            var result = await csvDal.WritePacketAsync(null);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -41,7 +45,9 @@ namespace MLIDS.UnitTests.lib.DAL
         {
             var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            await csvDal.QueryPacketsAsync(null);
+            var result = await csvDal.QueryPacketsAsync(null);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
