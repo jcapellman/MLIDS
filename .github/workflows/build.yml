@@ -42,4 +42,10 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"jcapellman_MLIDS_AYBYjgrzOAByTje04yjj" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build .\src\MLIDS.sln
+          
+          dotnet tool install --global dotnet-sonarscanner --version 5.2.0
+          dotnet tool update dotnet-reportgenerator-globaltool -g --version 4.8.7
+          dotnet test --no-build --collect:"XPlat Code Coverage"
+          reportgenerator "-reports:*\TestResults\*\coverage.cobertura.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
+
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
