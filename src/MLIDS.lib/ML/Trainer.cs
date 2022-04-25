@@ -41,7 +41,7 @@ namespace MLIDS.lib.ML
             return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: Constants.ML_SEED), cleanDataLength, maliciousDataLength);
         }
 
-        public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
+        private static void ValidateArguments(BaseDAL storage, string modelFileName)
         {
             if (storage == null)
             {
@@ -63,6 +63,11 @@ namespace MLIDS.lib.ML
 
                 throw new FileNotFoundException(modelFileName);
             }
+        }
+
+        public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
+        {
+            ValidateArguments(storage, modelFileName);
 
             var startTime = DateTime.Now;
 

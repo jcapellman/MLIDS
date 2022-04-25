@@ -7,7 +7,7 @@ namespace MLIDS.lib.Objects
 {
     public class MLIDSDevice
     {
-        public PcapDevice CaptureDevice;
+        private readonly PcapDevice CaptureDevice;
 
         public MLIDSDevice(ICaptureDevice captureDevice)
         {

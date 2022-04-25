@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text;
 
 using Microsoft.ML.Data;
 
@@ -118,12 +119,14 @@ namespace MLIDS.lib.ML.Objects
             if (!string.IsNullOrEmpty(PacketContent)) { 
                 string[] hexValuesSplit = PacketContent.Split('-');
 
+                StringBuilder decodedSb = new StringBuilder();
+
                 foreach (string hex in hexValuesSplit)
                 {
-                    DecodedPayload += (char)Convert.ToInt32(hex, 16);
+                    decodedSb.Append((char)Convert.ToInt32(hex, 16));
                 }
 
-                DecodedPayload = DecodedPayload.Replace(Convert.ToChar(0x0).ToString(), "");
+                DecodedPayload = decodedSb.ToString().Replace(Convert.ToChar(0x0).ToString(), "");
 
                 IsEncrypted = (System.Text.Encoding.UTF8.GetByteCount(DecodedPayload) != DecodedPayload.Length);
 

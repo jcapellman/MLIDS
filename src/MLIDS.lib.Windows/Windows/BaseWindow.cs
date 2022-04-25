@@ -13,7 +13,7 @@ namespace MLIDS.lib.Windows
     {
         public BaseViewModel Vm => (BaseViewModel)DataContext;
 
-        public void Vm_OnFailedDAL(object sender, string dalName)
+        public static void Vm_OnFailedDAL(object sender, string dalName)
         {
             MessageBox.Show($"Failed to initialize the DAL ({dalName}) - check your settings in ({Constants.SETTINGS_FILENAME})");
         }
