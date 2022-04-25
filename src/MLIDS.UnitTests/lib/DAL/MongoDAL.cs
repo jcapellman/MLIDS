@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace MLIDS.UnitTests.lib.DAL
 
             mongo.Initialize();
 
-            await mongo.GetHostPacketsAsync(null);
+            var result = await mongo.GetHostPacketsAsync(null);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -25,7 +28,9 @@ namespace MLIDS.UnitTests.lib.DAL
 
             mongo.Initialize();
 
-            await mongo.GetHostPacketsAsync("test");
+            var result = await mongo.GetHostPacketsAsync("test");
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]

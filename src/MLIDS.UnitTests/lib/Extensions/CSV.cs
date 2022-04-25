@@ -13,7 +13,9 @@ namespace MLIDS.UnitTests
         {
             var testObject = new ModelMetrics();
 
-            testObject.ToCSV<ModelMetrics>();
+            var result = testObject.ToCSV<ModelMetrics>();
+
+            Assert.IsNotNull(result);
         }
     }
 }

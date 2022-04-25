@@ -49,7 +49,7 @@ namespace MLIDS.lib.DAL
 
         public override bool IsSelectable => true;
 
-        public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
+        private void ValidateArguments(string hostName)
         {
             if (string.IsNullOrEmpty(hostName))
             {
@@ -58,8 +58,13 @@ namespace MLIDS.lib.DAL
 
             if (!File.Exists(_fileName))
             {
-                return new List<PayloadItem>();
+                throw new FileNotFoundException(_fileName);
             }
+        }
+
+        public override async Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
+        {
+            ValidateArguments(hostName);
 
             var lines = await File.ReadAllLinesAsync(_fileName);
 

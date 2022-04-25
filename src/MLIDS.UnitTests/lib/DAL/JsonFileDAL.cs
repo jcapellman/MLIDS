@@ -10,24 +10,28 @@ namespace MLIDS.UnitTests.lib.DAL
     public class JsonDAL
     {
         [TestMethod]
-        public async Task LiteDBDAL_NullTestAsync()
+        public async Task JsonDAL_NullTestAsync()
         {
             var jsonDal = new MLIDS.lib.DAL.JsonFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            await jsonDal.GetHostPacketsAsync(null);
+            var result = await jsonDal.GetHostPacketsAsync(null);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task LiteDBDAL_StringTestAsync()
+        public async Task JsonDAL_StringTestAsync()
         {
             var jsonDal = new MLIDS.lib.DAL.JsonFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
-            await jsonDal.GetHostPacketsAsync("test");
+            var result = await jsonDal.GetHostPacketsAsync("test");
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async Task LiteDBDAL_WriteNullTestAsync()
+        public async Task JsonDAL_WriteNullTestAsync()
         {
             var jsonDal = new MLIDS.lib.DAL.JsonFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
@@ -36,7 +40,7 @@ namespace MLIDS.UnitTests.lib.DAL
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async Task LiteDBDAL_QueryNullTestAsync()
+        public async Task JsonDAL_QueryNullTestAsync()
         {
             var jsonDal = new MLIDS.lib.DAL.JsonFileDAL(new MLIDS.lib.Containers.SettingsItem());
 
@@ -44,7 +48,7 @@ namespace MLIDS.UnitTests.lib.DAL
         }
 
         [TestMethod]
-        public async Task LiteDBDAL_QueryEmptyTestAsync()
+        public async Task JsonDAL_QueryEmptyTestAsync()
         {
             var jsonDal = new MLIDS.lib.DAL.JsonFileDAL(new MLIDS.lib.Containers.SettingsItem());
 

@@ -32,7 +32,9 @@ namespace MLIDS.UnitTests.lib.Containers
         [TestMethod]
         public void SettingsItem_NotFoundOnLoad()
         {
-            MLIDS.lib.Containers.SettingsItem.Load("wick.json");
+            var result = MLIDS.lib.Containers.SettingsItem.Load("wick.json");
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
