@@ -177,7 +177,7 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        public BaseViewModel()
+        protected BaseViewModel()
         {
             DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
 

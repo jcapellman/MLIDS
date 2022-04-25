@@ -40,7 +40,7 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        public BaseCaptureMainViewModel()
+        protected BaseCaptureMainViewModel()
         {
             ChkBxSaveEnabled = true;
         }
@@ -66,7 +66,9 @@ namespace MLIDS.lib.Windows.ViewModels
 
                 SelectedDevice.StopCapture();
             }
-            catch (Exception) { }
+            catch (Exception ex) { 
+                Log.Error(ex);
+            }
 
             StartBtnEnabled = true;
             StopBtnEnabled = false;
