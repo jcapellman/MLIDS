@@ -40,7 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"jcapellman_MLIDS_AYBYjgrzOAByTje04yjj" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"jcapellman_MLIDS_AYBYjgrzOAByTje04yjj" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths=".\sonarqubecoverage\SonarQube.xml"
           dotnet build .\src\MLIDS.sln
           
           dotnet tool install --global dotnet-sonarscanner --version 5.2.0
