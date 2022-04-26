@@ -8,7 +8,6 @@ namespace MLIDS.UnitTests.ModelTrainer
     public class MainViewModel
     {
         [TestMethod]
-        [Ignore]
         public void ModelTrainer_NullTest()
         {
             var model = new MLIDS.ModelTrainer.ViewModels.MainViewModel();

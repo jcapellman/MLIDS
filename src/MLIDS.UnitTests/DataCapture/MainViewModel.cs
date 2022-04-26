@@ -9,7 +9,6 @@ namespace MLIDS.UnitTests.DataCapture
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        [Ignore]
         public void DataCapture_NullTest()
         {
             var model = new MLIDS.DataCapture.ViewModels.MainViewModel();
