@@ -47,6 +47,6 @@ jobs:
           dotnet tool update dotnet-reportgenerator-globaltool -g --version 4.8.7
           
           dotnet test .\src\MLIDS.UnitTests\MLIDS.UnitTests.csproj --no-build --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          reportgenerator "-reports:src\MLIDS.UnitTests\*\TestResults\*\coverage.opencover.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
+          reportgenerator "-reports:.\src\MLIDS.UnitTests\*\TestResults\*\coverage.opencover.xml" "-targetdir:sonarqubecoverage" "-reporttypes:SonarQube"
 
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
