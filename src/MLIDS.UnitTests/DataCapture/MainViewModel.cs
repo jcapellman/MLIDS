@@ -8,7 +8,7 @@ namespace MLIDS.UnitTests.DataCapture
     public class MainViewModel
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(DllNotFoundException))]
         public void DataCapture_NullTest()
         {
             var model = new MLIDS.DataCapture.ViewModels.MainViewModel();
