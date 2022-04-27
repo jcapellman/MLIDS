@@ -9,10 +9,17 @@ namespace MLIDS.lib.Helpers
 {
     public static class DALHelper
     {
-        public static List<BaseDAL> GetAvailableDALs(SettingsItem settings) => 
-            typeof(DALHelper).Assembly.GetTypes().Where(a => typeof(BaseDAL) == 
-            a.BaseType && !a.IsAbstract).Select(b => 
-            (BaseDAL)Activator.CreateInstance(b, new[] { settings })).OrderByDescending(c => 
+        public static List<BaseDAL> GetAvailableDALs(SettingsItem settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            return typeof(DALHelper).Assembly.GetTypes().Where(a => typeof(BaseDAL) ==
+            a.BaseType && !a.IsAbstract).Select(b =>
+            (BaseDAL)Activator.CreateInstance(b, new[] { settings })).OrderByDescending(c =>
             !c.IsSelectable).ThenBy(d => d.Description).ToList();
+        }             
     }
 }
