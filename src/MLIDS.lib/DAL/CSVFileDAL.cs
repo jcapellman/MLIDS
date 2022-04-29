@@ -29,7 +29,7 @@ namespace MLIDS.lib.DAL
                 using var file = new FileStream(Filepath, FileMode.Append, FileAccess.Write, FileShare.Read);
                 using var writer = new StreamWriter(file, Encoding.Unicode);
 
-                await writer.WriteAsync(text);
+                await writer.WriteLineAsync(text);
             }
         }
 

@@ -79,6 +79,40 @@ namespace MLIDS.UnitTests.lib.DAL
         }
 
         [TestMethod]
+        public async Task CSVFileDAL_GetTestAsync()
+        {
+            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+
+            var initResult = csvDal.Initialize();
+
+            var writeResult = await csvDal.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem
+            {
+               DecodedPayload = "Testing",
+               DestinationIPAddress = "127.0.0.1",
+               DestinationPort = 30,
+               Guid = Guid.NewGuid(),
+               HeaderSize = 20,
+               HostName = "Testo",
+               IsClean = true,
+               IsEncrypted = true,
+               PacketContent = "There is no spoon",
+               PayloadSize = 20,
+               ProtocolType = "tcp",
+               SourceIPAddress = "127.0.0.1",
+               SourcePort = 30,
+               Timestamp = DateTime.UtcNow,
+               Version = 1
+            });
+
+            Assert.IsTrue(writeResult);
+
+            var result = await csvDal.GetHostPacketsAsync("Testo");
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task CSVFileDAL_QueryNullTestAsync()
         {

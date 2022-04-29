@@ -73,9 +73,9 @@ namespace MLIDS.lib.ML.Objects
         private const string UNICODE_START_OF_HEADING = "\u0001";
 
         /// <summary>
-        /// Used for Unit Tests Only
+        /// Used for Unit Tests Only and Deserialization
         /// </summary>
-        internal PayloadItem()
+        public PayloadItem()
         {
 
         }

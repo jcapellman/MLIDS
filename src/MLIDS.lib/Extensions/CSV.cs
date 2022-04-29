@@ -22,7 +22,14 @@ namespace MLIDS.lib.Extensions
 
             foreach (var prop in properties)
             {
-                prop.SetValue(obj, lineProps[idx]);
+                if (prop.PropertyType == typeof(Guid))
+                {
+                    prop.SetValue(obj, new Guid(lineProps[idx]));
+                }
+                else
+                {
+                    prop.SetValue(obj, Convert.ChangeType(lineProps[idx], prop.PropertyType), null);
+                }
 
                 idx++;    
             }
