@@ -53,5 +53,15 @@ namespace MLIDS.UnitTests.lib.DAL
 
             Assert.IsTrue(!result.Any());
         }
+
+        [TestMethod]
+        public void LiteDBDAL_Initialize()
+        {
+            var litedb = new MLIDS.lib.DAL.LiteDBDAL(new MLIDS.lib.Containers.SettingsItem());
+
+            var result = litedb.Initialize();
+
+            Assert.IsTrue(result);
+        }
     }
 }
