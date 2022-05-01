@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -11,7 +10,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 using PacketDotNet;
 
-[assembly: InternalsVisibleTo("MLIDS.UnitTests")]
 namespace MLIDS.lib.ML.Objects
 {
     public class PayloadItem
@@ -24,51 +22,51 @@ namespace MLIDS.lib.ML.Objects
         public Guid Guid { get; set; }
 
         [LoadColumn(0)]
-        public bool Label { get; internal set; }
+        public bool Label { get; set; }
 
         [LoadColumn(1)]
         [NoColumn]
-        public string ProtocolType { get; internal set; }
+        public string ProtocolType { get; set; }
 
         [LoadColumn(2)]
         [NoColumn]
-        public string SourceIPAddress { get; internal set; }
+        public string SourceIPAddress { get; set; }
 
         [LoadColumn(3)]
-        public float SourcePort { get; internal set; }
+        public float SourcePort { get; set; }
 
         [LoadColumn(4)]
         [NoColumn]
-        public string DestinationIPAddress { get; internal set; }
+        public string DestinationIPAddress { get; set; }
 
         [LoadColumn(5)]
-        public float DestinationPort { get; internal set; }
+        public float DestinationPort { get; set; }
 
         [LoadColumn(6)]
-        public float HeaderSize { get; internal set; }
+        public float HeaderSize { get; set; }
 
         [LoadColumn(7)]
-        public float PayloadSize { get; internal set; }
+        public float PayloadSize { get; set; }
 
         [LoadColumn(8)]
         [NoColumn]
-        public string PacketContent { get; internal set; }
+        public string PacketContent { get; set; }
 
         [NoColumn]
-        public string HostName { get; internal set; }
+        public string HostName { get; set; }
 
         [NoColumn]
-        public int Version { get; internal set; }
+        public int Version { get; set; }
 
         // ReSharper disable once CompareOfFloatsByEqualityOperator
-        [NoColumn] public bool IsClean { get; internal set; }
+        [NoColumn] public bool IsClean { get; set; }
 
-        [NoColumn] public DateTime Timestamp { get; internal set; }
+        [NoColumn] public DateTime Timestamp { get; set; }
 
         [LoadColumn(9)]
-        public bool IsEncrypted { get; internal set; }
+        public bool IsEncrypted { get; set; }
 
-        [NoColumn] public string DecodedPayload { get; internal set; }
+        [NoColumn] public string DecodedPayload { get; set; }
 
         private const string UNICODE_START_OF_HEADING = "\u0001";
 
