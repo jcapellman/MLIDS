@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using System;
 using System.Linq;
 
 namespace MLIDS.UnitTests.lib.Windows.ViewModels
@@ -26,6 +27,7 @@ namespace MLIDS.UnitTests.lib.Windows.ViewModels
         }
 
         [TestMethod]
+        [ExpectedException(typeof(DllNotFoundException))]
         public void BaseViewModel_EmptyTest()
         {
             var viewModel = new TestViewModel();
