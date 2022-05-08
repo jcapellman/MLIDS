@@ -5,6 +5,8 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 ## Status
 [![MLIDS Model Trainer Tool](https://github.com/jcapellman/MLIDS/actions/workflows/ModelTrainerTool.yml/badge.svg)](https://github.com/jcapellman/MLIDS/actions/workflows/ModelTrainerTool.yml)
 
+[![SonarQube Analysis](https://github.com/jcapellman/MLIDS/actions/workflows/build.yml/badge.svg)](https://github.com/jcapellman/MLIDS/actions/workflows/build.yml)
+
 ## Components
 * Packet Capture Driver (NPCAP NDIS Filter Driver - https://nmap.org/npcap/)
 * Packet Capture Application (.NET 6)
