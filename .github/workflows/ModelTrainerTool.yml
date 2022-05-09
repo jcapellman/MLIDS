@@ -42,3 +42,15 @@ jobs:
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
+
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@0.6.2
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "release.zip"
+        token: ${{ secrets.GITHUB_TOKEN }}
