@@ -35,6 +35,19 @@ namespace MLIDS.UnitTests.lib.DAL
         }
 
         [TestMethod]
+        public async Task LiteDBDAL_WriteEmptyTestAsync()
+        {
+            var litedb = new MLIDS.lib.DAL.LiteDBDAL(new MLIDS.lib.Containers.SettingsItem
+            {
+                DAL_FileName = "testo.db"
+            });
+
+            litedb.Initialize();
+
+            await litedb.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task LiteDBDAL_QueryNullTestAsync()
         {
@@ -61,7 +74,7 @@ namespace MLIDS.UnitTests.lib.DAL
 
             var result = litedb.Initialize();
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
     }
 }
