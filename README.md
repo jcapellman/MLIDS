@@ -16,7 +16,7 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  The original
 * Unit Tests (.NET 6)
 
 ## Releases
-Using GitHub Actions, all three Applications will be built and packaged individually (there maybe a launcher created at some point)
+Using GitHub Actions, both Applications will be built and packaged individually (there maybe a launcher created at some point).  In addition SonarQube Analysis is being performed.
 
 ## Requirements
 * Windows 7 SP1+ (.NET 6's oldest supported OS)
