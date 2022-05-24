@@ -1,4 +1,4 @@
-name:  MLIDS Model Trainer Tool
+name:  MLIDS Data Capture Tool
 
 on:
   push:
