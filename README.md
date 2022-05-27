@@ -2,6 +2,8 @@
 
 MLIDS is a Host Intrusion Detection System using Machine Learning.  The original idea behind this several years ago (2014) was to write a C++ brute force network analyzer for a Cobalt Qube (http://www.jarredcapellman.com/2014/3/9/NetBSD-and-a-Cobalt-Qube-2).  Fast forward a few years and my own shift to utilizing Machine Learning (ML) everyday professionally it seemed like a perfect fit for using ML.  When it came time to decide on a topic for my dissertation research this was at the top of my list.
 
+Looking forward to expanding these capabilities going forward.
+
 ## Status of GitHub Actions
 [![MLIDS Model Trainer Tool](https://github.com/jcapellman/MLIDS/actions/workflows/ModelTrainerTool.yml/badge.svg)](https://github.com/jcapellman/MLIDS/actions/workflows/ModelTrainerTool.yml)
 
