@@ -26,7 +26,7 @@ Using GitHub Actions, both Applications will be built and packaged individually 
 * Windows 7 SP1+ (.NET 6's oldest supported OS)
 * Npcap Driver Installed
 * MongoDB Installed or use of LiteDB, JSON or CSV if storing of the data is needed
-* .NET 6 Runtime
+* .NET 6 Runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 ## Usage
 The idea is to follow the steps:
