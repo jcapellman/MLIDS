@@ -42,9 +42,13 @@ namespace MLIDS.UnitTests.lib.DAL
                 DAL_FileName = "testo.db"
             });
 
-            litedb.Initialize();
+            var result = litedb.Initialize();
 
-            await litedb.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem());
+            Assert.IsTrue(result);
+
+            result = await litedb.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem());
+
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
