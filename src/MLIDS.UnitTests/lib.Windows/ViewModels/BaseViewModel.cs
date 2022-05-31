@@ -24,6 +24,11 @@ namespace MLIDS.UnitTests.lib.Windows.ViewModels
             {
                 
             }
+
+            public TestViewModel()
+            {
+
+            }
         }
 
         [TestMethod]
@@ -34,6 +39,10 @@ namespace MLIDS.UnitTests.lib.Windows.ViewModels
 
             Assert.IsTrue(viewModel.DataLayers.Any());
             Assert.IsNotNull(viewModel.SelectedDataLayer);
+
+            var selectedLayer = viewModel.SelectedDataLayer;
+
+            Assert.IsNotNull(selectedLayer);
         }
     }
 }
