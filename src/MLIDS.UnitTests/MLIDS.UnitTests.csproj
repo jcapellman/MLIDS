@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0-preview-20220707-01" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="coverlet.collector" Version="3.1.2">
@@ -20,7 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 	  <PackageReference Include="NLog" Version="5.0.1" />
-	  <PackageReference Include="System.Text.Json" Version="6.0.5" />
+	  <PackageReference Include="System.Text.Json" Version="7.0.0-preview.6.22324.4" />
   </ItemGroup>
 
   <ItemGroup>
