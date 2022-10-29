@@ -10,9 +10,9 @@
     <PackageReference Include="Microsoft.ML.FastTree" Version="1.7.1" />
     <PackageReference Include="Microsoft.ML.LightGbm" Version="1.7.1" />
     <PackageReference Include="Microsoft.ML.TensorFlow" Version="1.7.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
-    <PackageReference Include="NLog" Version="5.0.4" />
-    <PackageReference Include="SharpPcap" Version="6.2.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
+    <PackageReference Include="NLog" Version="5.0.5" />
+    <PackageReference Include="SharpPcap" Version="6.2.5" />
     <PackageReference Include="System.Text.Json" Version="6.0.6" />
   </ItemGroup>
 
