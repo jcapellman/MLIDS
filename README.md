@@ -14,19 +14,19 @@ Looking forward to expanding these capabilities going forward.
 [![CodeQL](https://github.com/jcapellman/MLIDS/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jcapellman/MLIDS/actions/workflows/codeql-analysis.yml)
 ## Components
 * Packet Capture Driver (NPCAP NDIS Filter Driver - https://nmap.org/npcap/)
-* Packet Capture Application (.NET 6)
-* Model Trainer Application (.NET 6)
-* Shared Code Library (.NET 6)
-* Unit Tests (.NET 6)
+* Packet Capture Application (.NET 7)
+* Model Trainer Application (.NET 7)
+* Shared Code Library (.NET 7)
+* Unit Tests (.NET 7)
 
 ## Releases
 Using GitHub Actions, both Applications will be built and packaged individually (there maybe a launcher created at some point).  In addition SonarQube Analysis is being performed for Unit Test coverage, vulnerabilities, bugs and enterprise readiness.
 
 ## Requirements
-* Windows 7 SP1+ (.NET 6's oldest supported OS)
+* Windows 7 SP1+ (.NET 7's oldest supported OS)
 * Npcap Driver Installed
 * MongoDB Installed or use of LiteDB, JSON or CSV if storing of the data is needed
-* .NET 6 Runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+* .NET 7 Runtime (https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 
 ## Usage
 The idea is to follow the steps:
