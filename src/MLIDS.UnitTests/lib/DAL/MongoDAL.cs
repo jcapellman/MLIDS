@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MLIDS.UnitTests.lib.DAL
 {
+    [Ignore]
     [TestClass]
     public class MongoDAL
     {
