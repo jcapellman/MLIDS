@@ -17,9 +17,9 @@ namespace MLIDS.lib.Helpers
             }
 
             return typeof(DALHelper).Assembly.GetTypes().Where(a => typeof(BaseDAL) ==
-            a.BaseType && !a.IsAbstract).Select(b =>
-            (BaseDAL)Activator.CreateInstance(b, new[] { settings })).OrderByDescending(c =>
-            !c.IsSelectable).ThenBy(d => d.Description).ToList();
+                a.BaseType && !a.IsAbstract).Select(b =>
+                (BaseDAL)Activator.CreateInstance(b, settings)).OrderByDescending(c =>
+                !c.IsSelectable).ThenBy(d => d.Description).ToList();
         }             
     }
 }

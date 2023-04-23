@@ -35,7 +35,7 @@ namespace MLIDS.lib.DAL
         public override Task<List<PayloadItem>> QueryPacketsAsync(Expression<Func<PayloadItem, bool>> queryExpression) => 
             Task.Run(() =>
             {
-                if (queryExpression == null)
+                if (queryExpression is null)
                 {
                     Log.Error($"LiteDBDAL::QueryPacketsAsync - Query Expression was null");
 
@@ -50,7 +50,7 @@ namespace MLIDS.lib.DAL
         public override Task<bool> WritePacketAsync(PayloadItem packet) => 
             Task.Run(() =>
             {
-                if (packet == null)
+                if (packet is null)
                 {
                     Log.Error($"LiteDBDAL::WritePacketAsync - packet was null");
 
