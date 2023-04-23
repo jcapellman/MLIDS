@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.lib.Windows", "MLIDS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLIDS.UnitTests", "MLIDS.UnitTests\MLIDS.UnitTests.csproj", "{2C2C9C24-26F4-4E6C-9600-481B01D94A1C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D47B6D6-9710-4127-9B26-BE16B9CB8C1A}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\SonarQubeAnalysis.yml = ..\.github\workflows\SonarQubeAnalysis.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
