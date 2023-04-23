@@ -28,7 +28,13 @@ namespace MLIDS.lib.Extensions
                 }
                 else
                 {
-                    prop.SetValue(obj, Convert.ChangeType(lineProps[idx], prop.PropertyType), null);
+                    try
+                    {
+                        prop.SetValue(obj, Convert.ChangeType(lineProps[idx], prop.PropertyType), null);
+                    } catch (FormatException fme)
+                    {
+                        Console.WriteLine(fme);
+                    }
                 }
 
                 idx++;    

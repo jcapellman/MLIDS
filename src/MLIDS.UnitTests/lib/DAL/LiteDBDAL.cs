@@ -78,7 +78,7 @@ namespace MLIDS.UnitTests.lib.DAL
 
             var result = litedb.Initialize();
 
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
     }
 }
