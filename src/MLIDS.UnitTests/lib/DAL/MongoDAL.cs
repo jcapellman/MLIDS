@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MLIDS.UnitTests.lib.DAL
 {
-    [Ignore]
+    [Ignore("Until MongoDB can be started during the Unit Tests - ignoring these")]
     [TestClass]
     public class MongoDAL
     {
