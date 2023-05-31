@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="3.0.0-preview.22621.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="NLog" Version="5.1.5" />
+	  <PackageReference Include="NLog" Version="5.2.0" />
 	  <PackageReference Include="System.Text.Json" Version="8.0.0-preview.1.23110.8" />
   </ItemGroup>
 
