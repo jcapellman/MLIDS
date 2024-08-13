@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MLIDS.lib.Extensions
 {
-    public static class CSV
+    public static class Csv
     {
         private const char SEPARATOR = ',';
 

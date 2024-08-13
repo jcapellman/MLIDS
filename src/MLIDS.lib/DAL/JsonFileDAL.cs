@@ -12,7 +12,7 @@ using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
 {
-    public class JsonFileDAL : BaseDal
+    public class JsonFileDal : BaseDal
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
@@ -22,7 +22,7 @@ namespace MLIDS.lib.DAL
 
         public override string Description => "JSON";
 
-        public JsonFileDAL(SettingsItem settings) : base(settings) { }
+        public JsonFileDal(SettingsItem settings) : base(settings) { }
 
         public override bool IsSelectable => true;
 
@@ -44,7 +44,7 @@ namespace MLIDS.lib.DAL
         {
             if (queryExpression == null)
             {
-                Log.Error($"JsonFileDAL::QueryPacketsAsync - Query Expression was null");
+                Log.Error($"JsonFileDal::QueryPacketsAsync - Query Expression was null");
 
                 throw new ArgumentNullException(nameof(queryExpression));
             }
@@ -65,7 +65,7 @@ namespace MLIDS.lib.DAL
         {
             if (packet == null)
             {
-                Log.Error($"JsonFileDAL::WritePacketAsync - packet was null");
+                Log.Error($"JsonFileDal::WritePacketAsync - packet was null");
 
                 throw new ArgumentNullException(nameof(packet));
             }

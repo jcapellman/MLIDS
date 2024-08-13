@@ -5,14 +5,9 @@ using SharpPcap.LibPcap;
 
 namespace MLIDS.lib.Objects
 {
-    public class MLIDSDevice
+    public class MlidsDevice(ICaptureDevice captureDevice)
     {
-        private readonly PcapDevice CaptureDevice;
-
-        public MLIDSDevice(ICaptureDevice captureDevice)
-        {
-            CaptureDevice = (PcapDevice)captureDevice;
-        }
+        private readonly PcapDevice CaptureDevice = (PcapDevice)captureDevice;
 
         public delegate void PacketArrivalHandler(object sender, PacketCapture e);
         public event PacketArrivalHandler OnPacketArrival;

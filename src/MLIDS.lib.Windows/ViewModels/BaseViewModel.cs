@@ -105,9 +105,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private List<MLIDSDevice> _deviceList = new();
+        private List<MlidsDevice> _deviceList = new();
 
-        public List<MLIDSDevice> DeviceList
+        public List<MlidsDevice> DeviceList
         {
             get => _deviceList;
 
@@ -119,9 +119,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private MLIDSDevice _selectedDevice;
+        private MlidsDevice _selectedDevice;
 
-        public MLIDSDevice SelectedDevice
+        public MlidsDevice SelectedDevice
         {
             get => _selectedDevice;
 
@@ -179,7 +179,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         protected BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
+            DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MlidsDevice(b)).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 
@@ -192,7 +192,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
             SettingsJSON = JsonSerializer.Serialize(Settings);
 
-            DataLayers = DALHelper.GetAvailableDALs(Settings);
+            DataLayers = DalHelper.GetAvailableDALs(Settings);
 
             SelectedDataLayer = DataLayers.First(a => !a.IsSelectable);
         }

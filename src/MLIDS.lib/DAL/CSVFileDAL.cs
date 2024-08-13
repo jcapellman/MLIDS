@@ -13,16 +13,11 @@ using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
 {
-    public class CsvFileDal : BaseDal
+    public class CsvFileDal(SettingsItem settingsItem) : BaseDal(settingsItem)
     {
-        public class CSVWriter
+        public class CsvWriter(string filePath)
         {
-            private string Filepath { get; set; }
-
-            public CSVWriter(string filePath)
-            {
-                Filepath = filePath;
-            }
+            private string Filepath { get; set; } = filePath;
 
             public async Task WriteToFileAsync(string text)
             {
@@ -33,7 +28,7 @@ namespace MLIDS.lib.DAL
             }
         }
 
-        private CSVWriter _writer;
+        private CsvWriter _writer;
 
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
@@ -41,11 +36,7 @@ namespace MLIDS.lib.DAL
 
         private string _fileName;
 
-        public CsvFileDal(SettingsItem settingsItem) : base(settingsItem)
-        {
-        }
-
-        public override string Description => "CSV";
+        public override string Description => "Csv";
 
         public override bool IsSelectable => true;
 
@@ -82,7 +73,7 @@ namespace MLIDS.lib.DAL
         {
             _fileName = settingsItem.DAL_FileName ?? DEFAULT_CSV_FILE;
 
-            _writer = new CSVWriter(_fileName);
+            _writer = new CsvWriter(_fileName);
 
             return File.Exists(_fileName);
         }
@@ -98,7 +89,7 @@ namespace MLIDS.lib.DAL
 
             if (!File.Exists(_fileName))
             {
-                return new List<PayloadItem>();
+                return [];
             }
 
             var lines = await File.ReadAllLinesAsync(_fileName);
@@ -110,7 +101,7 @@ namespace MLIDS.lib.DAL
                 data.Add(line.FromCSV<PayloadItem>());
             }
 
-            return data.AsQueryable().Where(queryExpression).ToList();
+            return [.. data.AsQueryable().Where(queryExpression)];
         }
 
         public override async Task<bool> WritePacketAsync(PayloadItem packet)

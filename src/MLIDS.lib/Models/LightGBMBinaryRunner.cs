@@ -4,7 +4,7 @@ using MLIDS.lib.Models.Base;
 
 namespace MLIDS.lib.Models
 {
-    public class LightGBMBinaryRunner : BaseModelRunner
+    public class LightGbmBinaryRunner : BaseModelRunner
     {
         public override string ModelTypeName => "LightGBM (Binary)";
 

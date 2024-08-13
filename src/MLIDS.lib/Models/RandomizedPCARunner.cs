@@ -6,7 +6,7 @@ using MLIDS.lib.Models.Base;
 
 namespace MLIDS.lib.Models
 {
-    public class RandomizedPCARunner : BaseModelRunner
+    public class RandomizedPcaRunner : BaseModelRunner
     {
         public override string ModelTypeName => "Randomized PCA";
 
