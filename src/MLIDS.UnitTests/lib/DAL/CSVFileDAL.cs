@@ -14,7 +14,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task CSVFileDAL_NullTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             await csvDal.GetHostPacketsAsync(null);
         }
@@ -23,7 +23,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(FileNotFoundException))]
         public async Task CSVFileDAL_StringTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             await csvDal.GetHostPacketsAsync("test");
         }
@@ -32,7 +32,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task CSVFileDAL_WriteNullTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var result = await csvDal.WritePacketAsync(null);
 
@@ -43,7 +43,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(NullReferenceException))]
         public async Task CSVFileDAL_WriteEmptyTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var result = await csvDal.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem());
 
@@ -54,7 +54,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(NullReferenceException))]
         public async Task CSVFileDAL_WriteNotEmptyTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var result = await csvDal.WritePacketAsync(new MLIDS.lib.ML.Objects.PayloadItem
             {
@@ -81,7 +81,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task CSVFileDAL_GetTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var initResult = csvDal.Initialize();
 
@@ -115,7 +115,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task CSVFileDAL_QueryResultsAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var initResult = csvDal.Initialize();
 
@@ -150,7 +150,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task CSVFileDAL_QueryNullTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var result = await csvDal.QueryPacketsAsync(null);
 
@@ -160,7 +160,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task CSVFileDAL_QueryEmptyTestAsync()
         {
-            var csvDal = new MLIDS.lib.DAL.CSVFileDAL(new MLIDS.lib.Containers.SettingsItem());
+            var csvDal = new MLIDS.lib.DAL.CsvFileDal(new MLIDS.lib.Containers.SettingsItem());
 
             var result = await csvDal.QueryPacketsAsync(a => a.Label);
 

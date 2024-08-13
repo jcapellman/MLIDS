@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MLIDS.lib.DAL
 {
-    public class EmptyDAL : BaseDAL
+    public class EmptyDAL : BaseDal
     {
         public override string Description => "--Select a Data Layer--";
 

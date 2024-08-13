@@ -13,7 +13,7 @@ using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
 {
-    public class CSVFileDAL : BaseDAL
+    public class CsvFileDal : BaseDal
     {
         public class CSVWriter
         {
@@ -41,7 +41,7 @@ namespace MLIDS.lib.DAL
 
         private string _fileName;
 
-        public CSVFileDAL(SettingsItem settingsItem) : base(settingsItem)
+        public CsvFileDal(SettingsItem settingsItem) : base(settingsItem)
         {
         }
 

@@ -25,9 +25,9 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public event EventHandler<string> OnFailedDAL;
 
-        private List<BaseDAL> _dataLayers;
+        private List<BaseDal> _dataLayers;
 
-        public List<BaseDAL> DataLayers
+        public List<BaseDal> DataLayers
         {
             get => _dataLayers;
 
@@ -39,9 +39,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private BaseDAL _selectedDataLayer;
+        private BaseDal _selectedDataLayer;
 
-        public BaseDAL SelectedDataLayer
+        public BaseDal SelectedDataLayer
         {
             get => _selectedDataLayer;
 
@@ -194,7 +194,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
             DataLayers = DALHelper.GetAvailableDALs(Settings);
 
-            SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
+            SelectedDataLayer = DataLayers.First(a => !a.IsSelectable);
         }
 
         /// <exception cref="System.ArgumentNullException">JSON or Filename is null</exception>

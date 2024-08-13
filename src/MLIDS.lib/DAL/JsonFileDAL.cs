@@ -12,7 +12,7 @@ using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
 {
-    public class JsonFileDAL : BaseDAL
+    public class JsonFileDAL : BaseDal
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 

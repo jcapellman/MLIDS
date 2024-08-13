@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace MLIDS.lib.DAL
 {
-    public class MongoDAL : BaseDAL
+    public class MongoDAL : BaseDal
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 

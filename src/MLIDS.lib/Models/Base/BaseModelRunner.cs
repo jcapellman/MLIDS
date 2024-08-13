@@ -7,6 +7,6 @@ namespace MLIDS.lib.Models.Base
     {
         public abstract string ModelTypeName { get; }
 
-        protected abstract bool Run(string modelFile, BaseDAL dataLayer, SettingsItem settingsItem);
+        protected abstract bool Run(string modelFile, BaseDal dataLayer, SettingsItem settingsItem);
     }
 }

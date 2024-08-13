@@ -8,7 +8,7 @@ namespace MLIDS.lib.Models
     {
         public override string ModelTypeName => "LightGBM (Binary)";
 
-        protected override bool Run(string modelFile, BaseDAL dataLayer, SettingsItem settingsItem)
+        protected override bool Run(string modelFile, BaseDal dataLayer, SettingsItem settingsItem)
         {
             throw new System.NotImplementedException();
         }

@@ -12,7 +12,7 @@ using MLIDS.lib.ML.Objects;
 
 namespace MLIDS.lib.DAL
 {
-    public class LiteDBDAL : BaseDAL
+    public class LiteDBDAL : BaseDal
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
@@ -73,7 +73,7 @@ namespace MLIDS.lib.DAL
                 return true;
             } catch (Exception ex)
             {
-                Log.Error($"LiteDBDAL::Initialize - Exception when loading: {ex}");
+                Log.Error("LiteDBDAL::Initialize - Exception when loading: {ex}", ex);
 
                 return false;
             }
