@@ -25,9 +25,9 @@ namespace MLIDS.lib.Windows.ViewModels
 
         public event EventHandler<string> OnFailedDAL;
 
-        private List<BaseDAL> _dataLayers;
+        private List<BaseDal> _dataLayers;
 
-        public List<BaseDAL> DataLayers
+        public List<BaseDal> DataLayers
         {
             get => _dataLayers;
 
@@ -39,9 +39,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private BaseDAL _selectedDataLayer;
+        private BaseDal _selectedDataLayer;
 
-        public BaseDAL SelectedDataLayer
+        public BaseDal SelectedDataLayer
         {
             get => _selectedDataLayer;
 
@@ -105,9 +105,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private List<MLIDSDevice> _deviceList = new();
+        private List<MlidsDevice> _deviceList = new();
 
-        public List<MLIDSDevice> DeviceList
+        public List<MlidsDevice> DeviceList
         {
             get => _deviceList;
 
@@ -119,9 +119,9 @@ namespace MLIDS.lib.Windows.ViewModels
             }
         }
 
-        private MLIDSDevice _selectedDevice;
+        private MlidsDevice _selectedDevice;
 
-        public MLIDSDevice SelectedDevice
+        public MlidsDevice SelectedDevice
         {
             get => _selectedDevice;
 
@@ -179,7 +179,7 @@ namespace MLIDS.lib.Windows.ViewModels
 
         protected BaseViewModel()
         {
-            DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MLIDSDevice(b)).ToList();
+            DeviceList = CaptureDeviceList.Instance.Where(a => a is PcapDevice).OrderBy(a => a.Description).Select(b => new MlidsDevice(b)).ToList();
 
             SelectedDevice = DeviceList.FirstOrDefault();
 
@@ -192,9 +192,9 @@ namespace MLIDS.lib.Windows.ViewModels
 
             SettingsJSON = JsonSerializer.Serialize(Settings);
 
-            DataLayers = DALHelper.GetAvailableDALs(Settings);
+            DataLayers = DalHelper.GetAvailableDALs(Settings);
 
-            SelectedDataLayer = DataLayers.FirstOrDefault(a => !a.IsSelectable);
+            SelectedDataLayer = DataLayers.First(a => !a.IsSelectable);
         }
 
         /// <exception cref="System.ArgumentNullException">JSON or Filename is null</exception>

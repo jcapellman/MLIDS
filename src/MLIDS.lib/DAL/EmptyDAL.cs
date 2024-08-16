@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace MLIDS.lib.DAL
 {
-    public class EmptyDAL : BaseDAL
+    public class EmptyDal : BaseDal
     {
         public override string Description => "--Select a Data Layer--";
 
         public override bool IsSelectable => false;
 
-        public EmptyDAL(SettingsItem settings) : base(settings) { }
+        public EmptyDal(SettingsItem settings) : base(settings) { }
 
         public override Task<List<PayloadItem>> GetHostPacketsAsync(string hostName)
         {

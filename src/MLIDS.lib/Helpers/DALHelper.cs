@@ -7,19 +7,13 @@ using MLIDS.lib.DAL.Base;
 
 namespace MLIDS.lib.Helpers
 {
-    public static class DALHelper
+    public static class DalHelper
     {
-        public static List<BaseDAL> GetAvailableDALs(SettingsItem settings)
-        {
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-
-            return typeof(DALHelper).Assembly.GetTypes().Where(a => typeof(BaseDAL) ==
+        public static List<BaseDal> GetAvailableDALs(SettingsItem settings) => settings == null
+                ? throw new ArgumentNullException(nameof(settings))
+                : ([.. typeof(DalHelper).Assembly.GetTypes().Where(a => typeof(BaseDal) ==
                 a.BaseType && !a.IsAbstract).Select(b =>
-                (BaseDAL)Activator.CreateInstance(b, settings)).OrderByDescending(c =>
-                !c.IsSelectable).ThenBy(d => d.Description).ToList();
-        }             
+                (BaseDal)Activator.CreateInstance(b, settings)).OrderByDescending(c =>
+                !c.IsSelectable).ThenBy(d => d.Description)]);
     }
 }

@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace MLIDS.lib.DAL
 {
-    public class MongoDAL : BaseDAL
+    public class MongoDal(SettingsItem settings) : BaseDal(settings)
     {
         private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
@@ -21,8 +21,6 @@ namespace MLIDS.lib.DAL
         public override string Description => "MongoDB";
 
         public override bool IsSelectable => true;
-
-        public MongoDAL(SettingsItem settings) : base(settings) { }
 
         public override bool Initialize()
         {
@@ -37,13 +35,13 @@ namespace MLIDS.lib.DAL
 
                 _db = client.GetDatabase(COLLECTION_NAME);
 
-                Log.Debug($"MongoDAL::Initialize - Database Loaded ({settingsItem.DAL_HostIP}:{settingsItem.DAL_HostPort})");
+                Log.Debug($"MongoDal::Initialize - Database Loaded ({settingsItem.DAL_HostIP}:{settingsItem.DAL_HostPort})");
 
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Error($"MongoDAL::Initialize - Failed to connect due to: {ex}");
+                Log.Error($"MongoDal::Initialize - Failed to connect due to: {ex}");
 
                 return false;
             }
@@ -60,7 +58,7 @@ namespace MLIDS.lib.DAL
         {
             if (queryExpression == null)
             {
-                Log.Error($"MongoDAL::QueryPacketsAsync - Query Expression was null");
+                Log.Error($"MongoDal::QueryPacketsAsync - Query Expression was null");
 
                 throw new ArgumentNullException(nameof(queryExpression));
             }
@@ -74,7 +72,7 @@ namespace MLIDS.lib.DAL
         {
             if (packet == null)
             {
-                Log.Error($"MongoDAL::WritePacketAsync - packet was null");
+                Log.Error($"MongoDal::WritePacketAsync - packet was null");
 
                 throw new ArgumentNullException(nameof(packet));
             }

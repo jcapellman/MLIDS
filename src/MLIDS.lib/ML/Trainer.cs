@@ -41,7 +41,7 @@ namespace MLIDS.lib.ML
             return (_mlContext.Data.TrainTestSplit(trainingDataView, seed: Constants.ML_SEED), cleanDataLength, maliciousDataLength);
         }
 
-        private static void ValidateArguments(BaseDAL storage, string modelFileName)
+        private static void ValidateArguments(BaseDal storage, string modelFileName)
         {
             if (storage == null)
             {
@@ -65,7 +65,7 @@ namespace MLIDS.lib.ML
             }
         }
 
-        public async Task<ModelMetrics> GenerateModel(BaseDAL storage, string modelFileName)
+        public async Task<ModelMetrics> GenerateModel(BaseDal storage, string modelFileName)
         {
             ValidateArguments(storage, modelFileName);
 

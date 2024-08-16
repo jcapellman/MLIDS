@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace MLIDS.lib.DAL.Base
 {
-    public abstract class BaseDAL
+    public abstract class BaseDal
     {
         protected SettingsItem settingsItem;
 
-        protected BaseDAL(SettingsItem settingsItem)
-        {
-            this.settingsItem = settingsItem ?? throw new ArgumentNullException(nameof(settingsItem));
-        }
+        protected BaseDal(SettingsItem settingsItem) => this.settingsItem = settingsItem ?? throw new ArgumentNullException(nameof(settingsItem));
 
         public abstract string Description { get; }
 

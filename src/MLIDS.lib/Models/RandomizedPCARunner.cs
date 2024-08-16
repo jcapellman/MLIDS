@@ -6,11 +6,11 @@ using MLIDS.lib.Models.Base;
 
 namespace MLIDS.lib.Models
 {
-    public class RandomizedPCARunner : BaseModelRunner
+    public class RandomizedPcaRunner : BaseModelRunner
     {
         public override string ModelTypeName => "Randomized PCA";
 
-        protected override bool Run(string modelFile, BaseDAL dataLayer, SettingsItem settingsItem)
+        protected override bool Run(string modelFile, BaseDal dataLayer, SettingsItem settingsItem)
         {
             throw new NotImplementedException();
         }

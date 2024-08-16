@@ -13,7 +13,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task MongoDAL_NullTestAsync()
         {
-            var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+            var mongo = new MLIDS.lib.DAL.MongoDal(new MLIDS.lib.Containers.SettingsItem());
 
             mongo.Initialize();
 
@@ -25,7 +25,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task MongoDAL_StringTestAsync()
         {
-            var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+            var mongo = new MLIDS.lib.DAL.MongoDal(new MLIDS.lib.Containers.SettingsItem());
 
             mongo.Initialize();
 
@@ -38,7 +38,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task MongoDAL_WriteNullTestAsync()
         {
-            var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+            var mongo = new MLIDS.lib.DAL.MongoDal(new MLIDS.lib.Containers.SettingsItem());
 
             await mongo.WritePacketAsync(null);
         }
@@ -47,7 +47,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task MongoDAL_QueryNullTestAsync()
         {
-            var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+            var mongo = new MLIDS.lib.DAL.MongoDal(new MLIDS.lib.Containers.SettingsItem());
 
             await mongo.QueryPacketsAsync(null);
         }
@@ -55,7 +55,7 @@ namespace MLIDS.UnitTests.lib.DAL
         [TestMethod]
         public async Task MongoDAL_QueryEmptyTestAsync()
         {
-            var mongo = new MLIDS.lib.DAL.MongoDAL(new MLIDS.lib.Containers.SettingsItem());
+            var mongo = new MLIDS.lib.DAL.MongoDal(new MLIDS.lib.Containers.SettingsItem());
 
             mongo.Initialize();
 
