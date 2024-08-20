@@ -19,12 +19,12 @@ As anyone who has followed my work over the last two decades - I like to use the
 All artifacts will be built and packaged individually using GitHub Actions. In addition, SonarQube Analysis is being performed for Unit Test coverage, vulnerabilities, bugs, and enterprise readiness.
 
 ## Requirements
-* Windows 7 SP1+ (.NET 7's oldest supported OS)
+* Windows 10+
 * Npcap Driver Installed
 * MongoDB Installed or use of LiteDB, JSON or CSV if storing of the data is needed
 * .NET 8 Runtime (https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-* Python 3.12
-* Rust
+* Python 3.12.5 (https://www.python.org/)
+* Rust 1.80.1 (https://www.rust-lang.org/)
 
 ## Usage
 The idea is to follow the steps:
