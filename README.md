@@ -11,11 +11,12 @@ MLIDS is a Host Intrusion Detection System using Machine Learning.  Several year
 ## Components
 As anyone who has followed my work over the last two decades - I like to use the right tools for the job. O
 * Packet Capture Driver (NPCAP NDIS Filter Driver - https://nmap.org/npcap/)
-* Packet Capture Application (.NET 7)
+* Packet Capture Application (.NET 8)
 * Model Trainer Application (Python)
-
+* Model Harness Application (Rust)
+  
 ## Releases
-Using GitHub Actions, all artifacts will be built and packaged individually.  In addition SonarQube Analysis is being performed for Unit Test coverage, vulnerabilities, bugs and enterprise readiness.
+All artifacts will be built and packaged individually using GitHub Actions. In addition, SonarQube Analysis is being performed for Unit Test coverage, vulnerabilities, bugs, and enterprise readiness.
 
 ## Requirements
 * Windows 7 SP1+ (.NET 7's oldest supported OS)
@@ -29,6 +30,7 @@ Using GitHub Actions, all artifacts will be built and packaged individually.  In
 The idea is to follow the steps:
 1. Run the Packet Capture Application to generate a sizeable training and test set
 2. Run the Model Trainer Application to generate a model
+3. Run the Model within the Model Harness Application to verify performance impact and detection capabilities
 
 ## License
 As noted this is licensed under the GPL-3.0 License.
