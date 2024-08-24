@@ -1,6 +1,8 @@
 # MLIDS
 
-MLIDS is a Host Intrusion Detection System using Machine Learning.  Several years ago (2014), the original idea behind this was to write a C++ brute force network analyzer for a Cobalt Qube (http://www.jarredcapellman.com/2014/3/9/NetBSD-and-a-Cobalt-Qube-2).  Fast-forward a few years, and my shift to utilizing Machine Learning (ML) every day professionally was a perfect fit for using ML. When it came time to decide on a topic for my dissertation research, this was at the top of my list.
+MLIDS is a Host Intrusion Detection System using Machine Learning.  Several years ago (2014), the original idea was to write a C++ brute force network analyzer for a Cobalt Qube (http://www.jarredcapellman.com/2014/3/9/NetBSD-and-a-Cobalt-Qube-2).  Fast-forward a few years, and my shift to utilizing Machine Learning (ML) every day professionally was a perfect fit for using ML. When it came time to decide on a topic for my dissertation research, this was at the top of my list.
+
+Over the course of working on my dissertation, holding positions within my previous company, and starting a new job, I decided to expand the scope of the work. I primarily utilized Python and Rust for the training and inference, respectively, as opposed to using C# for everything. Going back to one of my core principles - using the best tool for the job. This of course affected my Chapter 3, but would make the research much more real-world.
 
 
 ## Status of GitHub Actions
